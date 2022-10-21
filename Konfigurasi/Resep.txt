@@ -1,0 +1,15 @@
+3  # Ada 3 resep
+21 1 11
+31 2 21 10
+37 2 31 15
+# Baris 2 (21 1 11) memiliki arti:
+# Ayam Potong (ID: 21) memiliki child sebanyak 1
+# dan childnya adalah Ayam Mentah (ID: 11)
+
+# Baris 3 (31 2 21 10) memiliki arti:
+# Ayam Tepung (ID: 31) memiliki child sebanyak 2
+# dan childnya adalah Ayam Potong (ID: 21) dan Tepung (ID: 10)
+
+# Baris 4 (37 2 31 15) memiliki arti:
+# Ayam Goreng (ID: 37) memiliki child sebanyak 2
+# dan childnya adalah Ayam Tepung(ID: 31) dan Minyak (ID: 15)
