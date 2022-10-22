@@ -11,8 +11,8 @@ typedef struct {
 	int ID; 
 	char Nama[MAX_CHAR];
 	TIME Exp;
-	POINT Lokasi;
-	int LamaPengiriman;
+	char aksi[MAX_CHAR];
+	TIME LamaPengiriman;
 } MAKANAN;
 
 /* *** Notasi Akses: Selektor POINT *** */
