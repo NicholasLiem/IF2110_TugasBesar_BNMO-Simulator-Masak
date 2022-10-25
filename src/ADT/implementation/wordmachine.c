@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "wordmachine.h"
+#include "../headers/wordmachine.h"
 
 boolean endWord;
 Word currentWord;

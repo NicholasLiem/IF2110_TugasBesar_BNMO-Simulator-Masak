@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "ADT/MesinKata/wordmachine.c"
-#include "ADT/Time/time.c"
+#include "headers/wordmachine.h"
+#include "headers/time.h"
 
 Word namaMakanan;
 Word aksi;

@@ -4,7 +4,7 @@
 //Topik praktikum: ADT List Statik
 //Deskripsi: Implementasi ADT List Statik
 
-#include "liststatik.h"
+#include "../headers/liststatik.h"
 #include <stdio.h>
 
 /* ********** KONSTRUKTOR ********** */

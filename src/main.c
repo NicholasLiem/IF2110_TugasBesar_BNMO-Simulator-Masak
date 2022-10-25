@@ -1,5 +1,5 @@
-#include "ADT/Time/time.c"
-#include "ADT/Point/point.c"
+#include "ADT/headers/time.h"
+#include "ADT/headers/point.h"
 
 #include <stdlib.h>
 #include <stdio.h>

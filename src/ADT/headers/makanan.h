@@ -3,15 +3,16 @@
 
 #define MAX_CHAR 100
 
-#include "../boolean.h"
-#include "../Time/time.h"
-#include "../Point/point.h"
+#include "boolean.h"
+#include "time.h"
+#include "point.h"
+#include "word.h"
 
 typedef struct { 
 	int ID; 
-	char Nama[MAX_CHAR];
+	Word Nama;
+	Word aksi;
 	TIME Exp;
-	char aksi[MAX_CHAR];
 	TIME LamaPengiriman;
 } MAKANAN;
 
@@ -20,3 +21,5 @@ typedef struct {
 #define EXP(P) (P).EXP
 #define LOC(P) (P).Lokasi
 #define DELIVERY(P) (P).LamaPengiriman
+
+#endif

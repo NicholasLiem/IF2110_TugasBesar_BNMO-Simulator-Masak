@@ -1,4 +1,4 @@
-#include "point.h"
+#include "../headers/point.h"
 #include <stdio.h>
 #include <math.h>
         
@@ -197,7 +197,7 @@ void Putar (POINT *P, float Sudut)
 /* I.S. P terdefinisi */
 /* F.S. P digeser sebesar Sudut derajat dengan sumbu titik (0,0) */
 {
-    float rad = (-1)*(Sudut * M_PI / 180);
+    float rad = (-1)*(Sudut * (22.0/7) / 180);
     float absis = Absis(*P);
     float ordinat = Ordinat(*P);
     Absis(*P) = absis*(cos(rad)) - ordinat*(sin(rad));

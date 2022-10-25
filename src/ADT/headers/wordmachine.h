@@ -4,17 +4,9 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "../boolean.h"
-#include "../MesinKarakter/charmachine.c"
-
-#define NMax 50
-#define BLANK ' '
-
-typedef struct
-{
-   char TabWord[NMax]; /* container penyimpan kata, indeks yang dipakai [0..NMax-1] */
-   int Length;
-} Word;
+#include "boolean.h"
+#include "charmachine.h"
+#include "word.h"
 
 /* State Mesin Word */
 extern boolean endWord;

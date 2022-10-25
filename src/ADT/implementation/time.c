@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "time.h"
+#include "../headers/time.h"
 
 /* ***************************************************************** */
 /* DEFINISI PRIMITIF                                                 */

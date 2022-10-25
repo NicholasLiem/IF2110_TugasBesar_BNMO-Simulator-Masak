@@ -6,8 +6,9 @@
 
 /* ********** Definisi TYPE Matrix dengan Index dan elemen integer ********** */
 
-#include "boolean.h"
-#include "matrix.h"
+#include "../headers/boolean.h"
+#include "../headers/liststatik.h"
+#include "../headers/matrix.h"
 #include <math.h>
 #include <stdio.h>
 
