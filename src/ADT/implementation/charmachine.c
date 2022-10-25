@@ -1,7 +1,7 @@
 /* File: charmachine.c */
 /* Implementasi Mesin Karakter */
 
-#include "charmachine.h"
+#include "../headers/charmachine.h"
 #include <stdio.h>
 
 char currentChar;

@@ -5,7 +5,7 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include "../boolean.h"
+#include "boolean.h"
 
 typedef struct { 
 	float X; /* absis   */
