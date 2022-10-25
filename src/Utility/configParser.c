@@ -2,6 +2,7 @@
 
 #include "../ADT/implementation/wordmachine.c"
 
+//Abaikan dulu ini variabel penampung, nanti semuanya dimasukkin ke ADTnya masing-masing.
 Word namaMakanan;
 Word aksi;
 int temp2[1];
@@ -96,10 +97,8 @@ void parseStrToMapSize(Word w){
 
 void parseMakanan(){
     STARTWORD();
-    int line = 1;
-    //Skip bagian N pertama
     ADVWORD();
-
+    int line = 1;
     while(!endWord){
         switch(line){
             case 1:
@@ -154,7 +153,7 @@ void loadConfiguration(const char *filedir, int configNum){
     } else if (configNum == 1){
         parsePeta();
     } else {
-        parseMakanan();
+        // parseMakanan();
     }
     copyTempFile(filedir);
 }

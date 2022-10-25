@@ -11,7 +11,7 @@
 typedef struct { 
 	int ID; 
 	Word Nama;
-	Word aksi;
+	Word Aksi;
 	TIME Exp;
 	TIME LamaPengiriman;
 } MAKANAN;
