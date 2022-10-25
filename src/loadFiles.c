@@ -1,7 +1,8 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 #include "ADT/MesinKata/wordmachine.c"
+
+char temp[50];
 
 void loadMakanan(){
     FILE* ptr;
@@ -10,12 +11,38 @@ void loadMakanan(){
         printf("Gagal loading file Makanan.txt\n");
     }
     STARTWORD();
-    int i = 0;
+    int line = 0;
     while (!endWord){
-        for(int j = 0; j < currentWord.Length; j++){
-            printf("%c\n", currentWord.TabWord[i]);
+        switch(line){
+            case 1:
+                ADVWORD();
+                break;
+            case 2:
+                ADVWORD();
+                break;
+            case 3:
+                ADVWORD();
+                break;
+            case 4:
+                ADVWORD();
+                break;
+            case 5:
+                ADVWORD();
+                break;
+            default:
+                endWord = true;
+                break;
         }
-        i++;
+        // Line 0 = Integer
+        // Line 1 = Integer
+        // Line 2 = char[]
+        // Line 3 = Time
+        // Line 4 = Time
+        // Line 5 = Action
+        for(int j = 0; j < currentWord.Length; j++){
+            printf("%c", currentWord.TabWord[j]);
+        }
+        printf("\n");
         ADVWORD();
     }
 
@@ -23,27 +50,27 @@ void loadMakanan(){
     //Proses masukin makanan ke?
 }
 
-void loadPeta(){
-    FILE* ptr;
-    ptr = freopen("Konfigurasi/Peta.txt", "r", stdin);
-    if (ptr == NULL){
-        printf("Gagal loading file Peta.txt\n");
-    }
+// void loadPeta(){
+//     FILE* ptr;
+//     ptr = freopen("Konfigurasi/Peta.txt", "r", stdin);
+//     if (ptr == NULL){
+//         printf("Gagal loading file Peta.txt\n");
+//     }
 
-    //Proses baca makanan
-    //Proses masukin peta ke?
-}
+//     //Proses baca makanan
+//     //Proses masukin peta ke?
+// }
 
-void loadResep(){
-    FILE* ptr;
-    ptr = freopen("Konfigurasi/Resep.txt", "r", stdin);
-    if (ptr == NULL){
-        printf("Gagal loading file Resep.txt\n");
-    }
+// void loadResep(){
+//     FILE* ptr;
+//     ptr = freopen("Konfigurasi/Resep.txt", "r", stdin);
+//     if (ptr == NULL){
+//         printf("Gagal loading file Resep.txt\n");
+//     }
 
-    //Proses baca resep
-    //Proses masukin resep ke?
-}
+//     //Proses baca resep
+//     //Proses masukin resep ke?
+// }
 
 int main(){
     loadMakanan();
