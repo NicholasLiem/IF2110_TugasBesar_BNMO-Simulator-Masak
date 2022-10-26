@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "charmachine.c"
 #include "../headers/wordmachine.h"
 
 boolean endWord;
@@ -72,12 +71,5 @@ void CopyWord()
         }
         else
             break;
-    }
-}
-
-void printWord(Word w){
-    int i = 0;
-    for(i; i < w.Length; i++){
-        printf("%c", w.TabWord[i]);
     }
 }

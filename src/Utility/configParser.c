@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../ADT/implementation/wordmachine.c"
+#include "../ADT/headers/wordmachine.h"
 
 //Abaikan dulu ini variabel penampung, nanti semuanya dimasukkin ke ADTnya masing-masing.
 Word namaMakanan;
@@ -159,5 +159,5 @@ void loadConfiguration(const char *filedir, int configNum){
 }
 
 int main(){
-    loadConfiguration("../Konfigurasi/Peta.txt", 1);
+    loadConfiguration("./src/Konfigurasi/Peta.txt", 1);
 }

@@ -36,7 +36,7 @@ IdxType getLastIdxCol(Matrix m)
     return (COL_EFF(m) - 1);
 }
 
-boolean isIdxEff(Matrix m, IdxType i, IdxType j)
+boolean isIdxMatrixEff(Matrix m, IdxType i, IdxType j)
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
 {
     return ((i >= 0 && i <= getLastIdxRow(m)) && (j >= 0 && j <= getLastIdxCol(m)));
@@ -44,7 +44,7 @@ boolean isIdxEff(Matrix m, IdxType i, IdxType j)
 ElType getElmtDiagonal(Matrix m, IdxType i)
 /* Mengirimkan elemen m(i,i) */
 {
-    return ELMT(m, i, i);
+    return ELMT_MAT(m, i, i);
 }
 
 /* ********** Assignment  Matrix ********** */
@@ -73,7 +73,7 @@ void readMatrix(Matrix *m, int nRow, int nCol)
     {
         for (j = 0; j <= getLastIdxCol(*m); j++)
         {
-            scanf("%d", &ELMT(*m, i, j));
+            scanf("%d", &ELMT_MAT(*m, i, j));
         }
     }
 }
@@ -94,10 +94,10 @@ void displayMatrix(Matrix m)
     {
         for (j = 0; j <= getLastIdxCol(m)-1; j++)
         {
-            printf("%d ", ELMT(m, i, j));
+            printf("%d ", ELMT_MAT(m, i, j));
             if (j == getLastIdxCol(m)-1)
             {
-                printf("%d", ELMT(m, i, j+1));
+                printf("%d", ELMT_MAT(m, i, j+1));
             }
         }
         printf("\n");
@@ -116,7 +116,7 @@ Matrix addMatrix(Matrix m1, Matrix m2)
     {
         for (j = 0; j <= getLastIdxCol(m1); j++)
         {
-            ELMT(mOut, i, j) = ELMT(m1, i, j) + ELMT(m2, i, j);
+            ELMT_MAT(mOut, i, j) = ELMT_MAT(m1, i, j) + ELMT_MAT(m2, i, j);
         }
     }
     return mOut;
@@ -133,7 +133,7 @@ Matrix subtractMatrix(Matrix m1, Matrix m2)
     {
         for (j = 0; j <= getLastIdxCol(m1); j++)
         {
-            ELMT(mOut, i, j) = ELMT(m1, i, j) - ELMT(m2, i, j);
+            ELMT_MAT(mOut, i, j) = ELMT_MAT(m1, i, j) - ELMT_MAT(m2, i, j);
         }
     }
     return mOut;
@@ -150,10 +150,10 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2)
     {
         for (j = 0; j <= getLastIdxCol(m2); j++)
         {
-            ELMT(mOut, i, j) = 0;
+            ELMT_MAT(mOut, i, j) = 0;
             for (k = 0; k <= getLastIdxCol(m1); k++)
             {
-                ELMT(mOut, i, j) += ELMT(m1, i, k) * ELMT(m2, k, j);
+                ELMT_MAT(mOut, i, j) += ELMT_MAT(m1, i, k) * ELMT_MAT(m2, k, j);
             }
         }
     }
@@ -170,7 +170,7 @@ Matrix multiplyByConst(Matrix m, ElType x)
     {
         for (j = 0; j <= getLastIdxCol(m); j++)
         {
-            ELMT(mOut, i, j) = ELMT(m, i, j) * x;
+            ELMT_MAT(mOut, i, j) = ELMT_MAT(m, i, j) * x;
         }
     }
     return mOut;
@@ -185,7 +185,7 @@ void pMultiplyByConst(Matrix *m, ElType k)
     {
         for (j = 0; j <= getLastIdxCol(*m); j++)
         {
-            ELMT(*m, i, j) *= k;
+            ELMT_MAT(*m, i, j) *= k;
         }
     }
 }
@@ -207,7 +207,7 @@ boolean isMatrixEqual(Matrix m1, Matrix m2)
         {
             for (j = 0; j <= getLastIdxCol(m1); j++)
             {
-                if (ELMT(m1, i, j) != ELMT(m2, i, j))
+                if (ELMT_MAT(m1, i, j) != ELMT_MAT(m2, i, j))
                 {
                     return false;
                 }
@@ -257,7 +257,7 @@ boolean isSymmetric(Matrix m)
         {
             for (j = 0; j <= getLastIdxCol(m); j++)
             {
-                if (ELMT(m, i, j) != ELMT(m, j, i))
+                if (ELMT_MAT(m, i, j) != ELMT_MAT(m, j, i))
                 {
                     return false;
                 }
@@ -284,14 +284,14 @@ boolean isIdentity(Matrix m)
                 {
                     if (i == j)
                     {
-                        if (ELMT(m, i, j) != 1)
+                        if (ELMT_MAT(m, i, j) != 1)
                         {
                             return false;
                         }
                     }
                     else
                     {
-                        if (ELMT(m, i, j) != 0)
+                        if (ELMT_MAT(m, i, j) != 0)
                         {
                             return false;
                         }
@@ -311,7 +311,7 @@ boolean isSparse(Matrix m)
     {
         for (j = 0; j <= getLastIdxCol(m); j++)
         {
-            if (ELMT(m, i, j) != 0)
+            if (ELMT_MAT(m, i, j) != 0)
             {
                 count++;
             }
@@ -342,7 +342,7 @@ float determinant(Matrix m)
     Matrix mtemp;
     if (ROW_EFF(m) == 1)
     {
-        return ELMT(m, 0, 0);
+        return ELMT_MAT(m, 0, 0);
     }
     else
     {
@@ -355,15 +355,15 @@ float determinant(Matrix m)
                 {
                     if (k < i)
                     {
-                        ELMT(mtemp, j - 1, k) = ELMT(m, j, k);
+                        ELMT_MAT(mtemp, j - 1, k) = ELMT_MAT(m, j, k);
                     }
                     else if (k > i)
                     {
-                        ELMT(mtemp, j - 1, k - 1) = ELMT(m, j, k);
+                        ELMT_MAT(mtemp, j - 1, k - 1) = ELMT_MAT(m, j, k);
                     }
                 }
             }
-            det += pow(-1, i) * ELMT(m, 0, i) * determinant(mtemp);
+            det += pow(-1, i) * ELMT_MAT(m, 0, i) * determinant(mtemp);
         }
         return det;
     }
@@ -383,7 +383,7 @@ Matrix transpose(Matrix m)
         {
             for (j = 0; j <= getLastIdxCol(m); j++)
             {
-                ELMT(mOut, i, j) = ELMT(mTemp, j, i);
+                ELMT_MAT(mOut, i, j) = ELMT_MAT(mTemp, j, i);
             }
         }
     return mOut;
@@ -400,7 +400,7 @@ void pTranspose(Matrix *m)
         {
             for (j = 0; j <= getLastIdxCol(*m); j++)
             {
-                ELMT(*m, i, j) = ELMT(mTemp, j, i);
+                ELMT_MAT(*m, i, j) = ELMT_MAT(mTemp, j, i);
             }
         }
 }
@@ -410,7 +410,7 @@ float rowMean(Matrix m, int i){
     int jumlah = getLastIdxCol(m);
     int j;
     for(j = 0; j <= getLastIdxCol(m); j++){
-        sum += ELMT(m, i, j);
+        sum += ELMT_MAT(m, i, j);
     }
     return sum/jumlah;
 }
