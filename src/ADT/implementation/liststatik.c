@@ -1,9 +1,3 @@
-//NIM: 13521135
-//Nama: Nicholas Liem
-//Tanggal: 13 Agustus 2022
-//Topik praktikum: ADT List Statik
-//Deskripsi: Implementasi ADT List Statik
-
 #include "../headers/liststatik.h"
 #include <stdio.h>
 

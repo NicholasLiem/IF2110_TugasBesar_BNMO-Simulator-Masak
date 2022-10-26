@@ -1,9 +1,3 @@
-// NIM: 13521135
-// Nama: Nicholas Liem
-// Tanggal: 13 Agustus 2022
-// Topik praktikum: ADT Matriks
-// Deskripsi: Implementasi ADT List Matriks
-
 /* ********** Definisi TYPE Matrix dengan Index dan elemen integer ********** */
 
 #include "../headers/boolean.h"
