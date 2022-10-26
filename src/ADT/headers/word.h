@@ -11,6 +11,13 @@ typedef struct {
    int Length;
 } Word;
 
+void setWord(Word* word, char* input);
+
+void addChar(Word* word, char input);
+
 void printWord(Word word);
 
+int strToInt(Word w);
+
+void copyWord(Word* nama, Word w);
 #endif

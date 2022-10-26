@@ -27,5 +27,5 @@ Mix
 37
 Ayam Goreng
 0 0 15
-0 0 0
+200 122 304 
 Fry

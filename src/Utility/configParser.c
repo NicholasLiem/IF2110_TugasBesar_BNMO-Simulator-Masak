@@ -6,9 +6,9 @@
 Word namaMakanan;
 Word aksi;
 int temp2[1];
-int tempWaktu[3];
+int tempWaktu[5];
 
-int tempPeta[2];
+int tempPeta[5];
 Word contohPeta;
 
 FILE *file, *temp;
@@ -29,7 +29,7 @@ void copyFile(const char *filename){
     fclose(file);
     fclose(temp);
     file = fopen(filename, "r");
-    temp = fopen("../Konfigurasi/__temp__", "w");
+    temp = fopen("./src/Konfigurasi/__temp__", "w");
     char line[255];
     while(fgets(line, 255, file) != NULL){
         fputs(line, temp);
@@ -41,7 +41,7 @@ void copyFile(const char *filename){
 void copyTempFile(const char *filename){
     fclose(file);
     fclose(temp);
-    file = fopen("../Konfigurasi/__temp__", "r");
+    file = fopen("./src/Konfigurasi/__temp__", "r");
     temp = fopen(filename, "w");
     char line[255];
     while(fgets(line, 255, file) != NULL){
@@ -49,33 +49,20 @@ void copyTempFile(const char *filename){
     }
     fclose(file);
     fclose(temp);
-    remove("../Konfigurasi/__temp__");
-}
-
-int strToInt(Word w){
-    int j, intTemp = 0;
-    intTemp = w.TabWord[0] - 48;
-    for(j = 1; j < w.Length; j++){
-        intTemp = intTemp*10 + (w.TabWord[j] - 48);
-    }
-    return intTemp;
-}
-
-void copyWord(Word nama, Word w){
-    int j = 0;
-    nama.Length = w.Length;
-    for (j; j < w.Length; j++){
-        nama.TabWord[j] = w.TabWord[j];
-    }
-    printWord(nama);
-    printf("\n");
+    remove("./src/Konfigurasi/__temp__");
 }
 
 void parseStrToTime(Word w){
     int i = 0, j = 0;
+    Word temp;
+    setWord(&temp, "");
     for(i; i < w.Length; i++){
         if (w.TabWord[i] != BLANK){
-            tempWaktu[j] = w.TabWord[i] - 48;
+            addChar(&temp, w.TabWord[i]);
+        } 
+        if (w.TabWord[i] == BLANK || i == (w.Length-1)) {
+            tempWaktu[j] = strToInt(temp);
+            setWord(&temp, "");
             j++;
         }
     }
@@ -85,9 +72,15 @@ void parseStrToTime(Word w){
 
 void parseStrToMapSize(Word w){
     int i = 0, j = 0;
+    Word temp;
+    setWord(&temp, "");
     for(i; i < w.Length; i++){
         if (w.TabWord[i] != BLANK){
-            tempPeta[j] = w.TabWord[i] - 48;
+            addChar(&temp, (char) w.TabWord[i]);
+        }
+        if (w.TabWord[i] == BLANK || i == (w.Length-1)){
+            tempPeta[j] = strToInt(temp);
+            setWord(&temp, "");
             j++;
         }
     }
@@ -108,7 +101,7 @@ void parseMakanan(){
                 line++;
                 break;
             case 2:
-                copyWord(namaMakanan, currentWord);
+                copyWord(&namaMakanan, currentWord);
                 ADVWORD();
                 line++;
                 break;
@@ -123,7 +116,7 @@ void parseMakanan(){
                 line++;
                 break;
             default:
-                copyWord(aksi, currentWord);
+                copyWord(&aksi, currentWord);
                 ADVWORD();
                 line = 1;
                 break;
@@ -136,7 +129,7 @@ void parsePeta(){
     parseStrToMapSize(currentWord);
     ADVWORD();
     while(!endWord){
-        copyWord(contohPeta, currentWord);
+        copyWord(&contohPeta, currentWord);
         ADVWORD();
     }
 }
@@ -159,5 +152,17 @@ void loadConfiguration(const char *filedir, int configNum){
 }
 
 int main(){
-    loadConfiguration("./src/Konfigurasi/Peta.txt", 1);
+    char dirPathPeta[100] = "./src/Konfigurasi/Peta.txt";
+    char dirPathMakanan[100] = "./src/Konfigurasi/Makanan.txt";
+    loadConfiguration(dirPathMakanan,0);
+    loadConfiguration(dirPathPeta, 1);
+    int i = 0;
+    for (int i = 0; i < 3; i++) {
+        printf("%d ", tempPeta[i]);
+    }
+    printf("\n");
+    i = 0;
+    for (int i = 0; i < 3; i++) {
+        printf("%d ", tempWaktu[i]);
+    }
 }
