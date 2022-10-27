@@ -18,9 +18,10 @@ typedef struct {
     POINT Lokasi;
 } Legend;
 typedef struct {
-    int lengthEff;
-    int widthEff;
-    Legend contents[WIDTH_CAP][LENGTH_CAP];
+    int widthEff; // Lebar peta (Vertikal)
+    int lengthEff; // Panjang peta (Horizontal)
+    Legend* Map[WIDTH_CAP][LENGTH_CAP]; // Pointer to Legend
+    Legend contents[WIDTH_CAP*LENGTH_CAP]; // Collection of Legends
 } Peta;
 
 /* *** Notasi Akses: Selektor Legend *** */
@@ -32,12 +33,29 @@ typedef struct {
 /* *** Notasi Akses: Selektor Peta *** */
 #define LEN_EFF(P) (P).lengthEff
 #define WIDTH_EFF(P) (P).widthEff
-#define ELMT_
+#define MAP_POINT(P, x, y) (P).Map[y][x]->Lokasi
+#define MAP_TYPE(P, x, y) (P).Map[y][x]->Type
+#define LEGENDS(P) (P).contents
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 void CreatePeta(int length, int width, Peta *p);
 /* Membentuk sistem peta berdasarkan koordinat kartesius yang selalu di kuadran 1 */
-/* I.S. length dan width valid */
-/* F.S. Peta p sesuai dengan definisi terbentuk */
+/* I.S. Sembarang */
+/* F.S. Peta p sesuai dengan definisi terbentuk atau
+        mencetak prompt jika length dan width tidak valid */
+
+/* *** Selektor Peta *** */
+boolean isLegendPointValid(int x, int y);
+/* Mengirimkan true jika x, y adalah titik yang valid dalam sistem Peta */
+
+/* *** Selektor: Untuk sebuah peta P yang terdefinisi: *** */
+
+void GeserLegend(Legend *L, Peta *P, int x, int y);
+/* Menggeser Legend dalam sistem Peta sejauh <x,y> */
+/* I.S. L dan P terdefinisi */
+/* F.S. L dalam sistem Peta bergeser sejauh <x,y> atau
+        mencetak prompt jika <x,y> menyebabkan Legend melebihi batas */
+
+
 
 #endif
