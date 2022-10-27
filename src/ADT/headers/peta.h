@@ -3,6 +3,7 @@
 
 #include "point.h"
 #include "boolean.h"
+#include "wordmachine.h"
 
 /*  Kamus Umum */
 #define LENGTH_CAP 100
@@ -38,24 +39,41 @@ typedef struct {
 #define LEGENDS(P) (P).contents
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
-void CreatePeta(int length, int width, Peta *p);
-/* Membentuk sistem peta berdasarkan koordinat kartesius yang selalu di kuadran 1 */
+/* *** Konstruktor membentuk Matrix *** */
+void CreatePeta(int length, int width, Peta *P);
+/* Membentuk sistem Peta berdasarkan koordinat kartesius yang selalu di kuadran 1 */
 /* I.S. Sembarang */
-/* F.S. Peta p sesuai dengan definisi terbentuk atau
+/* F.S. Peta P sesuai dengan definisi terbentuk atau
         mencetak prompt jika length dan width tidak valid */
 
+void LoadPeta(int length, int width, Peta *P, Word map);
+/* Memuat Peta berdasarkan Word map sesuai definisi sistem Peta */
+/* I.S. P terdefinisi, map valid */
+/* F.S. Elemen-elemen P terdefinisi sesuai Word map */
+
 /* *** Selektor Peta *** */
-boolean isLegendPointValid(int x, int y);
-/* Mengirimkan true jika x, y adalah titik yang valid dalam sistem Peta */
+boolean isLocationValid(int x, int y);
+/* Mengirimkan true jika <x,y> adalah titik yang valid dalam sistem Peta */
 
 /* *** Selektor: Untuk sebuah peta P yang terdefinisi: *** */
+Legend getLegendOf(Peta *P, LegType t);
+/* Mendapatkan Legend dari Legend Type t dalam sistem Peta */
 
-void GeserLegend(Legend *L, Peta *P, int x, int y);
+POINT locationOf(Peta *P, LegType t);
+/* Mendapatkan lokasi <x,y> dari Legend Type t dalam sistem Peta */
+
+/* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */                           
+void MoveLegend(Legend *L, Peta *P, int x, int y);
 /* Menggeser Legend dalam sistem Peta sejauh <x,y> */
 /* I.S. L dan P terdefinisi */
 /* F.S. L dalam sistem Peta bergeser sejauh <x,y> atau
         mencetak prompt jika <x,y> menyebabkan Legend melebihi batas */
 
+void MoveSimulator(Peta *P, char direction);
+/* Menggeser Simulator sesuai arah mata angin sejauh satu satuan dalam sistem Peta */
+/* I.S. Legend Simulator terdefinisi dalam P */
+/* F.S. Simulator bergerak sesuai definisi atau
+        mencetak prompt jika direction tidak valid */
 
 
 #endif
