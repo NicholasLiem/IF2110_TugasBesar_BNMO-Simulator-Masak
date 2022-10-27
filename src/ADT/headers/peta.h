@@ -41,19 +41,20 @@ typedef struct {
 /* *** Notasi Akses: Selektor Peta *** */
 #define LEN_EFF(P) (P).lengthEff
 #define WIDTH_EFF(P) (P).widthEff
+#define ELMT(P, x, y) (P).Map[y][x]
 #define MAP_POINT(P, x, y) (P).Map[y][x]->Lokasi
 #define MAP_TYPE(P, x, y) (P).Map[y][x]->Type
 #define LEGENDS(P) (P).contents
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
-/* *** Konstruktor membentuk Matrix *** */
+/* *** Konstruktor membentuk Peta *** */
 void CreatePeta(int length, int width, Peta *P);
 /* Membentuk sistem Peta berdasarkan koordinat kartesius yang selalu di kuadran 1 */
 /* I.S. Sembarang */
 /* F.S. Peta P sesuai dengan definisi terbentuk atau
         mencetak prompt jika length dan width tidak valid */
 
-void LoadPeta(int length, int width, Peta *P, Word map);
+void LoadPeta(Peta *P, Word map);
 /* Memuat Peta berdasarkan Word map sesuai definisi sistem Peta */
 /* I.S. P terdefinisi, map valid */
 /* F.S. Elemen-elemen P terdefinisi sesuai Word map */
