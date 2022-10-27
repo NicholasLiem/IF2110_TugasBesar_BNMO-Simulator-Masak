@@ -11,6 +11,13 @@
 /* Ukuran maksimum panjang dan lebar */
 #define SPACE '#'
 /* Nilai elemen objek kosong */
+#define SIMULATOR 'S'
+#define TELEPHONE 'T'
+#define MIXER 'M'
+#define CHOPPER 'C'
+#define FRYER 'F'
+#define BOILER 'B'
+#define WALL 'X'
 
 /* Definisi elemen dan koleksi objek */
 typedef char LegType;
