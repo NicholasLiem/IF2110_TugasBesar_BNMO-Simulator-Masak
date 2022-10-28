@@ -43,3 +43,13 @@ void addChar(Word* word, char input) {
     int newLength = word->Length + 1;
     word->Length = newLength;
 }
+
+boolean wordIsInt(Word w) {
+    int j = 0;
+    for (j; j < w.Length; j++){
+        if (w.TabWord[j] < '0' || w.TabWord[j] > '9') {
+            return false;
+        }
+    }   
+    return true;
+}
