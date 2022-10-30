@@ -58,7 +58,7 @@ int NbElmt(treeAddress T);
 void addRoot(treeAddress *p, ElType root);
 
 
-void addDaun(treeAddress *P, ElType parent, ElType child);
+void addChild(treeAddress *P, ElType parent, ElType child);
 /* I.S. P tidak kosong, X terdefinisi */
 /* F.S. P bertambah simpulnya, dengan X sebagai anak Y */
 /* Jika Kiri = true, maka X menjadi anak kiri Y */

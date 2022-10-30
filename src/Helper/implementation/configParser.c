@@ -1,7 +1,8 @@
 #include <stdio.h>
-
-#include "../ADT/headers/wordmachine.h"
-
+#include "../../ADT/headers/wordmachine.h"
+#include "../../ADT/headers/listlinier.h"
+#include "../../ADT/headers/tree.h"
+#include "../headers/configParser.h"
 //Abaikan dulu ini variabel penampung, nanti semuanya dimasukkin ke ADTnya masing-masing.
 Word namaMakanan;
 Word aksi;
@@ -12,6 +13,8 @@ int tempPeta[5];
 Word contohPeta;
 
 FILE *file, *temp;
+
+List listTreeResep;
 
 void addMark(const char *filename){
     fclose(file);
@@ -90,34 +93,34 @@ void parseStrToMapSize(Word w){
 
 void parseMakanan(){
     STARTWORD();
-    ADVWORD();
+    ADVWORDFILE();
     int line = 1;
     while(!endWord){
         switch(line){
             case 1:
                 temp2[0] = strToInt(currentWord);
                 printf("%d\n", temp2[0]);
-                ADVWORD();
+                ADVWORDFILE();
                 line++;
                 break;
             case 2:
                 copyWord(&namaMakanan, currentWord);
-                ADVWORD();
+                ADVWORDFILE();
                 line++;
                 break;
             case 3:
                 parseStrToTime(currentWord);
-                ADVWORD();
+                ADVWORDFILE();
                 line++;              
                 break;
             case 4:
                 parseStrToTime(currentWord);
-                ADVWORD();
+                ADVWORDFILE();
                 line++;
                 break;
             default:
                 copyWord(&aksi, currentWord);
-                ADVWORD();
+                ADVWORDFILE();
                 line = 1;
                 break;
         }
@@ -127,13 +130,46 @@ void parseMakanan(){
 void parsePeta(){
     STARTWORD();
     parseStrToMapSize(currentWord);
-    ADVWORD();
+    ADVWORDFILE();
     while(!endWord){
         copyWord(&contohPeta, currentWord);
-        ADVWORD();
+        ADVWORDFILE();
     }
 }
 
+void parseResep() {
+    STARTWORD();
+    int banyakRoot = strToInt(currentWord);
+    printf("%d\n", banyakRoot);
+    ADVWORD();
+    for (int i = 0; i < banyakRoot; i++) {
+        int nodeNum = strToInt(currentWord);
+        ADVWORD();
+        treeAddress treeResep;
+        CreateTree(&treeResep);
+        int parent = strToInt(currentWord);
+        addRoot(&treeResep, parent);
+        ADVWORD();
+        boolean isFirst = true;
+        for (int i = 0; i < nodeNum; i++) {
+            if (!isFirst) {
+                parent = strToInt(currentWord);
+                ADVWORD();
+            }
+            int childNumber = strToInt(currentWord);
+            ADVWORD();
+            for (int i = 0; i < childNumber; i++) {
+                int child = strToInt(currentWord);
+                addChild(&treeResep, parent, child);
+                ADVWORD();
+            }
+            isFirst = false;
+        }
+        ListType treeAddr;
+        treeAddr.address = treeResep;
+        insertFirstLin(&listTreeResep, treeAddr);
+    }
+}
 void loadConfiguration(const char *filedir, int configNum){
     // 0 : Makanan.txt
     // 1 : Peta.txt
@@ -146,23 +182,8 @@ void loadConfiguration(const char *filedir, int configNum){
     } else if (configNum == 1){
         parsePeta();
     } else {
-        // parseMakanan();
+        CreateListLin(&listTreeResep, 2);
+        parseResep();
     }
     copyTempFile(filedir);
-}
-
-int main(){
-    char dirPathPeta[100] = "./src/Konfigurasi/Peta.txt";
-    char dirPathMakanan[100] = "./src/Konfigurasi/Makanan.txt";
-    loadConfiguration(dirPathMakanan,0);
-    loadConfiguration(dirPathPeta, 1);
-    int i = 0;
-    for (int i = 0; i < 3; i++) {
-        printf("%d ", tempPeta[i]);
-    }
-    printf("\n");
-    i = 0;
-    for (int i = 0; i < 3; i++) {
-        printf("%d ", tempWaktu[i]);
-    }
 }

@@ -23,4 +23,6 @@ int strToInt(Word w);
 
 boolean wordIsInt(Word w);
 
+boolean isEqualWord(Word word1, Word word2);
+
 #endif

@@ -11,7 +11,9 @@ void printWord(Word word) {
 int strToInt(Word w){
     int j, intTemp = 0;
     int multiplier = (int) pow(10, w.Length-1);
-
+    // printf("\ncurrent word is\n");
+    // printWord(w);
+    // printf("\nword length %d\n", w.Length);
     for(j = 0; j < w.Length; j++){
         intTemp += (w.TabWord[j] - '0') * multiplier;
         multiplier /= 10;
@@ -38,6 +40,18 @@ void setWord(Word* word, char* input) {
     word->Length=index;
 };
 
+boolean isEqualWord(Word word1, Word word2) {
+    if (word1.Length != word2.Length) {
+        return false;
+    }
+    int j = 0;
+    for (j; j < word1.Length; j++){
+        if (word1.TabWord[j] != word2.TabWord[j]) {
+            return false;
+        }
+    }  
+    return true; 
+}
 void addChar(Word* word, char input) {
     word->TabWord[word->Length] = input;
     int newLength = word->Length + 1;
