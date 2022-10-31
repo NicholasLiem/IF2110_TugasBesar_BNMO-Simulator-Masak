@@ -14,9 +14,7 @@
 extern List listTreeResep;
 
 void addMark(const char *filename);
-
 void copyFile(const char *filename);
-
 void copyTempFile(const char *filename);
 
 void parseMakanan();

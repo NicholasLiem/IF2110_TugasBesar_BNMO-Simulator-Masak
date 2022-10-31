@@ -9,8 +9,8 @@ void createMakanan(Makanan* makanan, int id, Word aksi, Word nama, TIME exp, TIM
 	makanan->lamaPengiriman = lamaPengiriman;
 }
 
-void increaseTime(Makanan* makanan, int durasiDetik) {
-    makanan->exp = NextNDetik(makanan->exp, durasiDetik);
+void increaseTime(Makanan* makanan, int durasiMenit) {
+    makanan->exp = NextNMenit(makanan->exp, durasiMenit);
 }
 
 void printMakanan(Makanan makanan) {
