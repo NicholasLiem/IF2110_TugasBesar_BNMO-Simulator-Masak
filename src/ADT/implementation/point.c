@@ -72,8 +72,8 @@ int Kuadran (POINT P)
 /* Prekondisi : P bukan titik origin, */
 /*              dan P tidak terletak di salah satu sumbu */
 {
-    if (Absis(P) > 0){
-        if (Ordinat(P) > 0){
+    if (Absis(P) >= 0){
+        if (Ordinat(P) >= 0){
             return 1;
         } else {
             return 4;

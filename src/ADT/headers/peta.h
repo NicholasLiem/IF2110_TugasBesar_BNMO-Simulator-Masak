@@ -60,7 +60,7 @@ POINT locationOf(Peta *P, Legend t);
 /* Mendapatkan lokasi <x,y> dari Legend Type t dalam sistem Peta */
 
 /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */                           
-void MoveLegend(POINT LegPoint, Peta *P, char direction);
+boolean MoveLegend(POINT LegPoint, Peta *P, char direction);
 /* Menggeser Legend dalam sistem Peta sejauh satu satuan ke arah direction */
 /* direction: NORTH, EAST, WEST, SOUTH */
 /* I.S. L dan P terdefinisi */
@@ -68,7 +68,7 @@ void MoveLegend(POINT LegPoint, Peta *P, char direction);
         mencetak prompt jika direction menyebabkan Legend melebihi batas atau menabrak dinding */
 
 
-void MoveSimulator(Peta *P, char direction);
+boolean MoveSimulator(Peta *P, char direction);
 /* Menggeser Simulator sesuai arah mata angin sejauh satu satuan dalam sistem Peta */
 /* I.S. Legend Simulator terdefinisi dalam P */
 /* F.S. Simulator bergerak sesuai definisi atau

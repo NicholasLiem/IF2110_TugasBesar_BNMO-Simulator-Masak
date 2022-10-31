@@ -94,10 +94,10 @@ TIME MenitToTIME (long N)
     int h;
     int m;
     
-    d = (N/(1440)); 
-	h = (N -(1440*h))/60;
+    d = (N / (1440)); 
+	h = (N - (1440*d)) / 60;
 	m = (N - h*60 - d*1440);
-	
+	// printf("%d, %d, %d\n", d, h, m);
     CreateTime(&t, d, h, m);
     return t;
 }

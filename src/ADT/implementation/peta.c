@@ -37,7 +37,7 @@ void placeLegend (Peta *P) {
 
 /* *** Selektor Peta *** */
 boolean isLocationOutOfBound(Peta P, POINT p){
-    return Kuadran(p)!=1  || (int)Absis(p)>=LEN_EFF(P) || (int)Ordinat(p)>=WIDTH_EFF(P);
+    return Kuadran(p) != 1  || (int) Absis(p) >= LEN_EFF(P) || (int) Ordinat(p) >= WIDTH_EFF(P);
 }
 
 boolean isLocationColliding(Peta P, POINT p){
@@ -64,7 +64,7 @@ POINT locationOf(Peta *P, Legend t){
 }
 
 /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */                           
-void MoveLegend(POINT LegPoint, Peta *P, char direction){
+boolean MoveLegend(POINT LegPoint, Peta *P, char direction){
     int x, y, nx, ny;
     x = (int) Absis(LegPoint);
     y = (int) Ordinat(LegPoint);
@@ -85,10 +85,12 @@ void MoveLegend(POINT LegPoint, Peta *P, char direction){
     }
 
     if(isLocationOutOfBound(*P, LegPoint)){
-        printf("Out of bound");
+        printf("Out of bound\n");
+        return false;
     }
     else if(isLocationColliding(*P, LegPoint)){
-        printf("Collision");
+        printf("Collision\n");
+        return false;
     }
     else{
         nx = (int) Absis(LegPoint);
@@ -96,12 +98,13 @@ void MoveLegend(POINT LegPoint, Peta *P, char direction){
 
         ELMT_PETA(*P, nx, ny) = ELMT_PETA(*P, x, y);
         ELMT_PETA(*P, x, y) = SPACE;
+        return true;
     }
 }
 
-void MoveSimulator(Peta *P, char direction){
+boolean MoveSimulator(Peta *P, char direction){
     POINT LegPoint = locationOf(P, SIMULATOR);
-    MoveLegend(LegPoint, P, direction);
+    return MoveLegend(LegPoint, P, direction);
 }
 
 void DisplayPeta(Peta P){

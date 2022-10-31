@@ -24,7 +24,7 @@ const Word COMMAND_MOVE = {"MOVE", 4};
 const Word COMMAND_EAST = {"EAST", 4};
 const Word COMMAND_NORTH = {"NORTH", 5};
 const Word COMMAND_SOUTH = {"SOUTH", 5};
-const Word COMMAND_WEST = {"WEST, 4"};
+const Word COMMAND_WEST = {"WEST", 4};
 
 Word playerName;
 POINT currentLoc;
@@ -41,7 +41,8 @@ void printMenu(){
 }
 
 void notInput(){
-    printf("Command tidak dikenali! Silahkan START terlebih dahulu atau masukan input yang benar.\n");
+    printf("Command tidak dikenali! Masukan input yang benar.\n");
+    endWord = true;
 }
 
 void promptName(Word *word) {
@@ -71,16 +72,60 @@ void menuHasLogin() {
     if (isEqualWord(currentWord, COMMAND_EXIT)){
         printf("Game exited\n");
         exit(0);
-    }
-    // } else if (isEqualWord(currentWord, )){
+    } else if (isEqualWord(currentWord, COMMAND_MOVE)) {
+        ADVCOMMAND();
+        boolean isMoved = false;
+        if (!endWord) {
+            if (isEqualWord(currentWord, COMMAND_NORTH)) {
+                isMoved = MoveSimulator(&peta, 'N');
+            } else if (isEqualWord(currentWord, COMMAND_EAST)) {
+                isMoved = MoveSimulator(&peta, 'E');
+            } else if (isEqualWord(currentWord, COMMAND_SOUTH)) {
+                isMoved = MoveSimulator(&peta, 'S');
+            } else if (isEqualWord(currentWord, COMMAND_WEST)) {
+                isMoved = MoveSimulator(&peta, 'W');
+            } else {
+                notInput();
+                return;
+            }
+            if (isMoved) {
+                currentTime = NextMenit(currentTime);
+            }
+            ADVCOMMAND();
+        }
+    } else if (isEqualWord(currentWord, COMMAND_WAIT)) {
+        ADVCOMMAND();
 
-    // } else notInput();
+        int jam, menit;
+        boolean invalidTime = false;
+        if (wordIsInt(currentWord) && !endWord) {
+            jam = strToInt(currentWord);
+        } else {
+            invalidTime = true;
+        }
+
+        ADVCOMMAND();
+        if (wordIsInt(currentWord) && !endWord) {
+            menit = strToInt(currentWord);
+        } else {
+            invalidTime = true;
+        }
+        ADVCOMMAND();
+        if (invalidTime || !endWord) {
+            notInput();
+        } else {
+            currentTime = NextNMenit(currentTime, 60*jam + menit);
+        }
+        return;
+    } else notInput();
 }
 
 void displayInfo() {
     if (isStarted) {
         printf("Player name: ");
         printWord(playerName);
+        printf("\nTime: ");
+        TulisTIME(currentTime);
         printf("\nMap:\n");
         DisplayPeta(peta);
         printf("\n");
@@ -90,6 +135,7 @@ int main(){
     splashArt();
     promptName(&playerName);
     printMenu();
+    CreateTime(&currentTime, 0,0,0);
     while (true) {
         displayInfo();
         printf("Command Prompt: ");
