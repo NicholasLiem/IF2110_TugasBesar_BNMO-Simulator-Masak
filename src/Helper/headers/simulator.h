@@ -7,6 +7,16 @@
 
 #include "configParser.h"
 
-void loadConfig();
+extern Word playerName;
+extern POINT currentLoc;
+extern TIME currentTime;
+extern boolean isStarted;
+extern List listNotif;
+
+void simLoadConfig();
+
+boolean simMove(char c);
+
+void simAdvTime(long time);
 
 #endif

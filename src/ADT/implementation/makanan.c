@@ -44,8 +44,8 @@ void insertMakanan(ListMakanan *l, Makanan makanan){
 }
 
 void displayListMakanan(ListMakanan l){
-	int i = IDX_MIN;
-	for(i; i < CAPACITY; i++){
+	int i;
+	for(i = 0; i < lengthListMakanan(l); i++){
 		if(ELMT(l, i).id != IDX_UNDEF_LIST_STATIK){
 			printMakanan(ELMT(l, i));
 		}
@@ -54,7 +54,7 @@ void displayListMakanan(ListMakanan l){
 
 void commandCatalog(ListMakanan l){
 	int i = IDX_MIN;
-	for(i; i < CAPACITY; i++){
+	for(i; i < lengthListMakanan(l); i++){
 		if(ELMT(l, i).id != IDX_UNDEF_LIST_STATIK){
 			printf("%d. ", i+1);
 			printWord(ELMT(l, i).nama);

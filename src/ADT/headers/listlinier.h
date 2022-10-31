@@ -6,12 +6,15 @@
 
 #include "boolean.h"
 #include "makanan.h"
+#include "word.h"
+
 typedef struct node* Address;
 /* Definisi Node : */
 typedef union listType {
     int value; // elementType = 1
     int* address; // elementType = 2
     Makanan makanan; // elementType = 3
+    Word kata; // elementType = 4
 } ListType;
 
 typedef struct node {

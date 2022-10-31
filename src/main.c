@@ -26,17 +26,14 @@ const Word COMMAND_NORTH = {"NORTH", 5};
 const Word COMMAND_SOUTH = {"SOUTH", 5};
 const Word COMMAND_WEST = {"WEST", 4};
 
-Word playerName;
-POINT currentLoc;
-TIME currentTime;
-boolean isStarted = false;
-
 void splashArt();
 
 void printMenu(){
     printf("Silahkan Pilih Command Berikut: \n");
     printf("START\n");
     printf("EXIT\n");
+    printf("CATALOG\n");
+    printf("MOVE\n");
     // printf("HELP\n");
 }
 
@@ -58,7 +55,7 @@ void menuHasNotLogin() {
     if (isEqualWord(currentWord, COMMAND_START)){
         printf("Game started\n");
         printf("Loading...\n");
-        loadConfig();
+        simLoadConfig();
         printf("Load success!\n");
         isStarted = true;
     } else if (isEqualWord(currentWord, COMMAND_EXIT)){
@@ -77,19 +74,19 @@ void menuHasLogin() {
         boolean isMoved = false;
         if (!endWord) {
             if (isEqualWord(currentWord, COMMAND_NORTH)) {
-                isMoved = MoveSimulator(&peta, 'N');
+                isMoved = simMove('N');
             } else if (isEqualWord(currentWord, COMMAND_EAST)) {
-                isMoved = MoveSimulator(&peta, 'E');
+                isMoved = simMove('E');
             } else if (isEqualWord(currentWord, COMMAND_SOUTH)) {
-                isMoved = MoveSimulator(&peta, 'S');
+                isMoved = simMove('S');
             } else if (isEqualWord(currentWord, COMMAND_WEST)) {
-                isMoved = MoveSimulator(&peta, 'W');
+                isMoved = simMove('W');
             } else {
                 notInput();
                 return;
             }
             if (isMoved) {
-                currentTime = NextMenit(currentTime);
+                simAdvTime(1);
             }
             ADVCOMMAND();
         }
@@ -114,9 +111,12 @@ void menuHasLogin() {
         if (invalidTime || !endWord) {
             notInput();
         } else {
-            currentTime = NextNMenit(currentTime, 60*jam + menit);
+            simAdvTime(60*jam + menit);
         }
         return;
+    } else if (isEqualWord(currentWord, COMMAND_CATALOG)) {
+        commandCatalog(listMakanan);
+        ADVCOMMAND();
     } else notInput();
 }
 

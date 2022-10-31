@@ -1,9 +1,15 @@
 #include "../headers/simulator.h"
 
-void loadConfig() {
+Word playerName;
+POINT currentLoc;
+TIME currentTime;
+boolean isStarted = false;
+List listNotif;
+
+void simLoadConfig() {
     CreateListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
-    // displayListMakanan(listMakanan);
+    displayListMakanan(listMakanan);
 
     // printf("=======================\n");
     loadConfigPeta(&peta);
@@ -21,3 +27,12 @@ void loadConfig() {
     // }
 
 };
+
+boolean simMove(char c) {
+    return MoveSimulator(&peta, c);
+}
+
+void simAdvTime(long time) {
+    currentTime = NextNMenit(currentTime, time);
+}
+

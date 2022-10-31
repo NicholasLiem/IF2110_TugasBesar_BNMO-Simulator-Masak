@@ -85,6 +85,11 @@ int indexOfLin(List l, ListType val){
                     return i;
                 }
                 break;
+            case 4:
+                if (isEqualWord(INFO(p).kata, val.kata)) {
+                    return i;
+                }
+                break;
             default:
                 break;
         }
@@ -226,6 +231,10 @@ void displayListLin(List l){
                 break;
             case 3:
                 printMakanan(INFO(p).makanan);
+                break;
+            case 4:
+                printWord(INFO(p).kata);
+                break;
             default:
                 break;
         }
