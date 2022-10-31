@@ -13,27 +13,24 @@ const Word COMMAND_EXIT = {"EXIT", 4};
 
 void splashArt();
 
-void delWord(Word *word){
-    for(int i = 0; i < word->Length; i++){
-        word->TabWord[i] = 0;
-    }
-    word->Length = 0;
-    endWord = false;
-}
-
-void delChar(char *c){
-    *c = 0;
+void printMenu(){
+    printf("Pilihan Command: \n");
+    printf("START\n");
+    printf("EXIT\n");
 }
 
 void inputUser(Word *input){
+    printMenu();
     printf("Massukan command: ");
-    STARTWORD();
-    while (!endWord) {
-        copyWord(input, currentWord);
-        ADVWORD();
-    }
-    delWord(&currentWord);
-    delChar(&currentChar);
+    STARTCOMMAND();
+    copyWord(input, currentWord);
+    // ADVCOMMAND();
+    // while (!endWord) {
+    //     copyWord(input, currentWord);
+    //     ADVCOMMAND();
+    // }
+    // delWord(&currentWord);
+    // delChar(&currentChar);
 }
 
 void notInput(){
@@ -50,21 +47,12 @@ void initMenu(Word *input){
     } else notInput();
 }   
 
-void strToWord(Word *word, char *str){
-    int i = 0;
-    while (str[i] != '\0') {
-        word->TabWord[i] = str[i];
-        i++;
-    }
-    word->Length = i;
-}
-
-
 int main(){
     Word command;
     char str[100];
     splashArt();
     while(true){
+        // BELUM DICLOSE PITA DI CHARMACHINENYA!!!
         inputUser(&command);
         // scanf("%s", str);
         // strToWord(&command, str);
@@ -96,4 +84,25 @@ void splashArt(){
     "                .'.eeeeeeeeeeeeeeeeee.'.      :___: \n"
     "               .'.eeeeeeeeeeeeeeeeeeeeee.'.         \n"
     "              :____________________________:             ");  
+}
+
+void delWord(Word *word){
+    for(int i = 0; i < word->Length; i++){
+        word->TabWord[i] = 0;
+    }
+    word->Length = 0;
+    endWord = false;
+}
+
+void delChar(char *c){
+    *c = 0;
+}
+
+void strToWord(Word *word, char *str){
+    int i = 0;
+    while (str[i] != '\0') {
+        word->TabWord[i] = str[i];
+        i++;
+    }
+    word->Length = i;
 }
