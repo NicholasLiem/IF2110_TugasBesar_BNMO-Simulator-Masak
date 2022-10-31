@@ -11,7 +11,9 @@
 #include "../../ADT/headers/word.h"
 #include "../../ADT/headers/peta.h"
 
+extern ListMakanan listMakanan;
 extern List listTreeResep;
+extern Peta peta;
 
 void addMark(const char *filename);
 void copyFile(const char *filename);

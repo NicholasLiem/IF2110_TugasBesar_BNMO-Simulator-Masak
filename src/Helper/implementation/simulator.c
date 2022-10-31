@@ -1,13 +1,11 @@
-#include "../src/Helper/headers/configParser.h"
-#include "../src/ADT/headers/tree.h"
-#include "../src/Helper/headers/simulator.h"
+#include "../headers/simulator.h"
 
-int main(){
+void loadConfig() {
     CreateListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
     displayListMakanan(listMakanan);
 
-    printf("=======================\n");
+    // printf("=======================\n");
     loadConfigPeta(&peta);
     printf("Ini petanya: \n");
     DisplayPeta(peta);
@@ -21,14 +19,4 @@ int main(){
         printf("-----\n");
     }
 
-    while (true) {
-        STARTCOMMAND();
-        while(!endWord) {
-            printWord(currentWord);
-            printf(" ");
-            ADVCOMMAND();
-        }
-        printf("\n");
-        RESETCOMMAND();
-    }
-}
+};

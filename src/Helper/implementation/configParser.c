@@ -4,7 +4,9 @@ Word contohPeta;
 
 FILE *file, *temp;
 
+ListMakanan listMakanan;
 List listTreeResep;
+Peta peta;
 
 char dirResep[] = "./src/Konfigurasi/Resep.txt";
 char dirMakanan[] = "./src/Konfigurasi/Makanan.txt";
@@ -100,7 +102,7 @@ void parsePeta(Peta *peta){
     }
 }
 
-void parseResep() {
+void parseResep(List* listTreeResep) {
     STARTWORDFILE("./src/Konfigurasi/Resep.txt");
     int banyakRoot = strToInt(currentWord);
     printf("%d\n", banyakRoot);
@@ -130,7 +132,7 @@ void parseResep() {
         }
         ListType treeAddr;
         treeAddr.address = treeResep;
-        insertFirstLin(&listTreeResep, treeAddr);
+        insertFirstLin(listTreeResep, treeAddr);
     }
 }
 
@@ -150,10 +152,10 @@ void loadConfigPeta(Peta *peta){
     copyTempFile(dirPeta);
 }
 
-void loadConfigResep(){
+void loadConfigResep(List *listTreeResep){
     copyFile(dirResep);
     addMark(dirResep);
-    CreateListLin(&listTreeResep, 2);
-    parseResep();
+    CreateListLin(listTreeResep, 2);
+    parseResep(listTreeResep);
     copyTempFile(dirResep);
 }
