@@ -15,10 +15,10 @@ int main(){
     //     PrintTree(tree.address);
     //     printf("-----");
     // }
-    Matrix peta;
+    Peta peta;
     loadConfigPeta(&peta);
     printf("Ini petanya: \n");
-    displayMatrix(peta);
+    DisplayPeta(peta);
     // int i = 0;
     // for (int i = 0; i < 3; i++) {
     //     printf("%d ", tempPeta[i]);

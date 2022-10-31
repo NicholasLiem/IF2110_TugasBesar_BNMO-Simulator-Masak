@@ -40,7 +40,7 @@ void CreatePeta(int length, int width, Peta *P);
 /* F.S. Peta P sesuai dengan definisi terbentuk atau
         mencetak prompt jika length dan width tidak valid */
 
-void LoadPeta(Peta *P, Word map);
+// void LoadPeta(Peta *P, Word map);
 /* Memuat Peta berdasarkan Word map sesuai definisi sistem Peta */
 /* I.S. P terdefinisi, map valid */
 /* F.S. Elemen-elemen P terdefinisi sesuai Word map */

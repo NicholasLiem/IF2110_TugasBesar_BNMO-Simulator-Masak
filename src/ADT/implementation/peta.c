@@ -14,22 +14,22 @@ void CreatePeta(int length, int width, Peta *P){
     }
 }
 
-void LoadPeta(Peta *P, Word map){
-    int current = 0;
-    int i = 0;
-    int j = 0;
+// void LoadPeta(Peta *P, Word map){
+//     int current = 0;
+//     int i = 0;
+//     int j = 0;
 
-    while(current < map.Length){
-        if(map.TabWord[current] == '\n'){
-            j = 0;
-            i++;
-        }else{ // current char != '\n'
-            ELMT_PETA(*P, j, i) = map.TabWord[current];
-        }
-        current++;
-        j++;
-    }
-}
+//     while(current < map.Length){
+//         if(map.TabWord[current] == '\n'){
+//             j = 0;
+//             i++;
+//         }else{ // current char != '\n'
+//             ELMT_PETA(*P, j, i) = map.TabWord[current];
+//         }
+//         current++;
+//         j++;
+//     }
+// }
 
 /* *** Selektor Peta *** */
 boolean isLocationOutOfBound(Peta P, POINT p){

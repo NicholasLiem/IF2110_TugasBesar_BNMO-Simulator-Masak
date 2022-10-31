@@ -9,7 +9,7 @@
 #include "../../ADT/headers/tree.h"
 #include "../../ADT/headers/makanan.h"
 #include "../../ADT/headers/word.h"
-#include "../../ADT/headers/matrix.h"
+#include "../../ADT/headers/peta.h"
 
 extern List listTreeResep;
 
@@ -24,7 +24,7 @@ void parsePeta();
 void parseResep();
 
 void loadConfigMakanan(ListMakanan *listMakanan);
-void loadConfigPeta(Matrix *peta);
+void loadConfigPeta(Peta *peta);
 void loadConfigResep();
 
 #endif

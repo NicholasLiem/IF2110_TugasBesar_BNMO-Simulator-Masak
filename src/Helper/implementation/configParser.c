@@ -80,7 +80,7 @@ void parseMakanan(ListMakanan *listMakanan){
     }
 }
 
-void parsePeta(Matrix *peta){
+void parsePeta(Peta *peta){
     int jumlahBaris, jumlahKolom , i, j;
     
     STARTWORD();
@@ -89,11 +89,11 @@ void parsePeta(Matrix *peta){
     jumlahKolom = strToInt(currentWord);
     ADVWORDFILE();
 
-    createMatrix(jumlahBaris, jumlahKolom, peta);
+    CreatePeta(jumlahKolom, jumlahBaris, peta);
     
     for(i = 0; i < jumlahBaris; i++){
         for (j = 0; j < jumlahKolom; j++){
-            (*peta).mem[i][j] = currentWord.TabWord[j];
+            (*peta).Map[i][j] = currentWord.TabWord[j];
         }
         ADVWORDFILE();
     }
@@ -142,7 +142,7 @@ void loadConfigMakanan(ListMakanan *listMakanan){
     copyTempFile("./src/Konfigurasi/Makanan.txt");
 }
 
-void loadConfigPeta(Matrix *peta){
+void loadConfigPeta(Peta *peta){
     copyFile("./src/Konfigurasi/Peta.txt");
     addMark("./src/Konfigurasi/Peta.txt");
     parsePeta(peta);
