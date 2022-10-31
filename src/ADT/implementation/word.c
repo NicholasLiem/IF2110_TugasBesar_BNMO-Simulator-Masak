@@ -68,6 +68,15 @@ boolean wordIsInt(Word w) {
     return true;
 }
 
+void toUpper(Word* word) {
+    int i = 0;
+    for (i; i < word->Length; i++) {
+        if (word->TabWord[i] >= 'a' && word->TabWord[i] <= 'z') {
+            word->TabWord[i] -= 32;
+        }
+    }
+}
+
 TIME wordToTime(Word w){
     TIME result;
     int tempWaktu[3];

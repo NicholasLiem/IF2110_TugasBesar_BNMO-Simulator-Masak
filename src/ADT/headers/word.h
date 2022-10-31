@@ -28,6 +28,8 @@ boolean wordIsInt(Word w);
 
 boolean isEqualWord(Word word1, Word word2);
 
+void toUpper(Word* word);
+
 TIME wordToTime(Word w);
 
 // ListStatik WordToMapSize(Word w);
