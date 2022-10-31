@@ -26,4 +26,10 @@ void ADV();
           currentChar mungkin = MARK
           Jika  currentChar = MARK maka EOP akan menyala (true) */
 
+void STARTc();
+
+void ADVc();
+
+void CLOSEc();
+
 #endif
