@@ -23,6 +23,11 @@ void START()
        ADV();
 }
 
+void STARTFILE(char* filename) {
+     pita = fopen(filename, "r");
+     ADV();
+};
+
 void ADV()
 {
        /* Pita dimajukan satu karakter.

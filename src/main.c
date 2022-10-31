@@ -51,13 +51,13 @@ int main(){
     Word command;
     char str[100];
     splashArt();
-    while(true){
-        // BELUM DICLOSE PITA DI CHARMACHINENYA!!!
-        inputUser(&command);
-        // scanf("%s", str);
-        // strToWord(&command, str);
-        initMenu(&command);
-        // delWord(&command);
+    while (true) {
+        STARTCOMMAND();
+        while(!endWord) {
+            inputUser(&currentWord);
+            initMenu(&currentWord);
+        }
+        RESETCOMMAND();
     }
     return 0;
 }

@@ -1,9 +1,14 @@
 #include "../headers/configParser.h"
+
 Word contohPeta;
 
 FILE *file, *temp;
 
 List listTreeResep;
+
+char dirResep[] = "./src/Konfigurasi/Resep.txt";
+char dirMakanan[] = "./src/Konfigurasi/Makanan.txt";
+char dirPeta[] = "./src/Konfigurasi/Peta.txt";
 
 /* Bagian mekanisme ngeread file*/
 void addMark(const char *filename){
@@ -12,10 +17,6 @@ void addMark(const char *filename){
     file = fopen(filename, "a");
     fputs("\n.", file);
     file = freopen(filename, "r", file);
-    file = freopen(filename, "r", stdin);
-    if (file == NULL){
-        printf("Gagal loading file");
-    }
 }
 
 void copyFile(const char *filename){
@@ -57,7 +58,7 @@ void parseMakanan(ListMakanan *listMakanan){
     TIME EXP;
     TIME LAMAPENGIRIMAN;
 
-    STARTWORD();
+    STARTWORDFILE(dirMakanan);
     int jumlahMakanan = strToInt(currentWord);
     int i;
     ADVWORDFILE();
@@ -83,7 +84,7 @@ void parseMakanan(ListMakanan *listMakanan){
 void parsePeta(Peta *peta){
     int jumlahBaris, jumlahKolom , i, j;
     
-    STARTWORD();
+    STARTWORDFILE(dirPeta);
     jumlahBaris = strToInt(currentWord);
     ADVWORDFILE();
     jumlahKolom = strToInt(currentWord);
@@ -100,7 +101,7 @@ void parsePeta(Peta *peta){
 }
 
 void parseResep() {
-    STARTWORD();
+    STARTWORDFILE("./src/Konfigurasi/Resep.txt");
     int banyakRoot = strToInt(currentWord);
     printf("%d\n", banyakRoot);
     ADVWORD();
@@ -136,23 +137,23 @@ void parseResep() {
 
 /* Bagian loading file + parsing*/
 void loadConfigMakanan(ListMakanan *listMakanan){
-    copyFile("./src/Konfigurasi/Makanan.txt");
-    addMark("./src/Konfigurasi/Makanan.txt");
+    copyFile(dirMakanan);
+    addMark(dirMakanan);
     parseMakanan(listMakanan);
-    copyTempFile("./src/Konfigurasi/Makanan.txt");
+    copyTempFile(dirMakanan);
 }
 
 void loadConfigPeta(Peta *peta){
-    copyFile("./src/Konfigurasi/Peta.txt");
-    addMark("./src/Konfigurasi/Peta.txt");
+    copyFile(dirPeta);
+    addMark(dirPeta);
     parsePeta(peta);
-    copyTempFile("./src/Konfigurasi/Peta.txt");
+    copyTempFile(dirPeta);
 }
 
 void loadConfigResep(){
-    copyFile("./src/Konfigurasi/Resep.txt");
-    addMark("./src/Konfigurasi/Resep.txt");
+    copyFile(dirResep);
+    addMark(dirResep);
     CreateListLin(&listTreeResep, 2);
     parseResep();
-    copyTempFile("./src/Konfigurasi/Resep.txt");
+    copyTempFile(dirResep);
 }

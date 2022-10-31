@@ -15,6 +15,17 @@ void IgnoreBlanks()
     }
 }
 
+void IgnoreBlanksc()
+{
+    /* Mengabaikan satu atau beberapa BLANK
+       I.S. : currentChar sembarang
+       F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+    while (currentChar == BLANK)
+    {
+        ADV();
+    }
+}
+
 void STARTWORD()
 {
     /* I.S. : currentChar sembarang
@@ -34,11 +45,10 @@ void STARTWORD()
     }
 }
 
-void STARTCOMMAND()
-{
-    STARTc();
+void STARTWORDFILE(char* filename) {
+    STARTFILE(filename);
     IgnoreBlanks();
-    if(currentChar == '\n')
+    if (currentChar == MARK)
     {
         endWord = true;
     }
@@ -47,19 +57,39 @@ void STARTCOMMAND()
         endWord = false;
         CopyWord();
     }
-}
+};
 
-void ADVCOMMAND(){
-    IgnoreBlanks();
-    if(currentChar == '\n')
+void STARTCOMMAND()
+{
+    STARTc();
+    IgnoreBlanksc();
+    if(currentChar == MARK_COMMAND)
     {
         endWord = true;
     }
     else
     {
-        CopyWord();
-        IgnoreBlanks();
+        endWord = false;
+        CopyWordCommand();
     }
+}
+
+void ADVCOMMAND(){
+    IgnoreBlanksc();
+    if(currentChar == MARK_COMMAND)
+    {
+        endWord = true;
+    }
+    else
+    {
+        CopyWordCommand();
+        IgnoreBlanksc();
+    }
+}
+
+void RESETCOMMAND() {
+    currentChar = ' ';
+    endWord = false;
 }
 
 void ADVWORD() {
@@ -79,7 +109,7 @@ void ADVWORD() {
 
 void CopyWord() {
     int counter = 0;
-    while (currentChar != MARK && currentChar != BLANK && currentChar != '\n') {
+    while (currentChar != MARK && currentChar != BLANK && currentChar != MARK_COMMAND) {
         currentWord.TabWord[counter] = currentChar;
         ADV();
         counter++;
@@ -90,6 +120,18 @@ void CopyWord() {
     currentWord.Length = counter;
 };
 
+void CopyWordCommand() {
+    int counter = 0;
+    while (currentChar != BLANK && currentChar != MARK_COMMAND) {
+        currentWord.TabWord[counter] = currentChar;
+        ADVc();
+        counter++;
+    }
+    if (counter > NMax) {
+        counter = NMax;
+    }
+    currentWord.Length = counter;
+};
 
 void ADVWORDFILE()
 {

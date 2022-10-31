@@ -2,10 +2,14 @@
 #include "stdio.h"
 
 int main() {
-    STARTWORD();
-    while (endWord != true) {
-        printWord(currentWord);
-        printf(" ");
-        ADVWORD();
+    while (true) {
+        STARTCOMMAND();
+        while(!endWord) {
+            printWord(currentWord);
+            printf(" ");
+            ADVCOMMAND();
+        }
+        printf("\n");
+        RESETCOMMAND();
     }
 }

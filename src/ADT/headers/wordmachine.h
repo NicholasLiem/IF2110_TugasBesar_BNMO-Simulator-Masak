@@ -23,6 +23,8 @@ void STARTWORD();
           atau EndWord = false, CWord adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 
+void STARTWORDFILE(char* filename);
+
 void STARTCOMMAND();
 
 void ADVCOMMAND();
@@ -45,5 +47,9 @@ void CopyWord();
 void ADVWORDFILE();
 
 void CopyWordFile();
+
+void CopyWordCommand();
+
+void RESETCOMMAND();
 
 #endif
