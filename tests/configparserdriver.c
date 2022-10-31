@@ -8,17 +8,27 @@ int main(){
     // loadConfiguration(dirPathMakanan,0);
     // loadConfiguration(dirPathPeta, 1);
     // loadConfiguration(dirPathResep, 2);
+    
+    ListMakanan listMakanan;
+    CreateListMakanan(&listMakanan);
+    loadConfigMakanan(&listMakanan);
+    displayListMakanan(listMakanan);
 
-    // for (int i = 0; i < lengthLin(listTreeResep); i++) {
-    //     ListType tree = getElmtLin(listTreeResep, i);
-    //     printf("Ini resep ke %i\n", i);
-    //     PrintTree(tree.address);
-    //     printf("-----");
-    // }
+    printf("=======================\n");
     Peta peta;
     loadConfigPeta(&peta);
     printf("Ini petanya: \n");
     DisplayPeta(peta);
+    printf("\n=======================\n");
+
+    loadConfigResep();
+    for (int i = 0; i < lengthLin(listTreeResep); i++) {
+        ListType tree = getElmtLin(listTreeResep, i);
+        printf("Ini resep ke %i\n", i);
+        PrintTree(tree.address);
+        printf("-----");
+    }
+
     // int i = 0;
     // for (int i = 0; i < 3; i++) {
     //     printf("%d ", tempPeta[i]);
