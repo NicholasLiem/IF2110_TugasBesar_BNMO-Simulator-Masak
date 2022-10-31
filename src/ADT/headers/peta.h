@@ -30,7 +30,7 @@ typedef struct {
 /* *** Notasi Akses: Selektor Peta *** */
 #define LEN_EFF(P) (P).lengthEff
 #define WIDTH_EFF(P) (P).widthEff
-#define ELMT(P, x, y) (P).Map[y][x]
+#define ELMT_PETA(P, x, y) (P).Map[y][x]
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk Peta *** */

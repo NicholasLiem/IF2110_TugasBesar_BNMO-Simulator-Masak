@@ -9,7 +9,7 @@ void CreatePeta(int length, int width, Peta *P){
     int x, y;
     for(y = 0; y<=width; y++){
         for(x = 0; x<=length; x++){
-            ELMT(*P, x, y) = SPACE;
+            ELMT_PETA(*P, x, y) = SPACE;
         }
     }
 }
@@ -24,7 +24,7 @@ void LoadPeta(Peta *P, Word map){
             j = 0;
             i++;
         }else{ // current char != '\n'
-            ELMT(*P, j, i) = map.TabWord[current];
+            ELMT_PETA(*P, j, i) = map.TabWord[current];
         }
         current++;
         j++;
@@ -37,7 +37,7 @@ boolean isLocationOutOfBound(Peta P, POINT p){
 }
 
 boolean isLocationColliding(Peta P, POINT p){
-    return ELMT(P, (int)Absis(p), (int)Ordinat(p)) != SPACE;
+    return ELMT_PETA(P, (int)Absis(p), (int)Ordinat(p)) != SPACE;
 }
 
 boolean isLocationEff(Peta P, POINT p){
@@ -51,7 +51,7 @@ POINT locationOf(Peta *P, Legend t){
 
     for(y = 0; y<WIDTH_EFF(*P); y++){
         for(x = 0; x<LEN_EFF(*P); x++){
-            if(ELMT(*P, x, y) == t){
+            if(ELMT_PETA(*P, x, y) == t){
                 CreatePoint(&p, x, y);
                 return p;
             }
@@ -90,8 +90,8 @@ void MoveLegend(POINT LegPoint, Peta *P, char direction){
         nx = (int) Absis(LegPoint);
         ny = (int) Ordinat(LegPoint);
 
-        ELMT(*P, nx, ny) = ELMT(*P, x, y);
-        ELMT(*P, x, y) = SPACE;
+        ELMT_PETA(*P, nx, ny) = ELMT_PETA(*P, x, y);
+        ELMT_PETA(*P, x, y) = SPACE;
     }
 }
 
@@ -111,8 +111,8 @@ void DisplayPeta(Peta P){
     for(y = 0; y < WIDTH_EFF(P); y++){
         printf("*");
         for(x = 0; x < LEN_EFF(P); x++){
-            if(ELMT(P, x, y) == SPACE) printf(" ");
-            else printf("%c", ELMT(P, x, y));
+            if(ELMT_PETA(P, x, y) == SPACE) printf(" ");
+            else printf("%c", ELMT_PETA(P, x, y));
         }
         printf("*\n");
     }
