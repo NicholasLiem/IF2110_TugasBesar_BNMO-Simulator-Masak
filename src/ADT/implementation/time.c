@@ -58,7 +58,21 @@ void TulisTIME (TIME T)
    tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
 
 {
-    printf("%d:%d:%d", Day(T), Hour(T), Minute(T));
+    if (Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0){
+        printf("0 ");
+    } else {
+        if(Day(T) !=  0){
+            printf("%d hari ", Day(T));
+        }
+
+        if(Hour(T) != 0){
+            printf("%d jam ", Hour(T));
+        }
+
+        if(Minute(T) != 0){
+            printf("%d menit ", Minute(T));
+        }
+    }
 }
 
 /* ***************************************************************** */

@@ -52,6 +52,23 @@ void displayListMakanan(ListMakanan l){
 	}
 }
 
+void commandCatalog(ListMakanan l){
+	int i = IDX_MIN;
+	for(i; i < CAPACITY; i++){
+		if(ELMT(l, i).id != IDX_UNDEF_LIST_STATIK){
+			printf("%d. ", i+1);
+			printWord(ELMT(l, i).nama);
+			printf(" - ");
+			TulisTIME(ELMT(l, i).exp);
+			printf("- ");
+			printWord(ELMT(l, i).aksi);
+			printf(" - ");
+			TulisTIME(ELMT(l, i).lamaPengiriman);
+			printf("\n");
+		}
+	}
+}
+
 int lengthListMakanan(ListMakanan l){
 	int i;
 	int count = 0;

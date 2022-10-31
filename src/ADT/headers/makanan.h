@@ -43,4 +43,6 @@ void insertMakanan(ListMakanan *l, Makanan makanan);
 void displayListMakanan(ListMakanan l);
 
 int lengthListMakanan(ListMakanan l);
+
+void commandCatalog(ListMakanan l);
 #endif
