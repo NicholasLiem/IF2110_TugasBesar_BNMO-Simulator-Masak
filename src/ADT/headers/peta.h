@@ -67,6 +67,7 @@ void MoveLegend(POINT LegPoint, Peta *P, char direction);
 /* F.S. L dalam sistem Peta bergeser sejauh satu ke direction atau
         mencetak prompt jika direction menyebabkan Legend melebihi batas atau menabrak dinding */
 
+
 void MoveSimulator(Peta *P, char direction);
 /* Menggeser Simulator sesuai arah mata angin sejauh satu satuan dalam sistem Peta */
 /* I.S. Legend Simulator terdefinisi dalam P */
@@ -79,4 +80,5 @@ void DisplayPeta(Peta P);
 /* F.S. Nilai P.Map[i][j] ditampilkan ke layar per baris per kolom
         Peta dikelilingi oleh simbol '*' sebagai pembatas*/
 
+void placeLegend (Peta *P);
 #endif

@@ -105,7 +105,6 @@ void parsePeta(Peta *peta){
 void parseResep(List* listTreeResep) {
     STARTWORDFILE("./src/Konfigurasi/Resep.txt");
     int banyakRoot = strToInt(currentWord);
-    printf("%d\n", banyakRoot);
     ADVWORD();
     for (int i = 0; i < banyakRoot; i++) {
         int nodeNum = strToInt(currentWord);

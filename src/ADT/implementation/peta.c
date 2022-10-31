@@ -14,6 +14,10 @@ void CreatePeta(int length, int width, Peta *P){
     }
 }
 
+void placeLegend (Peta *P) {
+    ELMT_PETA(*P,0,0) = SIMULATOR;
+}
+
 // void LoadPeta(Peta *P, Word map){
 //     int current = 0;
 //     int i = 0;

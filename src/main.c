@@ -20,49 +20,87 @@ const Word COMMAND_UNDO = {"UNDO", 4};
 const Word COMMAND_REDO = {"REDO", 4};
 const Word COMMAND_CATALOG = {"CATALOG", 7};
 const Word COMMAND_COOKBOOK = {"COOKBOOK", 8};
+const Word COMMAND_MOVE = {"MOVE", 4};
+const Word COMMAND_EAST = {"EAST", 4};
+const Word COMMAND_NORTH = {"NORTH", 5};
+const Word COMMAND_SOUTH = {"SOUTH", 5};
+const Word COMMAND_WEST = {"WEST, 4"};
 
+Word playerName;
+POINT currentLoc;
+TIME currentTime;
+boolean isStarted = false;
 
 void splashArt();
 
 void printMenu(){
-    printf("Pilihan Command: \n");
+    printf("Silahkan Pilih Command Berikut: \n");
     printf("START\n");
     printf("EXIT\n");
-    printf("HELP\n");
+    // printf("HELP\n");
 }
 
 void notInput(){
-    printf("Command tidak ditemukan\n");
+    printf("Command tidak dikenali! Silahkan START terlebih dahulu atau masukan input yang benar.\n");
 }
 
-// void initMenu(Word *input){
-//     toUpper(input);
-//     if(isEqualWord(*input, COMMAND_START)){
-//         printf("Game started\n");
-//     } else if (isEqualWord(*input, COMMAND_EXIT)){
-//         printf("Game exited\n");
-//         exit(0);
-//     } else notInput();
-// }   
+void promptName(Word *word) {
+    printf("Hello? Siapa disitu? (tanpa spasi):");
+    STARTCOMMAND();
+    copyWord(word, currentWord);
+    RESETCOMMAND();
+    printf("Hi "); printWord(*word);
+    printf(" !\n");
+}
 
+void menuHasNotLogin() {
+    if (isEqualWord(currentWord, COMMAND_START)){
+        printf("Game started\n");
+        printf("Loading...\n");
+        loadConfig();
+        printf("Load success!\n");
+        isStarted = true;
+    } else if (isEqualWord(currentWord, COMMAND_EXIT)){
+        printf("Game exited\n");
+        exit(0);
+    } else notInput();
+    return;
+}
+
+void menuHasLogin() {
+    if (isEqualWord(currentWord, COMMAND_EXIT)){
+        printf("Game exited\n");
+        exit(0);
+    }
+    // } else if (isEqualWord(currentWord, )){
+
+    // } else notInput();
+}
+
+void displayInfo() {
+    if (isStarted) {
+        printf("Player name: ");
+        printWord(playerName);
+        printf("\nMap:\n");
+        DisplayPeta(peta);
+        printf("\n");
+    }
+}
 int main(){
-    Word command;
-    char str[100];
     splashArt();
+    promptName(&playerName);
     printMenu();
     while (true) {
+        displayInfo();
+        printf("Command Prompt: ");
         STARTCOMMAND();
         while(!endWord) {
             toUpper(&currentWord);
-            if (isEqualWord(currentWord, COMMAND_START)){
-                printf("Game started\n");
-                printf("Loading...");
-                loadConfig();
-            } else if (isEqualWord(currentWord, COMMAND_EXIT)){
-                printf("Game exited\n");
-                exit(0);
-            } else notInput();
-            ADVCOMMAND();
+            if (!isStarted) {
+                menuHasNotLogin();
+            } else {
+                menuHasLogin();
+            }
         }
         RESETCOMMAND();
     }
