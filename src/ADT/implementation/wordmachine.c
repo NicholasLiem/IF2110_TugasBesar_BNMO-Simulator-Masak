@@ -34,6 +34,34 @@ void STARTWORD()
     }
 }
 
+void STARTCOMMAND()
+{
+    STARTc();
+    IgnoreBlanks();
+    if(currentChar == '\n')
+    {
+        endWord = true;
+    }
+    else
+    {
+        endWord = false;
+        CopyWord();
+    }
+}
+
+void ADVCOMMAND(){
+    IgnoreBlanks();
+    if(currentChar == '\n')
+    {
+        endWord = true;
+    }
+    else
+    {
+        CopyWord();
+        IgnoreBlanks();
+    }
+}
+
 void ADVWORD() {
     IgnoreBlanks();
     if (currentChar == MARK) {

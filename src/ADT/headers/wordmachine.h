@@ -23,6 +23,10 @@ void STARTWORD();
           atau EndWord = false, CWord adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 
+void STARTCOMMAND();
+
+void ADVCOMMAND();
+
 void ADVWORD();
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi
    F.S. : CWord adalah kata terakhir yang sudah diakuisisi,

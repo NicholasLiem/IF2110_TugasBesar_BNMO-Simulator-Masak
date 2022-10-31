@@ -40,3 +40,23 @@ void ADV()
               fclose(pita);
        }
 }
+
+void STARTc()
+{
+       pita = stdin;
+       ADVc();
+}
+
+void ADVc()
+{
+       retval = fscanf(pita, "%c", &currentChar);
+       EOP = (currentChar == '\n');
+       if (EOP)
+       {
+              // fclose(pita);
+       }
+}
+
+void CLOSEc(){
+       fclose(pita);
+}
