@@ -14,14 +14,51 @@ void increaseTime(Makanan* makanan, int durasiDetik) {
 }
 
 void printMakanan(Makanan makanan) {
-	printf("\nID: %d\n", makanan.id);
+	printf("\nID: %d\n", ID(makanan));
 	printf("Nama: ");
-	printWord(makanan.nama);
+	printWord(NAMA(makanan));
     printf("\n");
 	printf("Aksi: ");
-	printWord(makanan.aksi);
+	printWord(AKSI(makanan));
     printf("\n");
     printf("Expired: ");
-    TulisTIME(makanan.exp);
+    TulisTIME(EXP(makanan));
     printf("\n");
+}
+
+void CreateListMakanan(ListMakanan *l){
+	int i = IDX_MIN;
+	for(i; i < CAPACITY; i++){
+		ELMT(*l, i).id = IDX_UNDEF_LIST_STATIK;
+	}
+}
+
+void insertMakanan(ListMakanan *l, Makanan makanan){
+	int i = IDX_MIN;
+	for(i; i < CAPACITY; i++){
+		if(ELMT(*l, i).id == IDX_UNDEF_LIST_STATIK){
+			ELMT(*l, i) = makanan;
+			break;
+		}
+	}
+}
+
+void displayListMakanan(ListMakanan l){
+	int i = IDX_MIN;
+	for(i; i < CAPACITY; i++){
+		if(ELMT(l, i).id != IDX_UNDEF_LIST_STATIK){
+			printMakanan(ELMT(l, i));
+		}
+	}
+}
+
+int lengthListMakanan(ListMakanan l){
+	int i;
+	int count = 0;
+	for(i = IDX_MIN; i < CAPACITY; i++){
+		if(ELMT(l, i).id != IDX_UNDEF_LIST_STATIK){
+			count++;
+		}
+	}
+	return count;
 }

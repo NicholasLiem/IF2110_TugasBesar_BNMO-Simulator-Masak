@@ -27,8 +27,8 @@ void copyWord(Word* nama, Word w){
     for (j; j < w.Length; j++){
         nama->TabWord[j] = w.TabWord[j];
     }
-    printWord(*nama);
-    printf("\n");
+    // printWord(*nama);
+    // printf("\n");
 }
 
 void setWord(Word* word, char* input) {
@@ -67,3 +67,43 @@ boolean wordIsInt(Word w) {
     }   
     return true;
 }
+
+TIME wordToTime(Word w){
+    TIME result;
+    int tempWaktu[3];
+    int i = 0, j = 0;
+    Word temp;
+    setWord(&temp, "");
+    for(i; i < w.Length; i++){
+        if (w.TabWord[i] != BLANK){
+            addChar(&temp, w.TabWord[i]);
+        } 
+        if (w.TabWord[i] == BLANK || i == (w.Length-1)) {
+            tempWaktu[j] = strToInt(temp);
+            setWord(&temp, "");
+            j++;
+        }
+    }
+    CreateTime(&result, tempWaktu[0], tempWaktu[1], tempWaktu[2]);
+    return result;
+}
+
+// ListStatik WordToMapSize(Word w){
+//     ListStatik ukuranPeta;
+//     CreateListStatik(&ukuranPeta);
+
+//     int i = 0, j = 0;
+//     Word temp;
+//     setWord(&temp, "");
+//     for(i; i < w.Length; i++){
+//         if (w.TabWord[i] != BLANK){
+//             addChar(&temp, (char) w.TabWord[i]);
+//         }
+//         if (w.TabWord[i] == BLANK || i == (w.Length-1)){
+//             ukuranPeta.contents[j] = strToInt(temp);
+//             setWord(&temp, "");
+//             j++;
+//         }
+//     }
+//     return ukuranPeta;
+// }

@@ -1,21 +1,11 @@
-#include <stdio.h>
-#include "../../ADT/headers/wordmachine.h"
-#include "../../ADT/headers/listlinier.h"
-#include "../../ADT/headers/tree.h"
 #include "../headers/configParser.h"
-//Abaikan dulu ini variabel penampung, nanti semuanya dimasukkin ke ADTnya masing-masing.
-Word namaMakanan;
-Word aksi;
-int temp2[1];
-int tempWaktu[5];
-
-int tempPeta[5];
 Word contohPeta;
 
 FILE *file, *temp;
 
 List listTreeResep;
 
+/* Bagian mekanisme ngeread file*/
 void addMark(const char *filename){
     fclose(file);
     fclose(temp);
@@ -55,84 +45,56 @@ void copyTempFile(const char *filename){
     remove("./src/Konfigurasi/__temp__");
 }
 
-void parseStrToTime(Word w){
-    int i = 0, j = 0;
-    Word temp;
-    setWord(&temp, "");
-    for(i; i < w.Length; i++){
-        if (w.TabWord[i] != BLANK){
-            addChar(&temp, w.TabWord[i]);
-        } 
-        if (w.TabWord[i] == BLANK || i == (w.Length-1)) {
-            tempWaktu[j] = strToInt(temp);
-            setWord(&temp, "");
-            j++;
-        }
-    }
-    printWord(w);
-    printf("\n");
-}
+/* ======================================= */
 
-void parseStrToMapSize(Word w){
-    int i = 0, j = 0;
-    Word temp;
-    setWord(&temp, "");
-    for(i; i < w.Length; i++){
-        if (w.TabWord[i] != BLANK){
-            addChar(&temp, (char) w.TabWord[i]);
-        }
-        if (w.TabWord[i] == BLANK || i == (w.Length-1)){
-            tempPeta[j] = strToInt(temp);
-            setWord(&temp, "");
-            j++;
-        }
-    }
-    printWord(w);
-    printf("\n");
-}
 
-void parseMakanan(){
+/* Bagian mekanisme parsing */
+void parseMakanan(ListMakanan *listMakanan){
+    Makanan makananTemp;
+    int ID_MAKANAN;
+    Word NAMA_MAKANAN;
+    Word AKSI;
+    TIME EXP;
+    TIME LAMAPENGIRIMAN;
+
     STARTWORD();
+    int jumlahMakanan = strToInt(currentWord);
+    int i;
     ADVWORDFILE();
-    int line = 1;
-    while(!endWord){
-        switch(line){
-            case 1:
-                temp2[0] = strToInt(currentWord);
-                printf("%d\n", temp2[0]);
-                ADVWORDFILE();
-                line++;
-                break;
-            case 2:
-                copyWord(&namaMakanan, currentWord);
-                ADVWORDFILE();
-                line++;
-                break;
-            case 3:
-                parseStrToTime(currentWord);
-                ADVWORDFILE();
-                line++;              
-                break;
-            case 4:
-                parseStrToTime(currentWord);
-                ADVWORDFILE();
-                line++;
-                break;
-            default:
-                copyWord(&aksi, currentWord);
-                ADVWORDFILE();
-                line = 1;
-                break;
-        }
+    for(i = 0; i < jumlahMakanan; i++){
+        ID_MAKANAN = strToInt(currentWord);
+        ADVWORDFILE();
+        
+        copyWord(&NAMA_MAKANAN, currentWord);
+        ADVWORDFILE();
+        
+        EXP = wordToTime(currentWord);
+        ADVWORDFILE();
+        LAMAPENGIRIMAN = wordToTime(currentWord);
+        ADVWORDFILE();
+        
+        copyWord(&AKSI, currentWord);
+        ADVWORDFILE();
+        createMakanan(&makananTemp, ID_MAKANAN, AKSI, NAMA_MAKANAN, EXP, LAMAPENGIRIMAN);
+        insertMakanan(listMakanan, makananTemp);
     }
 }
 
-void parsePeta(){
+void parsePeta(Matrix *peta){
+    int jumlahBaris, jumlahKolom , i, j;
+    
     STARTWORD();
-    parseStrToMapSize(currentWord);
+    jumlahBaris = strToInt(currentWord);
     ADVWORDFILE();
-    while(!endWord){
-        copyWord(&contohPeta, currentWord);
+    jumlahKolom = strToInt(currentWord);
+    ADVWORDFILE();
+
+    createMatrix(jumlahBaris, jumlahKolom, peta);
+    
+    for(i = 0; i < jumlahBaris; i++){
+        for (j = 0; j < jumlahKolom; j++){
+            (*peta).mem[i][j] = currentWord.TabWord[j];
+        }
         ADVWORDFILE();
     }
 }
@@ -170,20 +132,27 @@ void parseResep() {
         insertFirstLin(&listTreeResep, treeAddr);
     }
 }
-void loadConfiguration(const char *filedir, int configNum){
-    // 0 : Makanan.txt
-    // 1 : Peta.txt
-    // 2 : Resep.txt
 
-    copyFile(filedir);
-    addMark(filedir);
-    if (configNum == 0){
-        parseMakanan();
-    } else if (configNum == 1){
-        parsePeta();
-    } else {
-        CreateListLin(&listTreeResep, 2);
-        parseResep();
-    }
-    copyTempFile(filedir);
+
+/* Bagian loading file + parsing*/
+void loadConfigMakanan(ListMakanan *listMakanan){
+    copyFile("./src/Konfigurasi/Makanan.txt");
+    addMark("./src/Konfigurasi/Makanan.txt");
+    parseMakanan(listMakanan);
+    copyTempFile("./src/Konfigurasi/Makanan.txt");
+}
+
+void loadConfigPeta(Matrix *peta){
+    copyFile("./src/Konfigurasi/Peta.txt");
+    addMark("./src/Konfigurasi/Peta.txt");
+    parsePeta(peta);
+    copyTempFile("./src/Konfigurasi/Peta.txt");
+}
+
+void loadConfigResep(){
+    copyFile("./src/Konfigurasi/Resep.txt");
+    addMark("./src/Konfigurasi/Resep.txt");
+    CreateListLin(&listTreeResep, 2);
+    parseResep();
+    copyTempFile("./src/Konfigurasi/Resep.txt");
 }

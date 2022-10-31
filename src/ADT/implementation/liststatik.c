@@ -6,11 +6,11 @@
 void CreateListStatik(ListStatik *l)
 /* I.S. l sembarang */
 /* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
-/* Proses: Inisialisasi semua elemen List l dengan MARK */
+/* Proses: Inisialisasi semua elemen List l dengan MARK_LIST_STATIK */
 {
     int i = IDX_MIN;
     for(i; i < CAPACITY; i++){
-        ELMT(*l, i) = MARK;
+        ELMT(*l, i) = MARK_LIST_STATIK;
     }
 }
 
@@ -23,7 +23,7 @@ int listLength(ListStatik l)
     int length = 0;
     int i = IDX_MIN;
     for(i; i < CAPACITY; i++){
-        if (ELMT(l, i) != MARK){
+        if (ELMT(l, i) != MARK_LIST_STATIK){
             length++;
         }
     }
@@ -180,14 +180,14 @@ int indexOf(ListStatik l, ElType val)
 {
     int i = IDX_MIN;
     if(isEmpty(l)){
-        return IDX_UNDEF;
+        return IDX_UNDEF_LIST_STATIK;
     } else {
         for(i; i < listLength(l); i++){
             if(ELMT(l, i) == val){
                 return i;
             }
         }
-        return IDX_UNDEF;
+        return IDX_UNDEF_LIST_STATIK;
     }
 }
 
@@ -293,7 +293,7 @@ void deleteLast(ListStatik *l, ElType *val)
 /*      List l mungkin menjadi kosong */
 {
     *val = ELMT(*l, listLength(*l)-1);
-    ELMT(*l, listLength(*l)-1) = MARK;
+    ELMT(*l, listLength(*l)-1) = MARK_LIST_STATIK;
 }
 
 /* ********** SORTING ********** */

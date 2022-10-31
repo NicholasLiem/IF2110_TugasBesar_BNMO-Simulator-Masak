@@ -94,10 +94,10 @@ void displayMatrix(Matrix m)
     {
         for (j = 0; j <= getLastIdxCol(m)-1; j++)
         {
-            printf("%d ", ELMT_MAT(m, i, j));
+            printf("%c ", ELMT_MAT(m, i, j));
             if (j == getLastIdxCol(m)-1)
             {
-                printf("%d", ELMT_MAT(m, i, j+1));
+                printf("%c", ELMT_MAT(m, i, j+1));
             }
         }
         printf("\n");

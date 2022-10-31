@@ -13,9 +13,9 @@
 /* Kapasitas penyimpanan */
 #define IDX_MIN 0
 /* Indeks minimum list */
-#define IDX_UNDEF -1
+#define IDX_UNDEF_LIST_STATIK -1
 /* Indeks tak terdefinisi*/
-#define MARK -9999
+#define MARK_LIST_STATIK -9999
 /* Nilai elemen tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
@@ -170,5 +170,6 @@ void sortList(ListStatik *l, boolean asc);
 /*      Jika asc = false, l terurut mengecil */
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
+
 
 #endif

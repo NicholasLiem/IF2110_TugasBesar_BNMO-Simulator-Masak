@@ -6,6 +6,9 @@
 
 #include "stdio.h"
 #include "boolean.h"
+#include "time.h"
+#include "liststatik.h"
+
 typedef struct {
    char TabWord[NMax]; /* container penyimpan kata, indeks yang dipakai [0..CAPACITY-1] */
    int Length;
@@ -24,5 +27,9 @@ int strToInt(Word w);
 boolean wordIsInt(Word w);
 
 boolean isEqualWord(Word word1, Word word2);
+
+TIME wordToTime(Word w);
+
+// ListStatik WordToMapSize(Word w);
 
 #endif
