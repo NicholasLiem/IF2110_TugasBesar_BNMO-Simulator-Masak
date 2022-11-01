@@ -39,8 +39,17 @@ boolean IsSubsTree(treeAddress T1, treeAddress T2) {
 /* yaitu semua simpul T2 adalah simpul T1 */
 
 /* *** Traversal *** */
-void PrintTree(treeAddress T) {
+void PrintTree(treeAddress T, ListMakanan l) {
     printf("Node: %d\n", FOODID(T));  
+    
+    Makanan curr = searchMakanan(l, FOODID(T));
+    if (curr.id != IDX_UNDEF) {
+        printWord(curr.nama);
+        printf("----");
+        printWord(curr.aksi);
+        printf("----");
+    }
+
     int index = 0;
     List children = CHILDREN(T);
     if (isEmptyLin(children)) {
@@ -51,6 +60,12 @@ void PrintTree(treeAddress T) {
             ListType addr = getElmtLin(children, index);
             treeAddress child = (treeAddress) addr.address;
             printf("%d ", FOODID(child));
+            Makanan curr = searchMakanan(l, FOODID(child));
+            if (curr.id != IDX_UNDEF) {
+                printf("---");
+                printWord(curr.nama);
+                printf("---");
+            }
             index+=1;
         }
         printf("\n");
@@ -59,10 +74,10 @@ void PrintTree(treeAddress T) {
         while (index < lengthLin((CHILDREN(T)))) {
             ListType addr = getElmtLin(children, index);
             treeAddress child = (treeAddress) addr.address;
-            PrintTree(child);
+            PrintTree(child, l);
             index += 1;
         }
-    }
+    }  
 };
 /* I.S. T terdefinisi, h adalah jarak indentasi */
 /* F.S. Semua simpul T dicetak  */
@@ -122,3 +137,12 @@ void addChild(treeAddress *p, ElType parent, ElType child) {
 };
 /* I.S. P tidak kosong, X terdefinisi */
 /* F.S. P bertambah simpulnya, dengan X sebagai anak Y */
+
+void printListResep(List T, ListMakanan l) {
+    for (int i = 0; i < lengthLin(T); i++) {
+        ListType tree = getElmtLin(T, i);
+        printf("Ini resep ke %i\n", i);
+        PrintTree(tree.address, l);
+        printf("-----\n");
+    }
+};

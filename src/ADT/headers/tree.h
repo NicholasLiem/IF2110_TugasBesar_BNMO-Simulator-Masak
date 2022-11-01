@@ -5,6 +5,7 @@
 
 #include "boolean.h"
 #include "listlinier.h"
+#include "makanan.h"
 
 #define ElType int
 
@@ -41,7 +42,7 @@ boolean IsSubsTree(treeAddress T1, treeAddress T2);
 /* yaitu semua simpul T2 adalah simpul T1 */
 
 /* *** Traversal *** */
-void PrintTree(treeAddress T);
+void PrintTree(treeAddress T, ListMakanan l);
 /* I.S. T terdefinisi, h adalah jarak indentasi */
 /* F.S. Semua simpul T dicetak  */
 
@@ -64,4 +65,5 @@ void addChild(treeAddress *P, ElType parent, ElType child);
 /* Jika Kiri = true, maka X menjadi anak kiri Y */
 /* Jika Kiri = false, maka X menjadi anak kanan Y */
 
+void printListResep(List p, ListMakanan l);
 #endif

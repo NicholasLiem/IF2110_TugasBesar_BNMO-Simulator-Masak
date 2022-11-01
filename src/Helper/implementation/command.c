@@ -103,6 +103,9 @@ void menuHasLogin() {
             simAdvTime(60*jam + menit);
         }
         return;
+    } else if (isEqualWord(currentWord, COMMAND_COOKBOOK)) {
+        printListResep(listTreeResep, listMakanan);
+        ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_CATALOG)) {
         commandCatalog(listMakanan);
         ADVCOMMAND();
