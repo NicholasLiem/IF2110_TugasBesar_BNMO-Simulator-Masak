@@ -71,10 +71,10 @@ boolean MoveLegend(POINT LegPoint, Peta *P, char direction){
 
     switch(direction){
         case 'N':
-            Geser(&LegPoint, 0, 1);
+            Geser(&LegPoint, 0, -1);
             break;
         case 'S':
-            Geser(&LegPoint, 0, -1);
+            Geser(&LegPoint, 0, 1);
             break;
         case 'W':
             Geser(&LegPoint, -1, 0);
