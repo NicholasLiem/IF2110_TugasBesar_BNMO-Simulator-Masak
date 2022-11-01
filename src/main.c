@@ -9,6 +9,7 @@
 
 //  gcc -std=c17 -I. src/ADT/implementation/*.c src/Helper/implementation/*.c -o bin/main src/main.c
 // ./bin/main.exe
+
 const Word COMMAND_START = {"START", 5};
 const Word COMMAND_EXIT = {"EXIT", 4};
 const Word COMMAND_MIX = {"MIX",3};
@@ -18,6 +19,7 @@ const Word COMMAND_BOIL = {"BOIL", 4};
 const Word COMMAND_WAIT = {"WAIT", 4};
 const Word COMMAND_UNDO = {"UNDO", 4};
 const Word COMMAND_REDO = {"REDO", 4};
+const Word COMMAND_HELP = {"HELP", 4};
 const Word COMMAND_CATALOG = {"CATALOG", 7};
 const Word COMMAND_COOKBOOK = {"COOKBOOK", 8};
 const Word COMMAND_MOVE = {"MOVE", 4};
@@ -27,6 +29,33 @@ const Word COMMAND_SOUTH = {"SOUTH", 5};
 const Word COMMAND_WEST = {"WEST", 4};
 
 void splashArt();
+
+void commandList(){
+    printf("====================================================\n");
+    printf("===============        HELP          ===============\n");
+    printf("====================================================\n");
+    printf("\n");
+    printf("Berikut adalah command yang dapat dimasukkan:\n");
+    printf("MOVE NORTH      - Menggerakan simulator ke petak sebelah atas\n");
+    printf("MOVE EAST       - Menggerakan simulator ke petak sebelah kanan\n");
+    printf("MOVE SOUTH      - Menggerakan simulator ke petak sebelah bawah\n");
+    printf("MOVE WEST       - Menggerakan simulator ke petak sebelah kiri\n");
+    printf("BUY             - Proses pembelian Makanan\n");
+    printf("MIX             - Proses pencampuran Makanan\n");
+    printf("FRY             - Proses penggorengan Makanan\n");
+    printf("CHOP            - Proses pemotongan Makanan\n");
+    printf("CATALOG         - Melihat data list makanan yang valid\n");
+    printf("COOKBOOK        - Melihat data list resep yang valid\n");
+    printf("INVENTORY       - Membuka inventory yang dimiliki oleh simulator\n");
+    printf("DELIVERY        - Membuka tampilan list makanan yang sedang dikirim\n");
+    printf("WAIT (x) (y)    - Mempercepat time selama x jam dan y menit\n");
+    printf("UNDO            - Mengembalikan kondisi sebelum terlaksananya action terakhir\n");
+    printf("REDO            - Melakukan kembali action yang telah di-undo\n");
+    printf("\n");  
+    printf("====================================================\n");
+    printf("====================================================\n");
+    printf("====================================================\n"); 
+}
 
 void printMenu(){
     printf("Silahkan Pilih Command Berikut: \n");
@@ -43,7 +72,7 @@ void notInput(){
 }
 
 void promptName(Word *word) {
-    printf("Hello? Siapa disitu? (tanpa spasi):");
+    printf("Hello? Siapa disitu? (tanpa spasi): ");
     STARTCOMMAND();
     copyWord(word, currentWord);
     RESETCOMMAND();
@@ -117,7 +146,10 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_CATALOG)) {
         commandCatalog(listMakanan);
         ADVCOMMAND();
-    } else notInput();
+    } else if (isEqualWord(currentWord, COMMAND_HELP)){
+        commandList();
+        ADVCOMMAND();
+    } else {notInput();}
 }
 
 void displayInfo() {
@@ -131,6 +163,7 @@ void displayInfo() {
         printf("\n");
     }
 }
+
 int main(){
     splashArt();
     promptName(&playerName);
@@ -176,4 +209,3 @@ void splashArt(){
     "               .'.eeeeeeeeeeeeeeeeeeeeee.'.         \n"
     "              :____________________________:             ");  
 }
-

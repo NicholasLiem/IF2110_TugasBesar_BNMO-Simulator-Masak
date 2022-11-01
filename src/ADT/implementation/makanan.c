@@ -79,3 +79,19 @@ int lengthListMakanan(ListMakanan l){
 	}
 	return count;
 }
+
+Makanan searchMakanan(ListMakanan L, int ID){
+	int i;
+	Makanan null;
+	TIME tnull;
+	CreateTime(&tnull, 0, 0, 0);
+	Word nama;
+	setWord(&nama, "null");
+	createMakanan(&null, IDX_UNDEF_LIST_STATIK, nama, nama, tnull, tnull);
+	for(i = IDX_MIN; i < lengthListMakanan(L); i++){
+			if(ID(L.contents[i]) == ID){
+				return ELMT(L, i);
+			}
+		}
+	return null;
+}
