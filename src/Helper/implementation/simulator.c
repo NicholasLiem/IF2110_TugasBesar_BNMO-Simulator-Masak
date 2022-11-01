@@ -9,7 +9,7 @@ List listNotif;
 void simLoadConfig() {
     CreateListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
-    displayListMakanan(listMakanan);
+    // displayListMakanan(listMakanan);
 
     // printf("=======================\n");
     loadConfigPeta(&peta);
