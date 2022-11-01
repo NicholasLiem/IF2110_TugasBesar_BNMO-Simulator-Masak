@@ -45,4 +45,6 @@ void displayListMakanan(ListMakanan l);
 int lengthListMakanan(ListMakanan l);
 
 void commandCatalog(ListMakanan l);
+
+Makanan searchMakanan(ListMakanan l, int ID);
 #endif

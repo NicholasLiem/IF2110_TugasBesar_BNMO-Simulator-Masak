@@ -10,7 +10,6 @@
 
 //  gcc -std=c17 -I. src/ADT/implementation/*.c src/Helper/implementation/*.c -o bin/main src/main.c
 // ./bin/main.exe
-
 int main(){
     splashArt();
     promptName(&playerName);
