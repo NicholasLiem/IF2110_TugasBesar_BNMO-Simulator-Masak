@@ -26,7 +26,7 @@ void printMakanan(Makanan makanan) {
     printf("\n");
 }
 
-void CreateListMakanan(ListMakanan *l){
+void createListMakanan(ListMakanan *l){
 	int i = IDX_MIN;
 	for(i; i < CAPACITY; i++){
 		ELMT(*l, i).id = IDX_UNDEF_LIST_STATIK;

@@ -7,7 +7,7 @@ boolean isStarted = false;
 List listNotif;
 
 void simLoadConfig() {
-    CreateListMakanan(&listMakanan);
+    createListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
     // displayListMakanan(listMakanan);
 

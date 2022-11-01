@@ -40,9 +40,9 @@ typedef struct {
 #define Elmt(Q,i)   (Q).T[(i)]
 
 /* ********* Prototype ********* */
-boolean IsEmpty (PrioQueueTime Q);
+boolean IsEmpty_PRIOQUEUE (PrioQueueTime Q);
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (PrioQueueTime Q);
+boolean IsFull_PRIOQUEUE (PrioQueueTime Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
 int NBElmt (PrioQueueTime Q);

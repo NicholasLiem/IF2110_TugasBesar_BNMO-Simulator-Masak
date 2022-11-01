@@ -36,7 +36,7 @@ void printMakanan(Makanan makanan);
 
 void increaseTime(Makanan* makanan, int lamaDetik);
 
-void CreateListMakanan(ListMakanan *l);
+void createListMakanan(ListMakanan *l);
 
 void insertMakanan(ListMakanan *l, Makanan makanan);
 

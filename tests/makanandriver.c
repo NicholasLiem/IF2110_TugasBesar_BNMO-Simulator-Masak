@@ -6,7 +6,7 @@
 
 int main(){
     ListMakanan listMakanan;
-    CreateListMakanan(&listMakanan);
+    createListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
     displayListMakanan(listMakanan);
     printf("Length dari list makanan: %d", lengthListMakanan(listMakanan));

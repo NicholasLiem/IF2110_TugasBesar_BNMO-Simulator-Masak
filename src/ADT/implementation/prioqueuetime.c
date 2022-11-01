@@ -15,17 +15,17 @@
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* ********* Prototype ********* */
-boolean IsEmpty (PrioQueueTime Q){
+boolean IsEmpty_PRIOQUEUE (PrioQueueTime Q){
     return (Head(Q) == Nil) && (Tail(Q) == Nil);
 }
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (PrioQueueTime Q){
+boolean IsFull_PRIOQUEUE (PrioQueueTime Q){
     return NBElmt(Q) == MaxEl(Q);
 }
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
 int NBElmt (PrioQueueTime Q){
-    if (IsEmpty(Q)){
+    if (IsEmpty_PRIOQUEUE(Q)){
         return 0;
     } else if (Head(Q) <= Tail(Q)){
         return Tail(Q) - Head(Q) + 1;
@@ -61,7 +61,7 @@ void DeAlokasi(PrioQueueTime * Q)
 
 /* *** Primitif Add/Delete *** */
 void Enqueue (PrioQueueTime * Q, infotype X){
-	if(!IsEmpty(*Q)){
+	if(!IsEmpty_PRIOQUEUE(*Q)){
 		Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
 		InfoTail(*Q) = X;
 		int i = (Tail(*Q));
@@ -115,7 +115,7 @@ void PrintPrioQueueTime (PrioQueueTime Q)
 #
 */
 {
-    if (IsEmpty(Q)){
+    if (IsEmpty_PRIOQUEUE(Q)){
  		printf("#\n");
 	} else {
 		int i, j;

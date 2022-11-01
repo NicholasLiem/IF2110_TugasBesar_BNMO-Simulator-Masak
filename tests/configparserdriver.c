@@ -3,7 +3,7 @@
 #include "../src/Helper/headers/simulator.h"
 
 int main(){
-    CreateListMakanan(&listMakanan);
+    createListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
     displayListMakanan(listMakanan);
 
