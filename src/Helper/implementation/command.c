@@ -6,6 +6,7 @@ Word COMMAND_MIX = {"MIX",3};
 Word COMMAND_FRY = {"FRY", 3};
 Word COMMAND_CHOP = {"CHOP", 4};
 Word COMMAND_BOIL = {"BOIL", 4};
+Word COMMAND_BUY = {"BUY", 3};
 Word COMMAND_WAIT = {"WAIT", 4};
 Word COMMAND_UNDO = {"UNDO", 4};
 Word COMMAND_REDO = {"REDO", 4};
@@ -103,6 +104,26 @@ void menuHasLogin() {
             simAdvTime(60*jam + menit);
         }
         return;
+    } else if (isEqualWord(currentWord, COMMAND_BOIL) || isEqualWord(currentWord, COMMAND_CHOP) || isEqualWord(currentWord, COMMAND_FRY) || isEqualWord(currentWord, COMMAND_MIX) || isEqualWord(currentWord, COMMAND_BUY)) {
+        ADVCOMMAND();
+        if (isEqualWord(currentWord, COMMAND_BOIL) && isAdjacentTo(&peta, 'B')) {
+            displayMenu(COMMAND_BOIL);
+            getCookChoice();
+        } else if (isEqualWord(currentWord, COMMAND_CHOP) && isAdjacentTo(&peta, 'C')) {
+            displayMenu(COMMAND_CHOP);
+            getCookChoice();
+        } else if (isEqualWord(currentWord, COMMAND_MIX) && isAdjacentTo(&peta, 'M')) {
+            displayMenu(COMMAND_MIX);
+            getCookChoice();
+        } else if (isEqualWord(currentWord, COMMAND_BUY) && isAdjacentTo(&peta, 'T')) {
+            displayMenu(COMMAND_BUY);
+            getCookChoice();
+        } else if (isEqualWord(currentWord, COMMAND_FRY) && isAdjacentTo(&peta, 'F')) {
+            displayMenu(COMMAND_FRY);
+            getCookChoice();
+        } else {
+            printf("Maaf, anda tidak berada di station yang tepat untuk melakukan perintah.");
+        }
     } else if (isEqualWord(currentWord, COMMAND_COOKBOOK)) {
         printListResep(listTreeResep, listMakanan);
         ADVCOMMAND();
@@ -112,15 +133,31 @@ void menuHasLogin() {
     } else notInput();
 }
 
+int getCookChoice() {
+    printf("Jadi, mau pilih apa? ");
+    RESETCOMMAND();
+    STARTCOMMAND();
+    int choice = 0;
+    if (wordIsInt(currentWord)) {
+        choice = strToInt(currentWord);
+    }
+    ADVCOMMAND();
+    if (!endWord) {
+        notInput();
+    }
+    return choice;
+}
 void displayInfo() {
     if (isStarted) {
         printf("Player name: ");
         printWord(playerName);
         printf("\nTime: ");
         TulisTIME(currentTime);
+        printNotif(listNotif);
         printf("\nMap:\n");
         DisplayPeta(peta);
         printf("\n");
+        
     }
 }
 

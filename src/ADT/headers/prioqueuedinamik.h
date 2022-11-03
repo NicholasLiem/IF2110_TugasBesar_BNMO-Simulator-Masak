@@ -6,8 +6,8 @@
 
 #include "boolean.h"
 #include "makanan.h"
+#include "listlinier.h"
 
-#define IDX_UNDEF -1
 #define CAPACITY_MULT 100
 
 /* Definisi elemen dan address */
@@ -40,6 +40,13 @@ boolean dequeue(Queue *q, ElTypeQueue *val);
 void displayQueue(Queue q);
 
 void sortQueue(Queue *q);
+
 void shiftLeft(Queue *q, int startPos);
+
+
+void advTime(Queue *q, int time);
+
+void removeExpired(Queue* q, List* notifWord);
+
 
 #endif

@@ -15,6 +15,7 @@ int main(){
     promptName(&playerName);
     printMenu();
     CreateTime(&currentTime, 0,0,0);
+    CreateListLin(&listNotif, 4);
     while (true) {
         displayInfo();
         printf("Command Prompt: ");

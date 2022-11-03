@@ -47,4 +47,6 @@ int lengthListMakanan(ListMakanan l);
 void commandCatalog(ListMakanan l);
 
 Makanan searchMakanan(ListMakanan l, int ID);
+
+void displayMakananList(ListMakanan l, Word action);
 #endif

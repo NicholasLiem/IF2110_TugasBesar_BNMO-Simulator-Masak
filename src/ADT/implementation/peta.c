@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "../headers/peta.h"
-
+#include "../headers/listlinier.h"
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 void CreatePeta(int length, int width, Peta *P){
     LEN_EFF(*P) = length;
@@ -64,7 +64,7 @@ POINT locationOf(Peta *P, Legend t){
 }
 
 /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */                           
-boolean MoveLegend(POINT LegPoint, Peta *P, char direction){
+boolean MoveLegend(POINT LegPoint, Peta *P, char direction, List* listNotif){
     int x, y, nx, ny;
     x = (int) Absis(LegPoint);
     y = (int) Ordinat(LegPoint);
@@ -85,11 +85,19 @@ boolean MoveLegend(POINT LegPoint, Peta *P, char direction){
     }
 
     if(isLocationOutOfBound(*P, LegPoint)){
-        printf("Out of bound\n");
+        Word notif;
+        setWord(&notif, "Out of bound");
+        ListType notifEl;
+        notifEl.kata = notif;
+        insertFirstLin(listNotif, notifEl);
         return false;
     }
     else if(isLocationColliding(*P, LegPoint)){
-        printf("Collision\n");
+        Word notif;
+        setWord(&notif, "Collision");
+        ListType notifEl;
+        notifEl.kata = notif;
+        insertFirstLin(listNotif, notifEl);
         return false;
     }
     else{
@@ -102,9 +110,30 @@ boolean MoveLegend(POINT LegPoint, Peta *P, char direction){
     }
 }
 
-boolean MoveSimulator(Peta *P, char direction){
+boolean MoveSimulator(Peta *P, char direction, List* listNotif){
     POINT LegPoint = locationOf(P, SIMULATOR);
-    return MoveLegend(LegPoint, P, direction);
+    return MoveLegend(LegPoint, P, direction, listNotif);
+}
+
+boolean isAdjacentTo(Peta *P, char symbol) {
+    POINT LegPoint = locationOf(P, SIMULATOR);
+    POINT left = PrevX(LegPoint);
+    POINT right = NextX(LegPoint);
+    POINT up = NextY(LegPoint);
+    POINT down = PrevY(LegPoint);
+    if (isLocationEff(*P, left) && ELMT_PETA(*P, (int) Absis(left), (int) Ordinat(left)) == symbol) {
+        return true;    
+    }
+    if (isLocationEff(*P, right) && ELMT_PETA(*P, (int) Absis(right), (int) Ordinat(right)) == symbol) {
+        return true;    
+    }
+    if (isLocationEff(*P, up) && ELMT_PETA(*P, (int) Absis(up), (int) Ordinat(up)) == symbol) {
+        return true;    
+    }
+    if (isLocationEff(*P, down) && ELMT_PETA(*P, (int) Absis(down), (int) Ordinat(down)) == symbol) {
+        return true;    
+    }
+    return false;
 }
 
 void DisplayPeta(Peta P){

@@ -75,7 +75,7 @@ void parseMakanan(ListMakanan *listMakanan){
         ADVWORDFILE();
         LAMAPENGIRIMAN = wordToTime(currentWord);
         ADVWORDFILE();
-        
+        toUpper(&currentWord);
         copyWord(&AKSI, currentWord);
         ADVWORDFILE();
         createMakanan(&makananTemp, ID_MAKANAN, AKSI, NAMA_MAKANAN, EXP, LAMAPENGIRIMAN);

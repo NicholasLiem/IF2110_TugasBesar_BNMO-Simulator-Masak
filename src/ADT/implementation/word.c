@@ -97,6 +97,16 @@ TIME wordToTime(Word w){
     return result;
 }
 
+void appendWord(Word* word1, Word word2) {
+    int index = word1->Length+1;
+    for (int i = 0; i < word2.Length; i++) {
+        word1->TabWord[index] = word2.TabWord[i];
+        index += 1;
+    }
+    word1->Length += word2.Length;
+};
+
+
 // ListStatik WordToMapSize(Word w){
 //     ListStatik ukuranPeta;
 //     CreateListStatik(&ukuranPeta);

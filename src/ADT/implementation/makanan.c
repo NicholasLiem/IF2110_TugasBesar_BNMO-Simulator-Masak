@@ -95,3 +95,20 @@ Makanan searchMakanan(ListMakanan L, int ID){
 		}
 	return null;
 }
+
+void displayMakananList(ListMakanan l, Word action) {
+	int counter = 1;
+	int i;
+	for(i = 0; i < lengthListMakanan(l); i++){
+		if (isEqualWord(ELMT(l, i).aksi, action)){
+			printf(" %d. ", counter);
+			printWord(ELMT(l, i).nama);
+			printf(" ---- ID: (%d)", ELMT(l,i).id);
+			printf("\n");
+			counter += 1;
+		}
+	}	
+	if (counter == 0) {
+		printf("Yah, tidak ada bahan yang bisa dibuat disini :( \n\n");
+	}
+}

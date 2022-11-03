@@ -107,6 +107,22 @@ POINT NextY (POINT P)
     CreatePoint(&p, x, y);
     return p;
 }        
+
+POINT PrevX (POINT P) {
+    POINT p;
+    float x = Absis(P)-1;
+    float y = Ordinat(P);
+    CreatePoint(&p, x, y);
+    return p;
+};
+
+POINT PrevY (POINT P) {
+    POINT p;
+    float x = Absis(P);
+    float y = Ordinat(P) - 1;
+    CreatePoint(&p, x, y);
+    return p;
+}     ;
 POINT PlusDelta (POINT P, float deltaX, float deltaY)
 /* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
 {

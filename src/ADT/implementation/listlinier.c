@@ -218,7 +218,7 @@ void displayListLin(List l){
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
     Address p = FIRST(l);
-    printf("[");
+    int i = 1;
     while (p != NULL){
         switch(TYPE(l)) {
             //merupakan int
@@ -233,18 +233,16 @@ void displayListLin(List l){
                 printMakanan(INFO(p).makanan);
                 break;
             case 4:
+                printf("   %d. ", i);
                 printWord(INFO(p).kata);
+                printf("\n");
                 break;
             default:
                 break;
         }
 
         p = NEXT(p);
-        if (p != NULL){
-            printf(",");
-        }
     }
-    printf("]");
 }
 
 int lengthLin(List l){

@@ -20,4 +20,5 @@ boolean simMove(char c);
 
 void simAdvTime(long time);
 
+void printNotif();
 #endif

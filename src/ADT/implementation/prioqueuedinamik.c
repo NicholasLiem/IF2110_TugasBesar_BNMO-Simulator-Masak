@@ -74,3 +74,25 @@ void sortQueue(Queue *l) {
         }
     }
 };
+
+void advTime(Queue *q, int time) {
+    int i;
+    for (i = 0; i < IDX_TAIL(*q)+1; i++) {
+        (*q).buffer[i].exp = PrevNMenit((*q).buffer[i].exp, time);
+    }
+};
+
+void removeExpired(Queue *q, List* listNotif) {
+    TIME expired;
+    CreateTime(&expired, 0, 0, 0);
+    while (TEQ((*q).buffer[0].exp, expired) || TLT((*q).buffer[0].exp, expired)) {
+        Makanan exp;
+        dequeue(q, &exp);
+        Word notif;
+        setWord(&notif, "Makanan ini telah expired: ");
+        appendWord(&notif, exp.nama);
+        ListType notifEl;
+        notifEl.kata = notif;
+        insertFirstLin(listNotif, notifEl);
+    }
+};

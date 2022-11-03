@@ -32,6 +32,7 @@ void toUpper(Word* word);
 
 TIME wordToTime(Word w);
 
+void appendWord(Word* word1, Word word2);
 // ListStatik WordToMapSize(Word w);
 
 #endif
