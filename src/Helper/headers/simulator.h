@@ -28,6 +28,7 @@ extern Word COMMAND_SOUTH;
 extern Word COMMAND_WEST;
 extern Word COMMAND_INVENTORY;
 extern Word COMMAND_DELIVERY;
+extern Word COMMAND_HELP;
 
 extern Word playerName;
 extern POINT currentLoc;

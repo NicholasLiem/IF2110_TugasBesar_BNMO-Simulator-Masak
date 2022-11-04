@@ -19,6 +19,7 @@ Word COMMAND_SOUTH = {"SOUTH", 5};
 Word COMMAND_WEST = {"WEST", 4};
 Word COMMAND_INVENTORY = {"INVENTORY", 9};
 Word COMMAND_DELIVERY = {"DELIVERY", 8};
+Word COMMAND_HELP = {"HELP", 4};
 
 Word playerName;
 POINT currentLoc;
@@ -109,8 +110,6 @@ void sendFoodNotif(Makanan food, List* listNotif) {
 
 void processDeliveryAndExpired() {
     List foodReady = removeArrived(&listDelivery, &listNotif);
-    displayListLin(foodReady);
-    displayListLin(foodReady);
     Address p = FIRST(foodReady);
     while (p != NULL){
         Makanan food = searchMakanan(listMakanan, p->info.makanan.id);

@@ -4,9 +4,39 @@ void printMenu(){
     printf("Silahkan Pilih Command Berikut: \n");
     printf("START\n");
     printf("EXIT\n");
-    printf("CATALOG\n");
-    printf("MOVE\n");
+    // printf("CATALOG\n");
+    // printf("MOVE\n");
     // printf("HELP\n");
+}
+
+void printHelp(){
+    printf("\n");
+    printf("------------------------------------------------------------\n");
+    printf("Daftar Command Tersedia\n");
+    printf("------------------------------------------------------------\n");
+    printf("Command Program\n");
+    printf("------------------------------------------------------------\n");
+    printf("1. CATALOG - Melihat daftar makanan tersedia\n");
+    printf("2. COOKBOOK - Melihat daftar resep tersedia\n");
+    printf("3. WAIT (X) (Y) - Menunggu selama X jam dan Y menit\n");
+    printf("4. MOVE NORTH/EAST/SOUTH/WEST - Bergerak satu langkah ke arah yang dituju\n");
+    printf("5. UNDO - Mengulang ke keadaan sebelumnya\n");
+    printf("6. REDO - Mengulangi apa yang sudah di UNDO\n");
+    printf("------------------------------------------------------------\n");
+    printf("Command Aksi\n");
+    printf("------------------------------------------------------------\n");
+    printf("1. BUY - Melakukan aksi pembelian makanan\n");
+    printf("2. BOIL - Melakukan aksi perebusan makanan\n");
+    printf("3. CHOP - Melakukan aksi pemotongan makanan\n");
+    printf("4. MIX - Melakukan aksi pencampuran makanan\n");
+    printf("5. FRY - Melakukan aksi penggorengan makanan\n");
+    printf("------------------------------------------------------------\n");
+    printf("Command Lain\n");
+    printf("------------------------------------------------------------\n");
+    printf("1. HELP - Menampilkan daftar command tersedia\n");
+    printf("2. EXIT - Keluar dari program\n");
+    printf("------------------------------------------------------------\n");
+    printf("\n");
 }
 
 void notInput(){
@@ -15,12 +45,12 @@ void notInput(){
 }
 
 void promptName(Word *word) {
-    printf("Hello? Siapa disitu? (tanpa spasi):");
+    printf("Hello? Siapa disitu? (tanpa spasi): ");
     STARTCOMMAND();
     copyWord(word, currentWord);
     RESETCOMMAND();
     printf("Hi "); printWord(*word);
-    printf(" !\n");
+    printf("!\n");
 }
 
 void menuHasNotLogin() {
@@ -126,7 +156,11 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_INVENTORY)) {
         displayInventory();
         ADVCOMMAND();
-    } else notInput();
+    } else if (isEqualWord(currentWord, COMMAND_HELP)){
+        printHelp();
+        ADVCOMMAND();
+    } 
+    else notInput();
     processDeliveryAndExpired();
 }
 
@@ -146,7 +180,7 @@ int getCookChoice() {
 }
 void displayInfo() {
     if (isStarted) {
-        printf("\n\nPlayer name: ");
+        printf("\nPlayer name: ");
         printWord(playerName);
         printf("\nTime: ");
         TulisTIME(currentTime);
