@@ -95,20 +95,31 @@ Makanan searchMakanan(ListMakanan L, int ID){
 		}
 	return null;
 }
+Makanan searchMakananCommand(ListMakanan l, int ID, Word action) {
+	int i;
+	Makanan null;
+	TIME tnull;
+	CreateTime(&tnull, 0, 0, 0);
+	Word nama;
+	setWord(&nama, "null");
+	createMakanan(&null, IDX_UNDEF_LIST_STATIK, nama, nama, tnull, tnull);
+	for(i = IDX_MIN; i < lengthListMakanan(l); i++){
+			if(ID(l.contents[i]) == ID && isEqualWord(ELMT(l, i).aksi, action)){
+				return ELMT(l, i);
+			}
+		}
+	return null;
+};
 
 void displayMakananList(ListMakanan l, Word action) {
-	int counter = 1;
 	int i;
 	for(i = 0; i < lengthListMakanan(l); i++){
 		if (isEqualWord(ELMT(l, i).aksi, action)){
-			printf(" %d. ", counter);
+			printf("ID (%d). ", ELMT(l,i).id);
 			printWord(ELMT(l, i).nama);
-			printf(" ---- ID: (%d)", ELMT(l,i).id);
+			printf(" --- Duration: ");
+			TulisTIME(ELMT(l, i).lamaPengiriman);
 			printf("\n");
-			counter += 1;
 		}
 	}	
-	if (counter == 0) {
-		printf("Yah, tidak ada bahan yang bisa dibuat disini :( \n\n");
-	}
 }

@@ -77,6 +77,27 @@ void toUpper(Word* word) {
     }
 }
 
+Word intToWord(int num) {
+    Word res;
+    setWord(&res, "");
+    int temp = num;
+    int digits = 0;
+    while (temp) {
+        temp /= 10;
+        digits += 1;
+    }
+    while (digits) {
+        temp = num;
+        while (temp > 9) {
+            temp /= 10;
+        }
+        addChar(&res, (char) (temp + '0'));
+        num -= temp * (int) pow(10, digits-1);
+        digits -= 1;
+    }
+    return res;
+}
+
 TIME wordToTime(Word w){
     TIME result;
     int tempWaktu[3];
@@ -98,7 +119,7 @@ TIME wordToTime(Word w){
 }
 
 void appendWord(Word* word1, Word word2) {
-    int index = word1->Length+1;
+    int index = word1->Length;
     for (int i = 0; i < word2.Length; i++) {
         word1->TabWord[index] = word2.TabWord[i];
         index += 1;
@@ -126,3 +147,44 @@ void appendWord(Word* word1, Word word2) {
 //     }
 //     return ukuranPeta;
 // }
+
+
+Word timeToWord (TIME T)
+/* I.S. : T sembarang */
+/* F.S. : Nilai T ditulis dg format DD:HH:MM */
+/* Proses : menulis nilai setiap komponen T ke layar dalam format DD:HH:MM
+   tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
+{
+    Word baru;
+    Word temp;
+    setWord(&baru, "");
+    setWord(&temp, "");
+    if (Day(T) == 0 && Hour(T) == 0 && Minute(T) == 0){
+        setWord(&baru, "0 menit ");
+    } else {
+        if (Day(T) !=  0){
+            Word time = intToWord(Day(T));
+            copyWord(&temp, time);
+            appendWord(&baru, temp);
+            setWord(&temp, " hari ");
+            appendWord(&baru, temp);
+        }
+
+        if(Hour(T) != 0){
+            Word time = intToWord(Hour(T));
+            copyWord(&temp, time);
+            appendWord(&baru, temp);
+            setWord(&temp, " jam ");
+            appendWord(&baru, temp);
+        }
+
+        if(Minute(T) != 0){
+            Word time = intToWord(Minute(T));
+            copyWord(&temp, time);
+            appendWord(&baru, temp);
+            setWord(&temp, " menit ");
+            appendWord(&baru, temp);
+        }
+    }
+    return baru;
+}

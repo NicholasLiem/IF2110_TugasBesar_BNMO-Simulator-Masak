@@ -7,7 +7,7 @@ void CreateQueue(Queue *q) {
 };
 
 void expandQueue(Queue *q) {
-    BUFFER((*q)) = realloc(q, sizeof(ElTypeQueue) * (q->capacity + CAPACITY_MULT));
+    realloc(BUFFER((*q)), sizeof(ElTypeQueue) * (q->capacity + CAPACITY_MULT));
     q->capacity += CAPACITY_MULT;
 };
 
@@ -19,7 +19,7 @@ boolean isFullQ(Queue q) {
     return IDX_TAIL(q) == (q.capacity-1);
 };
 
-void enqueue(Queue *q, ElTypeQueue val) {
+void enqueue(Queue *q, ElTypeQueue val, char c) {
     if (isEmptyQ(*q)) {
         IDX_TAIL((*q)) = 0;
         TAIL((*q)) = val;
@@ -29,7 +29,7 @@ void enqueue(Queue *q, ElTypeQueue val) {
         }
         IDX_TAIL((*q)) += 1;
         TAIL((*q)) = val;
-        sortQueue(q);
+        sortQueue(q, c);
     }
 };
 
@@ -61,38 +61,98 @@ void displayQueue(Queue q) {
     }
 };
 
-void sortQueue(Queue *l) {
+void sortQueue(Queue *l, char c) {
     int i, j;
     for (i = 0; i < IDX_TAIL(*l)+1; i++) {
         for (j = i+1; j < IDX_TAIL(*l)+1; j++) {
             Makanan makanan1 = (*l).buffer[i];
             Makanan makanan2 = (*l).buffer[j];
-            if (TGT(makanan1.exp, makanan2.exp)) {
-                (*l).buffer[i] = makanan2;
-                (*l).buffer[j] = makanan1;
+            if (c == 'I') {
+                if (TGT(makanan1.exp, makanan2.exp)) {
+                    (*l).buffer[i] = makanan2;
+                    (*l).buffer[j] = makanan1;
+                }
+            } else {
+                if (TGT(makanan1.lamaPengiriman, makanan2.lamaPengiriman)) {
+                    (*l).buffer[i] = makanan2;
+                    (*l).buffer[j] = makanan1;
+                }
             }
         }
     }
 };
 
-void advTime(Queue *q, int time) {
+void advTimeExpired(Queue *q, int time) {
     int i;
     for (i = 0; i < IDX_TAIL(*q)+1; i++) {
         (*q).buffer[i].exp = PrevNMenit((*q).buffer[i].exp, time);
     }
 };
 
+void advTimeDelivery(Queue *q, int time) {
+    int i;
+    for (i = 0; i < IDX_TAIL(*q)+1; i++) {
+        (*q).buffer[i].lamaPengiriman = PrevNMenit((*q).buffer[i].lamaPengiriman, time);
+    }
+};
+
 void removeExpired(Queue *q, List* listNotif) {
     TIME expired;
     CreateTime(&expired, 0, 0, 0);
-    while (TEQ((*q).buffer[0].exp, expired) || TLT((*q).buffer[0].exp, expired)) {
+    if (isEmptyQ(*q)) {
+        return;
+    }
+    while (!isEmptyQ(*q) && (TEQ((*q).buffer[0].exp, expired) || TLT((*q).buffer[0].exp, expired))) {
         Makanan exp;
         dequeue(q, &exp);
         Word notif;
         setWord(&notif, "Makanan ini telah expired: ");
         appendWord(&notif, exp.nama);
-        ListType notifEl;
-        notifEl.kata = notif;
-        insertFirstLin(listNotif, notifEl);
+        insertNotif(listNotif, notif);
+        ListType temp;
+        temp.makanan = exp;
     }
 };
+
+
+List removeArrived(Queue *q, List* listNotif) {
+    TIME expired;
+    List makananExpired;
+    CreateTime(&expired, 0, 0, 0);
+    CreateListLin(&makananExpired, 3);
+    if (isEmptyQ(*q)) {
+        return makananExpired;
+    }
+    while (!isEmptyQ(*q) &&(TEQ((*q).buffer[0].lamaPengiriman, expired) || TLT((*q).buffer[0].lamaPengiriman, expired))) {
+        Makanan exp;
+        dequeue(q, &exp);
+        Word notif;
+        setWord(&notif, "Hore! Makanan ini telah sampai: ");
+        appendWord(&notif, exp.nama);
+        insertNotif(listNotif, notif);
+        ListType temp;
+        temp.makanan = exp;
+        insertFirstLin(&makananExpired, temp);
+    }
+    return makananExpired;
+};
+
+
+void displayQueuePretty(Queue q, char type) {
+    if (isEmptyQ(q)) {
+        printf("\n Kosong :( \n");
+    } else {
+        for (int i = 0; i <= IDX_TAIL(q); i++) {
+            printf("\n %d. ", i+1);
+            printWord(q.buffer[i].nama);
+            printf(" ---- ");
+            if (type == 'I') {
+                printf("Sisa waktu sebelum busuk: ");
+                printWord(timeToWord(q.buffer[i].exp));
+            } else {
+                printf("Sisa waktu sebelum sampai: ");
+                printWord(timeToWord(q.buffer[i].lamaPengiriman));
+            }
+        }
+    }
+}

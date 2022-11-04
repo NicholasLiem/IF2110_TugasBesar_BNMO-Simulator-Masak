@@ -1,7 +1,7 @@
 #ifndef WORD_H
 #define WORD_H
 
-#define NMax 100
+#define NMax 200
 #define BLANK ' '
 
 #include "stdio.h"
@@ -34,5 +34,8 @@ TIME wordToTime(Word w);
 
 void appendWord(Word* word1, Word word2);
 // ListStatik WordToMapSize(Word w);
+Word intToWord(int num);
+
+Word timeToWord (TIME T);
 
 #endif

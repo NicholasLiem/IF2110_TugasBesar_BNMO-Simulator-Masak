@@ -240,7 +240,7 @@ void displayListLin(List l){
             default:
                 break;
         }
-
+        i += 1;
         p = NEXT(p);
     }
 }
@@ -256,6 +256,11 @@ int lengthLin(List l){
     return n;
 }
 
+void insertNotif(List* l1, Word notif) {
+    ListType notifEl;
+    notifEl.kata = notif;
+    insertFirstLin(l1, notifEl);
+}
 /****************** PROSES TERHADAP LIST ******************/
 List concatLin(List l1, List l2) {
 /* I.S. l1 dan l2 sembarang */

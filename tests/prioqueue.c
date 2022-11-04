@@ -15,10 +15,16 @@ int main() {
     enqueue(&prioqueue, temp);
     temp.exp = NextMenit(temp.exp);
     enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp);
     displayQueue(prioqueue);
-    printf("----------");
-    dequeue(&prioqueue, &temp);
-    dequeue(&prioqueue, &temp);
-    dequeue(&prioqueue, &temp);
+    printf("%d\n", prioqueue.capacity);
+    advTime(&prioqueue, 10);
+    printf("------******----");
+    // dequeue(&prioqueue, &temp);
+    // dequeue(&prioqueue, &temp);
+    // dequeue(&prioqueue, &temp);
     displayQueue(prioqueue);
 }

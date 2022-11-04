@@ -92,5 +92,4 @@ TIME PrevNMenit (TIME T, int N);
 long Durasi (TIME TAw, TIME TAkh);
 /* Mengirim TAkh-TAw dlm Menit, dengan kalkulasi */
 /* Jika TAw > TAkh, maka TAkh adalah 1 hari setelah TAw */
-
 #endif

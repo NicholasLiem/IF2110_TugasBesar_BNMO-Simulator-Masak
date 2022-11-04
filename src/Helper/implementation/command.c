@@ -1,23 +1,5 @@
 #include "../headers/command.h"
 
-Word COMMAND_START = {"START", 5};
-Word COMMAND_EXIT = {"EXIT", 4};
-Word COMMAND_MIX = {"MIX",3};
-Word COMMAND_FRY = {"FRY", 3};
-Word COMMAND_CHOP = {"CHOP", 4};
-Word COMMAND_BOIL = {"BOIL", 4};
-Word COMMAND_BUY = {"BUY", 3};
-Word COMMAND_WAIT = {"WAIT", 4};
-Word COMMAND_UNDO = {"UNDO", 4};
-Word COMMAND_REDO = {"REDO", 4};
-Word COMMAND_CATALOG = {"CATALOG", 7};
-Word COMMAND_COOKBOOK = {"COOKBOOK", 8};
-Word COMMAND_MOVE = {"MOVE", 4};
-Word COMMAND_EAST = {"EAST", 4};
-Word COMMAND_NORTH = {"NORTH", 5};
-Word COMMAND_SOUTH = {"SOUTH", 5};
-Word COMMAND_WEST = {"WEST", 4};
-
 void printMenu(){
     printf("Silahkan Pilih Command Berikut: \n");
     printf("START\n");
@@ -73,8 +55,8 @@ void menuHasLogin() {
                 isMoved = simMove('W');
             } else {
                 notInput();
-                return;
             }
+            printf("done");
             if (isMoved) {
                 simAdvTime(1);
             }
@@ -103,26 +85,34 @@ void menuHasLogin() {
         } else {
             simAdvTime(60*jam + menit);
         }
-        return;
     } else if (isEqualWord(currentWord, COMMAND_BOIL) || isEqualWord(currentWord, COMMAND_CHOP) || isEqualWord(currentWord, COMMAND_FRY) || isEqualWord(currentWord, COMMAND_MIX) || isEqualWord(currentWord, COMMAND_BUY)) {
         ADVCOMMAND();
+        int choice = 0;
         if (isEqualWord(currentWord, COMMAND_BOIL) && isAdjacentTo(&peta, 'B')) {
             displayMenu(COMMAND_BOIL);
-            getCookChoice();
+            choice = getCookChoice();
+            addDelivery(COMMAND_BOIL, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_CHOP) && isAdjacentTo(&peta, 'C')) {
             displayMenu(COMMAND_CHOP);
-            getCookChoice();
+            choice = getCookChoice();
+            addDelivery(COMMAND_CHOP, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_MIX) && isAdjacentTo(&peta, 'M')) {
             displayMenu(COMMAND_MIX);
-            getCookChoice();
+            choice = getCookChoice();
+            addDelivery(COMMAND_MIX, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_BUY) && isAdjacentTo(&peta, 'T')) {
             displayMenu(COMMAND_BUY);
-            getCookChoice();
+            choice = getCookChoice();
+            addDelivery(COMMAND_BUY, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_FRY) && isAdjacentTo(&peta, 'F')) {
             displayMenu(COMMAND_FRY);
-            getCookChoice();
+            choice = getCookChoice();
+            addDelivery(COMMAND_FRY, choice, &listNotif);
         } else {
             printf("Maaf, anda tidak berada di station yang tepat untuk melakukan perintah.");
+        }
+        if (choice == 0) {
+            printf("Tolong jangan ngerjain saya ya.. Banyak tubes tau cape..\n");
         }
     } else if (isEqualWord(currentWord, COMMAND_COOKBOOK)) {
         printListResep(listTreeResep, listMakanan);
@@ -130,11 +120,18 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_CATALOG)) {
         commandCatalog(listMakanan);
         ADVCOMMAND();
+    } else if (isEqualWord(currentWord, COMMAND_DELIVERY)) {
+        displayDelivery();
+        ADVCOMMAND();
+    } else if (isEqualWord(currentWord, COMMAND_INVENTORY)) {
+        displayInventory();
+        ADVCOMMAND();
     } else notInput();
+    processDeliveryAndExpired();
 }
 
 int getCookChoice() {
-    printf("Jadi, mau pilih apa? ");
+    printf("Jadi, mau pilih apa? :");
     RESETCOMMAND();
     STARTCOMMAND();
     int choice = 0;
@@ -149,7 +146,7 @@ int getCookChoice() {
 }
 void displayInfo() {
     if (isStarted) {
-        printf("Player name: ");
+        printf("\n\nPlayer name: ");
         printWord(playerName);
         printf("\nTime: ");
         TulisTIME(currentTime);

@@ -48,5 +48,7 @@ void commandCatalog(ListMakanan l);
 
 Makanan searchMakanan(ListMakanan l, int ID);
 
+Makanan searchMakananCommand(ListMakanan l, int ID, Word action);
+
 void displayMakananList(ListMakanan l, Word action);
 #endif

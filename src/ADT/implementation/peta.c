@@ -87,17 +87,13 @@ boolean MoveLegend(POINT LegPoint, Peta *P, char direction, List* listNotif){
     if(isLocationOutOfBound(*P, LegPoint)){
         Word notif;
         setWord(&notif, "Out of bound");
-        ListType notifEl;
-        notifEl.kata = notif;
-        insertFirstLin(listNotif, notifEl);
+        insertNotif(listNotif, notif);
         return false;
     }
     else if(isLocationColliding(*P, LegPoint)){
         Word notif;
         setWord(&notif, "Collision");
-        ListType notifEl;
-        notifEl.kata = notif;
-        insertFirstLin(listNotif, notifEl);
+        insertNotif(listNotif, notif);
         return false;
     }
     else{

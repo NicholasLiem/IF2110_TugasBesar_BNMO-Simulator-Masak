@@ -15,6 +15,8 @@ void printMenu();
 
 void notInput();
 
+int getCookChoice();
+
 void promptName(Word *word);
 
 void menuHasNotLogin();

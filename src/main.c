@@ -16,6 +16,8 @@ int main(){
     printMenu();
     CreateTime(&currentTime, 0,0,0);
     CreateListLin(&listNotif, 4);
+    CreateQueue(&listInventory);
+    CreateQueue(&listDelivery);
     while (true) {
         displayInfo();
         printf("Command Prompt: ");
