@@ -79,6 +79,32 @@ void PrintTree(treeAddress T, ListMakanan l) {
         }
     }  
 };
+
+void PrintTreePlain(treeAddress T) {
+    printf("Node: %d\n", FOODID(T));  
+    int index = 0;
+    List children = CHILDREN(T);
+    if (isEmptyLin(children)) {
+        printf("Leaf Node\n");
+    } else {
+        printf("Children: \n"); 
+        while (index < lengthLin((CHILDREN(T)))) {
+            ListType addr = getElmtLin(children, index);
+            treeAddress child = (treeAddress) addr.address;
+            printf("%d ", FOODID(child));
+            index+=1;
+        }
+        printf("\n");
+        // Rekursi
+        index = 0;
+        while (index < lengthLin((CHILDREN(T)))) {
+            ListType addr = getElmtLin(children, index);
+            treeAddress child = (treeAddress) addr.address;
+            PrintTreePlain(child);
+            index += 1;
+        }
+    }  
+};
 /* I.S. T terdefinisi, h adalah jarak indentasi */
 /* F.S. Semua simpul T dicetak  */
 
@@ -145,4 +171,26 @@ void printListResep(List T, ListMakanan l) {
         PrintTree(tree.address, l);
         printf("-----\n");
     }
+};
+
+List getTreeChildrenId(List T, ElType parent) {
+    List listChildren;
+    CreateListLin(&listChildren, 1);
+    for (int i = 0; i < lengthLin(T); i++) {
+        treeAddress currNode = SearchTree(getElmtLin(T, i).address, parent);
+        if (currNode != NULL) {
+            int index = 0;
+            List children = CHILDREN(currNode);
+            while (index < lengthLin(children)) {
+                ListType addr = getElmtLin(children, index);
+                treeAddress child = (treeAddress) addr.address;
+                ListType idChild;
+                idChild.value = child->foodId;
+                printf("%d idChild: %d\n", index, idChild.value);
+                insertFirstLin(&listChildren, idChild);
+                index += 1;
+            }
+        }
+    }
+    return listChildren;
 };

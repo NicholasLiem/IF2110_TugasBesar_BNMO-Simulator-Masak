@@ -66,4 +66,8 @@ void addChild(treeAddress *P, ElType parent, ElType child);
 /* Jika Kiri = false, maka X menjadi anak kanan Y */
 
 void printListResep(List p, ListMakanan l);
+
+List getTreeChildrenId(List T, ElType parent);
+
+void PrintTreePlain(treeAddress T);
 #endif

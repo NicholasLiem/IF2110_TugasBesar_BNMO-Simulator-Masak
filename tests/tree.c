@@ -9,14 +9,21 @@ int main() {
     addChild(&tree, 2, 3);
     addChild(&tree, 2, 5);
     addChild(&tree, 5, 6);
-    PrintTree(tree);   
-    printf("\n\ntes dua subtree duplikat\n\n");
+    PrintTreePlain(tree);   
+
     treeAddress tree2;
     CreateTree(&tree2);
-    addRoot(&tree2, 2);
-    addChild(&tree2, 2, 3);
-    addChild(&tree2, 2, 3);
-    addChild(&tree2, 3, 5);
-    addChild(&tree2, 3, 7);
-    PrintTree(tree2);  
+    addRoot(&tree2, 5);
+    addChild(&tree2, 5, 3);
+    addChild(&tree2, 3, 10);
+    PrintTreePlain(tree2);
+    printf("halo?");
+    List arrayTree;
+    CreateListLin(&arrayTree, 2);
+    ListType etree1, etree2;
+    etree1.address = tree;
+    etree2.address = tree2;
+    insertFirstLin(&arrayTree, etree1);
+    insertFirstLin(&arrayTree, etree2);
+    displayListLin(getTreeChildrenId(arrayTree, 2));
 }
