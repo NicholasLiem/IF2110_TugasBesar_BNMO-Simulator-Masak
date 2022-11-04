@@ -1,30 +1,62 @@
 #include "../headers/command.h"
 
-Word COMMAND_START = {"START", 5};
-Word COMMAND_EXIT = {"EXIT", 4};
+Word COMMAND_START = {"START", 5}; //
+Word COMMAND_EXIT = {"EXIT", 4}; //
 Word COMMAND_MIX = {"MIX",3};
 Word COMMAND_FRY = {"FRY", 3};
-Word COMMAND_CHOP = {"CHOP", 4};
-Word COMMAND_BOIL = {"BOIL", 4};
-Word COMMAND_BUY = {"BUY", 3};
-Word COMMAND_WAIT = {"WAIT", 4};
-Word COMMAND_UNDO = {"UNDO", 4};
-Word COMMAND_REDO = {"REDO", 4};
-Word COMMAND_CATALOG = {"CATALOG", 7};
-Word COMMAND_COOKBOOK = {"COOKBOOK", 8};
-Word COMMAND_MOVE = {"MOVE", 4};
-Word COMMAND_EAST = {"EAST", 4};
-Word COMMAND_NORTH = {"NORTH", 5};
-Word COMMAND_SOUTH = {"SOUTH", 5};
-Word COMMAND_WEST = {"WEST", 4};
+Word COMMAND_CHOP = {"CHOP", 4}; //
+Word COMMAND_BOIL = {"BOIL", 4}; //
+Word COMMAND_BUY = {"BUY", 3}; //
+Word COMMAND_WAIT = {"WAIT", 4}; //
+Word COMMAND_UNDO = {"UNDO", 4}; //
+Word COMMAND_REDO = {"REDO", 4}; //
+Word COMMAND_CATALOG = {"CATALOG", 7}; //
+Word COMMAND_COOKBOOK = {"COOKBOOK", 8}; //
+Word COMMAND_MOVE = {"MOVE", 4}; //
+Word COMMAND_EAST = {"EAST", 4}; //
+Word COMMAND_NORTH = {"NORTH", 5}; //
+Word COMMAND_SOUTH = {"SOUTH", 5}; //
+Word COMMAND_WEST = {"WEST", 4}; //
+Word COMMAND_HELP = {"HELP", 4};
+
 
 void printMenu(){
     printf("Silahkan Pilih Command Berikut: \n");
     printf("START\n");
     printf("EXIT\n");
-    printf("CATALOG\n");
-    printf("MOVE\n");
+    // printf("CATALOG\n");
+    // printf("MOVE\n");
     // printf("HELP\n");
+}
+
+void printHelp(){
+    printf("\n");
+    printf("------------------------------------------------------------\n");
+    printf("Daftar Command Tersedia\n");
+    printf("------------------------------------------------------------\n");
+    printf("Command Program\n");
+    printf("------------------------------------------------------------\n");
+    printf("1. CATALOG - Melihat daftar makanan tersedia\n");
+    printf("2. COOKBOOK - Melihat daftar resep tersedia\n");
+    printf("3. WAIT (X) (Y) - Menunggu selama X jam dan Y menit\n");
+    printf("4. MOVE NORTH/EAST/SOUTH/WEST - Bergerak satu langkah ke arah yang dituju\n");
+    printf("5. UNDO - Mengulang ke keadaan sebelumnya\n");
+    printf("6. REDO - Mengulangi apa yang sudah di UNDO\n");
+    printf("------------------------------------------------------------\n");
+    printf("Command Aksi\n");
+    printf("------------------------------------------------------------\n");
+    printf("1. BUY - Melakukan aksi pembelian makanan\n");
+    printf("2. BOIL - Melakukan aksi perebusan makanan\n");
+    printf("3. CHOP - Melakukan aksi pemotongan makanan\n");
+    printf("4. MIX - Melakukan aksi pencampuran makanan\n");
+    printf("5. FRY - Melakukan aksi penggorengan makanan\n");
+    printf("------------------------------------------------------------\n");
+    printf("Command Lain\n");
+    printf("------------------------------------------------------------\n");
+    printf("1. HELP - Menampilkan daftar command tersedia\n");
+    printf("2. EXIT - Keluar dari program\n");
+    printf("------------------------------------------------------------\n");
+    printf("\n");
 }
 
 void notInput(){
@@ -33,12 +65,12 @@ void notInput(){
 }
 
 void promptName(Word *word) {
-    printf("Hello? Siapa disitu? (tanpa spasi):");
+    printf("Hello? Siapa disitu? (tanpa spasi): ");
     STARTCOMMAND();
     copyWord(word, currentWord);
     RESETCOMMAND();
     printf("Hi "); printWord(*word);
-    printf(" !\n");
+    printf("!\n");
 }
 
 void menuHasNotLogin() {
@@ -130,7 +162,11 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_CATALOG)) {
         commandCatalog(listMakanan);
         ADVCOMMAND();
-    } else notInput();
+    } else if (isEqualWord(currentWord, COMMAND_HELP)){
+        printHelp();
+        ADVCOMMAND();
+    } 
+    else notInput();
 }
 
 int getCookChoice() {
@@ -149,7 +185,7 @@ int getCookChoice() {
 }
 void displayInfo() {
     if (isStarted) {
-        printf("Player name: ");
+        printf("Player Name: ");
         printWord(playerName);
         printf("\nTime: ");
         TulisTIME(currentTime);
