@@ -76,19 +76,22 @@ void menuHasLogin() {
         boolean isMoved = false;
         if (!endWord) {
             if (isEqualWord(currentWord, COMMAND_NORTH)) {
+                pushUndo();
                 isMoved = simMove('N');
             } else if (isEqualWord(currentWord, COMMAND_EAST)) {
+                pushUndo();
                 isMoved = simMove('E');
             } else if (isEqualWord(currentWord, COMMAND_SOUTH)) {
+                pushUndo();
                 isMoved = simMove('S');
             } else if (isEqualWord(currentWord, COMMAND_WEST)) {
+                pushUndo();
                 isMoved = simMove('W');
             } else {
                 notInput();
             }
             printf("done");
             if (isMoved) {
-                pushUndo();
                 simAdvTime(1);
             }
             ADVCOMMAND();
