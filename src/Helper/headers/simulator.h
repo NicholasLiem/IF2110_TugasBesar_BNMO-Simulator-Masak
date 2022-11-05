@@ -7,6 +7,7 @@
 #define simulator_H
 
 #include "configParser.h"
+#include "undo.h"
 #include "../../ADT/headers/prioqueuedinamik.h"
  
 extern Word COMMAND_START;
@@ -37,6 +38,9 @@ extern boolean isStarted;
 extern List listNotif;
 extern Queue listDelivery;
 extern Queue listInventory;
+extern stackState undo;
+extern stackState redo;
+extern boolean isRedo;
 
 void simLoadConfig();
 
@@ -53,4 +57,12 @@ void sendFoodNotif(Makanan food, List* listNotif);
 void displayMenu(Word word);
 void displayInventory();
 void displayDelivery();
+
+void pushUndo();
+void pushRedo();
+void undoState(stackState *undo);
+void redoState(stackState *redo);
+void simUndo();
+void simRedo();
+
 #endif

@@ -88,6 +88,7 @@ void menuHasLogin() {
             }
             printf("done");
             if (isMoved) {
+                pushUndo();
                 simAdvTime(1);
             }
             ADVCOMMAND();
@@ -113,6 +114,7 @@ void menuHasLogin() {
         if (invalidTime || !endWord) {
             notInput();
         } else {
+            pushUndo();
             simAdvTime(60*jam + menit);
         }
     } else if (isEqualWord(currentWord, COMMAND_BOIL) || isEqualWord(currentWord, COMMAND_CHOP) || isEqualWord(currentWord, COMMAND_FRY) || isEqualWord(currentWord, COMMAND_MIX) || isEqualWord(currentWord, COMMAND_BUY)) {
@@ -121,22 +123,27 @@ void menuHasLogin() {
         if (isEqualWord(currentWord, COMMAND_BOIL) && isAdjacentTo(&peta, 'B')) {
             displayMenu(COMMAND_BOIL);
             choice = getCookChoice();
+            pushUndo();
             addDelivery(COMMAND_BOIL, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_CHOP) && isAdjacentTo(&peta, 'C')) {
             displayMenu(COMMAND_CHOP);
             choice = getCookChoice();
+            pushUndo();
             addDelivery(COMMAND_CHOP, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_MIX) && isAdjacentTo(&peta, 'M')) {
             displayMenu(COMMAND_MIX);
             choice = getCookChoice();
+            pushUndo();
             addDelivery(COMMAND_MIX, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_BUY) && isAdjacentTo(&peta, 'T')) {
             displayMenu(COMMAND_BUY);
             choice = getCookChoice();
+            pushUndo();
             addDelivery(COMMAND_BUY, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_FRY) && isAdjacentTo(&peta, 'F')) {
             displayMenu(COMMAND_FRY);
             choice = getCookChoice();
+            pushUndo();
             addDelivery(COMMAND_FRY, choice, &listNotif);
         } else {
             printf("Maaf, anda tidak berada di station yang tepat untuk melakukan perintah.");
@@ -156,12 +163,21 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_INVENTORY)) {
         displayInventory();
         ADVCOMMAND();
+    } else if (isEqualWord(currentWord, COMMAND_UNDO)){
+        simUndo();
+        ADVCOMMAND();
+    } else if (isEqualWord(currentWord, COMMAND_REDO)){
+        simRedo();
+        ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_HELP)){
         printHelp();
         ADVCOMMAND();
     } 
     else notInput();
     processDeliveryAndExpired();
+    printf("u========UNDO : LAST STATE========u\n");
+    PrintStack(undo);
+    printf("n========UNDO : LAST STATE========n\n");
 }
 
 int getCookChoice() {

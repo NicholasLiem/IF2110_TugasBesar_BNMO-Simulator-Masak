@@ -28,6 +28,9 @@ boolean isStarted = false;
 List listNotif;
 Queue listDelivery;
 Queue listInventory;
+stackState undo;
+stackState redo;
+boolean isRedo = false;
 
 void simLoadConfig() {
     createListMakanan(&listMakanan);
@@ -48,7 +51,6 @@ void simLoadConfig() {
     //     PrintTree(tree.address);
     //     printf("-----\n");
     // }
-
 };
 
 boolean simMove(char c) {
@@ -128,4 +130,63 @@ void displayInventory() {
 void displayDelivery() {
     printf("========DELIVERY========");
     displayQueuePretty(listDelivery, 'D');
+}
+
+void pushUndo(){
+    PushState(&undo, peta, currentTime, listNotif, listInventory, listDelivery);
+    deleteAllState(&redo);
+    isRedo = false;
+}
+
+void pushRedo(){
+    PushState(&redo, peta, currentTime, listNotif, listInventory, listDelivery);
+}
+
+void undoState(stackState *undo){
+        printf("Undo berhasil\n");
+        stackAddress state = TOP(*undo);
+        peta = CURRENT_PETA(state);
+        currentTime = CURRENT_TIME(state);
+        listNotif = CURRENT_NOTIF(state);
+        listInventory = CURRENT_INVENTORY(state);
+        listDelivery = CURRENT_DELIVERY(state);
+        PopState(undo);
+    }
+
+
+void redoState(stackState *redo){
+
+    printf("Redo berhasil\n");
+        stackAddress state = TOP(*redo);
+        peta = CURRENT_PETA(state);
+        currentTime = CURRENT_TIME(state);
+        listNotif = CURRENT_NOTIF(state);
+        listInventory = CURRENT_INVENTORY(state);
+        listDelivery = CURRENT_DELIVERY(state);
+        PopState(redo);
+    }
+
+
+void simUndo(){
+    printf("========UNDO========\n");
+    // if(!isRedo)PopState(&undo);
+    if(!isEmptyStack(undo)){
+        pushRedo();
+        undoState(&undo);
+    }
+    else{
+        printf("Tidak ada state yang bisa di undo\n");
+    }
+}
+
+void simRedo(){
+    isRedo = true;
+    printf("========REDO========\n");
+    if(!isEmptyStack(redo)){
+        PushState(&undo, peta, currentTime, listNotif, listInventory, listDelivery);
+        redoState(&redo);
+    }
+    else{
+        printf("Tidak ada state yang bisa di redo\n");
+    }
 }
