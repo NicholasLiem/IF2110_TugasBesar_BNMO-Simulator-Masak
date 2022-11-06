@@ -54,6 +54,12 @@ void PrintStack(stackState S) {
         TulisTIME(CURRENT_TIME(currentState));
         printf("\nMap:\n");
         DisplayPeta(CURRENT_PETA(currentState));
+        printf("\nNotification:\n");
+        printNotif(listNotif);
+        printf("\nInventory:\n");
+        displayQueuePretty(CURRENT_INVENTORY(currentState), 'I');
+        printf("\nDelivery:\n");
+        displayQueuePretty(CURRENT_DELIVERY(currentState), 'D');
         printf("\n");
     }
 }
