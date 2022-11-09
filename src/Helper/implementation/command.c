@@ -126,27 +126,27 @@ void menuHasLogin() {
         if (isEqualWord(currentWord, COMMAND_BOIL) && isAdjacentTo(&peta, 'B')) {
             displayMenu(COMMAND_BOIL);
             choice = getCookChoice();
-            pushUndo();
+            if (choice != 0) pushUndo();
             addDelivery(COMMAND_BOIL, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_CHOP) && isAdjacentTo(&peta, 'C')) {
             displayMenu(COMMAND_CHOP);
             choice = getCookChoice();
-            pushUndo();
+            if (choice != 0) pushUndo();
             addDelivery(COMMAND_CHOP, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_MIX) && isAdjacentTo(&peta, 'M')) {
             displayMenu(COMMAND_MIX);
             choice = getCookChoice();
-            pushUndo();
+            if (choice != 0) pushUndo();
             addDelivery(COMMAND_MIX, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_BUY) && isAdjacentTo(&peta, 'T')) {
             displayMenu(COMMAND_BUY);
             choice = getCookChoice();
-            pushUndo();
+            if (choice != 0) pushUndo();
             addDelivery(COMMAND_BUY, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_FRY) && isAdjacentTo(&peta, 'F')) {
             displayMenu(COMMAND_FRY);
             choice = getCookChoice();
-            pushUndo();
+            if (choice != 0) pushUndo();
             addDelivery(COMMAND_FRY, choice, &listNotif);
         } else {
             printf("Maaf, anda tidak berada di station yang tepat untuk melakukan perintah.");
@@ -178,9 +178,9 @@ void menuHasLogin() {
     } 
     else notInput();
     processDeliveryAndExpired();
-    printf("u========UNDO : LAST STATE========u\n");
-    PrintStack(undo);
-    printf("n========UNDO : LAST STATE========n\n");
+    // printf("u========UNDO : LAST STATE========u\n");
+    // PrintStack(undo);
+    // printf("n========UNDO : LAST STATE========n\n");
 }
 
 int getCookChoice() {

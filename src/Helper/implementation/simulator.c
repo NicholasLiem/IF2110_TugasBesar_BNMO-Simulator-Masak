@@ -142,12 +142,24 @@ void pushRedo(){
     PushState(&redo, peta, currentTime, listNotif, listInventory, listDelivery);
 }
 
+void undoQueue(Queue qInv, Queue qDel, TIME diff){
+    revTimeExpired(&qInv, TIMEToMenit(diff));
+    revTimeDelivery(&qDel, TIMEToMenit(diff));
+}
+
+void redoQueue(Queue qInv, Queue qDel, TIME diff){
+    advTimeExpired(&qInv, TIMEToMenit(diff));
+    advTimeDelivery(&qDel, TIMEToMenit(diff));
+}
+
 void undoState(stackState *undo){
         printf("Undo berhasil\n");
         stackAddress state = TOP(*undo);
+        TIME diff = PrevNMenit(currentTime, TIMEToMenit(CURRENT_TIME(state)));
         peta = CURRENT_PETA(state);
         currentTime = CURRENT_TIME(state);
         listNotif = CURRENT_NOTIF(state);
+        undoQueue(CURRENT_INVENTORY(state), CURRENT_DELIVERY(state), diff);
         listInventory = CURRENT_INVENTORY(state);
         listDelivery = CURRENT_DELIVERY(state);
         PopState(undo);
@@ -156,11 +168,13 @@ void undoState(stackState *undo){
 
 void redoState(stackState *redo){
 
-    printf("Redo berhasil\n");
+        printf("Redo berhasil\n");
         stackAddress state = TOP(*redo);
         peta = CURRENT_PETA(state);
+        TIME diff = PrevNMenit(CURRENT_TIME(state), TIMEToMenit(currentTime));
         currentTime = CURRENT_TIME(state);
         listNotif = CURRENT_NOTIF(state);
+        redoQueue(CURRENT_INVENTORY(state), CURRENT_DELIVERY(state), diff);
         listInventory = CURRENT_INVENTORY(state);
         listDelivery = CURRENT_DELIVERY(state);
         PopState(redo);

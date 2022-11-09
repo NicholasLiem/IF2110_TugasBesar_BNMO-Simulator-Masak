@@ -46,7 +46,11 @@ void shiftLeft(Queue *q, int startPos);
 
 void advTimeDelivery(Queue *q, int time);
 
+void revTimeDelivery(Queue *q, int time);
+
 void advTimeExpired(Queue *q, int time);
+
+void revTimeExpired(Queue *q, int time);
 
 void removeExpired(Queue* q, List* notifWord);
 

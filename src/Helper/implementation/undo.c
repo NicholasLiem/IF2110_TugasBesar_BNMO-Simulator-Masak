@@ -5,7 +5,6 @@
 stackAddress AlokStackNode(Peta p, TIME t, List notif, Queue inv, Queue deliv) {
     stackAddress pNew = (stackAddress) malloc(sizeof(stackNode));
     if (pNew != NULL) {
-        printf("Alokasi berhasil\n");
         CURRENT_PETA(pNew) = p;
         CURRENT_TIME(pNew) = t;
         CURRENT_NOTIF(pNew) = notif;
@@ -64,6 +63,7 @@ void PrintStack(stackState S) {
     }
 }
     
+
 
 
 

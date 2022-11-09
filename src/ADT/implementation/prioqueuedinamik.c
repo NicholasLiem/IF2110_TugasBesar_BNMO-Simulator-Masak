@@ -89,10 +89,24 @@ void advTimeExpired(Queue *q, int time) {
     }
 };
 
+void revTimeExpired(Queue *q, int time) {
+    int i;
+    for (i = 0; i < IDX_TAIL(*q)+1; i++) {
+        (*q).buffer[i].exp = NextNMenit((*q).buffer[i].exp, time);
+    }
+};
+
 void advTimeDelivery(Queue *q, int time) {
     int i;
     for (i = 0; i < IDX_TAIL(*q)+1; i++) {
         (*q).buffer[i].lamaPengiriman = PrevNMenit((*q).buffer[i].lamaPengiriman, time);
+    }
+};
+
+void revTimeDelivery(Queue *q, int time) {
+    int i;
+    for (i = 0; i < IDX_TAIL(*q)+1; i++) {
+        (*q).buffer[i].lamaPengiriman = NextNMenit((*q).buffer[i].lamaPengiriman, time);
     }
 };
 
