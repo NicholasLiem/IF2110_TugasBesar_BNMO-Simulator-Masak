@@ -3,7 +3,7 @@
 
 #define UKURAN_BARIS 50
 #define UKURAN_KOLOM 50
-#define ID_KOSONG -9999
+#define ID_KOSONG 0
 
 #include "boolean.h"
 #include "makanan.h"
@@ -35,11 +35,11 @@ void createKulkas(Kulkas* kulkas);
 ItemKulkas createItemKulkas(Kulkas kulkas, Makanan itemMakanan);
 /* Membentuk ItemKulkas yang memiliki idKulkas */
 
-void insertMakanan(Kulkas* kulkas, Makanan itemMakanan);
+void insertMakananKulkas(Kulkas* kulkas, Makanan itemMakanan);
 /* I.S: Kulkas terdefinisi, makanan terdefinisi
    F.S: Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 
-boolean canInsert(Kulkas kulkas, int lebar, int panjang);
+void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom);
 /* Mengecek apakah suatu makanan dengan size tertentu bisa dimasukkan ke kulkas 
    akan dikembalikan nilai false jika tidak bisa */
 
@@ -50,4 +50,8 @@ void ambilMakanan(Kulkas* kulkas, int idMakanan);
 /* I.S: Kulkas terdefinisi dan idMakanan terdefinisi
    F.S: Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
 
+void printKulkas(Kulkas kulkas);
+
+void searchMakananKulkas(Kulkas kulkas, int idMakananKulkas);
+void listMakananKulkas(Kulkas kulkas);
 #endif

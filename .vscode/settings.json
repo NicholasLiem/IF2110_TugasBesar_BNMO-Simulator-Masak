@@ -5,6 +5,7 @@
         "math.h": "c",
         "wordmachine.h": "c",
         "word.h": "c",
-        "stack.h": "c"
+        "stack.h": "c",
+        "configparser.h": "c"
     }
 }

@@ -16,9 +16,10 @@ ItemKulkas createItemKulkas(Kulkas kulkas, Makanan itemMakanan){
     ItemKulkas newItemKulkas;
     ITEM_MAKANAN(newItemKulkas) = itemMakanan;
     ID_KULKAS(newItemKulkas) = JMLH_MAKANAN(kulkas) + 1;
+    return newItemKulkas;
 }
 
-void insertMakanan(Kulkas* kulkas, Makanan itemMakanan)
+void insertMakananKulkas(Kulkas* kulkas, Makanan itemMakanan)
 /* I.S Kulkas terdefinisi, makanan terdefinisi
    F.S Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 {
@@ -26,32 +27,47 @@ void insertMakanan(Kulkas* kulkas, Makanan itemMakanan)
     int lebar = itemMakanan.lebar;
     int panjang = itemMakanan.panjang;
     ItemKulkas newItemKulkas = createItemKulkas(*kulkas, itemMakanan);
-    if (canInsert(*kulkas, lebar, panjang)){
-        for (i = 0; i < lebar; i++){
-            for (j = 0; j < panjang; j++){
-                ELMT_KULKAS(*kulkas, i, j) = ID_KULKAS(newItemKulkas);
+
+    findFreeSpot(*kulkas, lebar, panjang, &i, &j);
+    // printf("%d %d\n", i, j);
+    if (i != -1 && j != -1){
+        for (int k = i; k < i + lebar; k++){
+            for (int l = j; l < j + panjang; l++){
+                ELMT_KULKAS(*kulkas, k, l) = ID_KULKAS(newItemKulkas);
             }
         }
         JMLH_MAKANAN(*kulkas)++;
+        Word namaMakanan = itemMakanan.nama;
+        printWord(namaMakanan);
+        printf(" (%d)", itemMakanan.id);
+        printf(" berhasil masuk ke dalam kulkas!\n");
+        printf("Registered ID makanan dalam Kulkas: %d\n", ID_KULKAS(newItemKulkas));
+    } else {
+        printf("Maaf, tidak cukup ruang untuk memasukkan makanan ini!\n");
     }
 }
 
-boolean canInsert(Kulkas kulkas, int lebar, int panjang)
-/* Mengecek apakah suatu makanan dengan size tertentu bisa dimasukkan ke kulkas 
-   akan dikembalikan nilai false jika tidak bisa */
+void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom)
+/* Mencari nilai index baris dan kolom yang dapat memuat makanan dengan size tertentu */
 {
-    int petak;
-    for(petak = 0; petak < BARIS_KULKAS(kulkas) * KOLOM_KULKAS(kulkas); petak++){
-        if(ELMT_KULKAS(kulkas, petak / KOLOM_KULKAS(kulkas), petak % KOLOM_KULKAS(kulkas)) == ID_KOSONG){
-            if(petak + lebar * panjang <= BARIS_KULKAS(kulkas) * KOLOM_KULKAS(kulkas)){
-                int i;
-                for(i = 0; i < lebar * panjang; i++){
-                    if(ELMT_KULKAS(kulkas, (petak + i) / KOLOM_KULKAS(kulkas), (petak + i) % KOLOM_KULKAS(kulkas)) != ID_KOSONG){
-                        return false;
-                    }
-                }
-                return true;
-            }
+    int i, j;
+    int k, l;
+    *hasilBaris = -1;
+    *hasilKolom = -1;
+    boolean kosong = false;
+    for (i = 0; i < BARIS_KULKAS(kulkas); i++){
+        for (j = 0; j < KOLOM_KULKAS(kulkas); j++){
+            // if (ELMT_KULKAS(kulkas, i, j) == 0){
+            //     for (k = 0; k < panjang; k++){
+            //         for (l = 0; l < lebar; l++){
+            //             if (ELMT_KULKAS(kulkas, i + k, j + l) == 0){
+            //                 kosong = true;
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // }
+            // Algoritma Check Freespotnya belom jalan
         }
     }
 }
@@ -64,3 +80,18 @@ boolean isIdMakananValid(Kulkas kulkas, int id){
 void ambilMakanan(Kulkas* kulkas, int idMakanan);
 /* I.S Kulkas terdefinisi dan idMakanan terdefinisi
    F.S Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
+
+void printKulkas(Kulkas kulkas)
+/* Menampilkan isi kulkas yang berisi id item makanan kulkas */
+{
+    int i, j;
+    for (i = 0; i < BARIS_KULKAS(kulkas); i++){
+        for (j = 0; j < KOLOM_KULKAS(kulkas); j++){
+            printf("%d ", ELMT_KULKAS(kulkas, i, j));
+        }
+        printf("\n");
+    }
+}
+
+void searchMakananKulkas(Kulkas kulkas, int idMakananKulkas);
+void listMakananKulkas(Kulkas kulkas);
