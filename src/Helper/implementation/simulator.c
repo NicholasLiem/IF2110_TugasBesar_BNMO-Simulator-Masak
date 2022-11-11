@@ -83,15 +83,55 @@ void displayMenu(Word action) {
 }
 
 void addDelivery(Word COMMAND, int foodId, List* listNotif) {
-    if (isEqualWord(COMMAND, COMMAND_BUY)) {
-        Makanan food = searchMakananCommand(listMakanan, foodId, COMMAND);
-        if (food.id == -1) {
+    Makanan food = searchMakananCommand(listMakanan, foodId, COMMAND);
+    if (food.id == -1) {
+        Word notif;
+        setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
+        insertNotif(listNotif, notif);
+    }
+    else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
+        enqueue(&listDelivery, food, 'D');       
+        sendFoodNotif(food, listNotif);
+    }else{
+        List resepChildren = getTreeChildrenId(listTreeResep, food.id);
+        Address addrChild = FIRST(resepChildren);
+        Makanan foodRequired;
+        boolean failed = false;
+        int idxAtInventory;
+
+        while(addrChild != NULL){
+            idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+            if(idxAtInventory == -1){
+                foodRequired = searchMakanan(listMakanan, INFO(addrChild).value);
+                Word notif;
+                setWord(&notif, "Gagal membuat ");
+                appendWord(&notif, food.nama);
+                Word sec;
+                setWord(&sec, ". Kamu tidak punya ");
+                appendWord(&sec, foodRequired.nama);
+                appendWord(&notif, sec);
+                insertNotif(listNotif, notif);
+
+                failed = true;
+            }
+
+            addrChild = NEXT(addrChild);
+        }
+
+        addrChild = FIRST(resepChildren);
+        if(!failed){
+            while(addrChild != NULL){
+                idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+                deleteAtQueue(&listInventory, idxAtInventory);
+                
+                addrChild = NEXT(addrChild);
+            }
+            enqueue(&listDelivery, food, 'I');
+
             Word notif;
-            setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
+            setWord(&notif, "Berhasil membuat ");
+            appendWord(&notif, food.nama);
             insertNotif(listNotif, notif);
-        } else {
-            enqueue(&listDelivery, food, 'D');       
-            sendFoodNotif(food, listNotif);
         }
     }
 }
