@@ -7,7 +7,6 @@
 #include "boolean.h"
 #include "makanan.h"
 #include "listlinier.h"
-#include "src\Helper\headers\simulator.h"
 
 #define CAPACITY_MULT 5
 

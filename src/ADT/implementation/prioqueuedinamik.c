@@ -146,19 +146,14 @@ List removeArrived(Queue *q, List* listNotif) {
         Makanan exp;
         dequeue(q, &exp);
         Word notif;
+        Word COMMAND_BUY = {"BUY", 3};
         if(isEqualWord(exp.aksi, COMMAND_BUY)){
             // TulisTIME((*q).buffer[0].lamaPengiriman);
             setWord(&notif, "Hore! Makanan ini telah sampai: ");
             appendWord(&notif, exp.nama);
         }
         else{
-            setWord(&notif, "Yay! Makanan ini berhasil ");
-            Word process;
-            if(isEqualWord(exp.aksi, COMMAND_FRY)) setWord(&process, "digoreng: ");
-            else if(isEqualWord(exp.aksi, COMMAND_MIX)) setWord(&process, "diaduk: ");
-            else if(isEqualWord(exp.aksi, COMMAND_CHOP)) setWord(&process, "dipotong: ");
-            else if(isEqualWord(exp.aksi, COMMAND_BOIL)) setWord(&process, "direbus: ");
-            appendWord(&notif, process);
+            setWord(&notif, "Yay! Makanan ini berhasil dibuat: ");
             appendWord(&notif, exp.nama);
         }
         insertNotif(listNotif, notif);
