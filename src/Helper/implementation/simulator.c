@@ -98,19 +98,21 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
         Makanan foodRequired;
         boolean failed = false;
         int idxAtInventory;
+        int count = 0;
 
         while(addrChild != NULL){
             idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
             if(idxAtInventory == -1){
+                count++;
+                if(!failed){
+                    printf("Yahh, kamu gak bisa bikin ");
+                    printWord(food.nama);
+                    printf(" karena kamu gak punya:\n");
+                }
                 foodRequired = searchMakanan(listMakanan, INFO(addrChild).value);
-                Word notif;
-                setWord(&notif, "Gagal membuat ");
-                appendWord(&notif, food.nama);
-                Word sec;
-                setWord(&sec, ". Kamu tidak punya ");
-                appendWord(&sec, foodRequired.nama);
-                appendWord(&notif, sec);
-                insertNotif(listNotif, notif);
+                printf("\t%d. ",count);
+                printWord(foodRequired.nama);
+                printf("\n");
 
                 failed = true;
             }
@@ -126,6 +128,18 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
                 
                 addrChild = NEXT(addrChild);
             }
+            if(!isEqualWord(COMMAND,COMMAND_CHOP)){
+                Word notif;
+                Word temp;
+                setWord(&notif, "Krrsss... ");
+                appendWord(&notif, food.nama);
+                setWord(&temp, " akan selesai dibuat dalam ");
+                appendWord(&temp, timeToWord(food.lamaPengiriman));
+                appendWord(&notif, temp);
+                
+                insertNotif(listNotif, notif);  
+            }
+
             enqueue(&listDelivery, food, 'I');
         }
     }
