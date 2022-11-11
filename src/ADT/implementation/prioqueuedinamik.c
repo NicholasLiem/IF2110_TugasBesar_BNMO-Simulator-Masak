@@ -145,15 +145,20 @@ List removeArrived(Queue *q, List* listNotif) {
     while (!isEmptyQ(*q) &&(TEQ((*q).buffer[0].lamaPengiriman, expired) || TLT((*q).buffer[0].lamaPengiriman, expired))) {
         Makanan exp;
         dequeue(q, &exp);
-        Makanan ori = searchMakanan(listMakanan, exp.id);
         Word notif;
-        if(TNEQ(ori.lamaPengiriman, expired)){
+        if(isEqualWord(exp.aksi, COMMAND_BUY)){
             // TulisTIME((*q).buffer[0].lamaPengiriman);
             setWord(&notif, "Hore! Makanan ini telah sampai: ");
             appendWord(&notif, exp.nama);
         }
         else{
-            setWord(&notif, "Yay! Makanan ini berhasil dibuat: ");
+            setWord(&notif, "Yay! Makanan ini berhasil ");
+            Word process;
+            if(isEqualWord(exp.aksi, COMMAND_FRY)) setWord(&process, "digoreng: ");
+            else if(isEqualWord(exp.aksi, COMMAND_MIX)) setWord(&process, "diaduk: ");
+            else if(isEqualWord(exp.aksi, COMMAND_CHOP)) setWord(&process, "dipotong: ");
+            else if(isEqualWord(exp.aksi, COMMAND_BOIL)) setWord(&process, "direbus: ");
+            appendWord(&notif, process);
             appendWord(&notif, exp.nama);
         }
         insertNotif(listNotif, notif);
