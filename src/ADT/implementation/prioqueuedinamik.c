@@ -48,6 +48,25 @@ boolean dequeue(Queue *q, ElTypeQueue *val) {
     }
 };
 
+int indexOfId(Queue q, ElType id){
+    int i;
+    for(i = IDX_MIN; i <= IDX_TAIL(q); i++){
+        if((q).buffer[i].id == id){
+            return i;
+        }
+    }
+    return -1;
+}
+
+void deleteAtQueue(Queue *q, int idx){
+    if(IDX_TAIL(*q) == 0){
+        IDX_TAIL(*q) = IDX_UNDEF;
+    } else{
+        shiftLeft(q, idx);
+        IDX_TAIL(*q) -= 1;
+    }
+}
+
 void shiftLeft(Queue *q, int startPos) {
     for (int i = startPos; i < IDX_TAIL((*q)); i++) {
         q->buffer[i] = q->buffer[i+1];

@@ -37,6 +37,12 @@ void enqueue(Queue *q, ElTypeQueue val, char c);
 
 boolean dequeue(Queue *q, ElTypeQueue *val);
 
+int indexOfId(Queue q, ElType id);
+
+void deleteAtQueue(Queue *q, int idx);
+
+// boolean deleteFirstId(Queue *q, ElType id);
+
 void displayQueue(Queue q);
 
 void sortQueue(Queue *q, char c);
