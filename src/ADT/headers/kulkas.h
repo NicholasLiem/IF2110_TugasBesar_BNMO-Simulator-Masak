@@ -40,8 +40,7 @@ void insertMakananKulkas(Kulkas* kulkas, Makanan itemMakanan);
    F.S: Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 
 void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom);
-/* Mengecek apakah suatu makanan dengan size tertentu bisa dimasukkan ke kulkas 
-   akan dikembalikan nilai false jika tidak bisa */
+/* Mencari nilai index baris dan kolom yang dapat memuat makanan dengan size tertentu */
 
 boolean isIdMakananValid(Kulkas kulkas, int id);
 /* Mengecek apakah nilai id makanan di kulkas */
@@ -51,7 +50,10 @@ void ambilMakanan(Kulkas* kulkas, int idMakanan);
    F.S: Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
 
 void printKulkas(Kulkas kulkas);
+/* I.S: Kulkas terdefinisi
+   F.S: Mengeluarkan tampilan kulkas dengan ID Kulkas sbg identifier makanan*/
 
-void searchMakananKulkas(Kulkas kulkas, int idMakananKulkas);
-void listMakananKulkas(Kulkas kulkas);
+boolean isMakananInKulkas(Kulkas kulkas, int idMakananKulkas);
+/* I.S Kulkas terdefinisi dan idMakananKulkas terdefinisi
+   F.S Menampilkan makanan yang ada di kulkas berdasarkan idMakananKulkas*/
 #endif

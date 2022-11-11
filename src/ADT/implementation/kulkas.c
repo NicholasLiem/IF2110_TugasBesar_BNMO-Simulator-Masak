@@ -82,7 +82,8 @@ void ambilMakanan(Kulkas* kulkas, int idMakanan);
    F.S Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
 
 void printKulkas(Kulkas kulkas)
-/* Menampilkan isi kulkas yang berisi id item makanan kulkas */
+/* I.S: Kulkas terdefinisi
+   F.S: Mengeluarkan tampilan kulkas dengan ID Kulkas sbg identifier makanan*/
 {
     int i, j;
     for (i = 0; i < BARIS_KULKAS(kulkas); i++){
@@ -93,5 +94,18 @@ void printKulkas(Kulkas kulkas)
     }
 }
 
-void searchMakananKulkas(Kulkas kulkas, int idMakananKulkas);
-void listMakananKulkas(Kulkas kulkas);
+boolean isMakananInKulkas(Kulkas kulkas, int idMakananKulkas){
+/* I.S Kulkas terdefinisi dan idMakananKulkas terdefinisi
+   F.S Mengembalikan true jika makanan dengan idMakananKulkas ada di kulkas*/
+    int i, j;
+    boolean found = false;
+    for (i = 0; i < BARIS_KULKAS(kulkas); i++){
+        for (j = 0; j < KOLOM_KULKAS(kulkas); j++){
+            if (ELMT_KULKAS(kulkas, i, j) == idMakananKulkas){
+                found = true;
+                break;
+            }
+        }
+    }
+    return found;
+}
