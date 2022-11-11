@@ -10,7 +10,7 @@
 #define COL_CAP 100
 
 typedef int IdxType; /* Index baris, kolom */
-typedef char ElType_MAT;
+typedef int ElType_MAT;
 typedef struct
 {
    ElType_MAT mem[ROW_CAP][COL_CAP];

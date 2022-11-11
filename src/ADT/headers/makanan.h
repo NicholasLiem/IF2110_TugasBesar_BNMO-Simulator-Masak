@@ -17,6 +17,8 @@ typedef struct {
 	Word aksi;
 	TIME exp;
 	TIME lamaPengiriman;
+	int lebar; 
+	int panjang;
 } Makanan;
 
 typedef struct {
@@ -31,6 +33,9 @@ typedef struct {
 #define LAMAPENGIRIMAN(P) (P).lamaPengiriman
 
 void createMakanan(Makanan* makanan, int id, Word aksi, Word nama, TIME exp, TIME lamaPengiriman);
+
+void setLebarMakanan(Makanan* makanan, int lebar);
+void setPanjangMakanan(Makanan* makanan, int lebar);
 
 void printMakanan(Makanan makanan);
 
