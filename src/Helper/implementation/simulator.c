@@ -127,11 +127,6 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
                 addrChild = NEXT(addrChild);
             }
             enqueue(&listDelivery, food, 'I');
-
-            Word notif;
-            setWord(&notif, "Berhasil membuat ");
-            appendWord(&notif, food.nama);
-            insertNotif(listNotif, notif);
         }
     }
 }

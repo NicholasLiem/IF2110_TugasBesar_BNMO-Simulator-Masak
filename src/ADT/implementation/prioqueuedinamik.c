@@ -145,9 +145,17 @@ List removeArrived(Queue *q, List* listNotif) {
     while (!isEmptyQ(*q) &&(TEQ((*q).buffer[0].lamaPengiriman, expired) || TLT((*q).buffer[0].lamaPengiriman, expired))) {
         Makanan exp;
         dequeue(q, &exp);
+        Makanan ori = searchMakanan(listMakanan, exp.id);
         Word notif;
-        setWord(&notif, "Hore! Makanan ini telah sampai: ");
-        appendWord(&notif, exp.nama);
+        if(TNEQ(ori.lamaPengiriman, expired)){
+            // TulisTIME((*q).buffer[0].lamaPengiriman);
+            setWord(&notif, "Hore! Makanan ini telah sampai: ");
+            appendWord(&notif, exp.nama);
+        }
+        else{
+            setWord(&notif, "Yay! Makanan ini berhasil dibuat: ");
+            appendWord(&notif, exp.nama);
+        }
         insertNotif(listNotif, notif);
         ListType temp;
         temp.makanan = exp;

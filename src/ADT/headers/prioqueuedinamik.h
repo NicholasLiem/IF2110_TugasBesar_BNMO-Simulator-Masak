@@ -7,6 +7,7 @@
 #include "boolean.h"
 #include "makanan.h"
 #include "listlinier.h"
+#include "src\Helper\headers\configParser.h"
 
 #define CAPACITY_MULT 5
 
