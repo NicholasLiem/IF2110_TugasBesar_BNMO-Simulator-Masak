@@ -196,7 +196,6 @@ void pushUndo(List oldNotif){
 
 void pushRedo(List oldNotif){
     currentLoc = locationOf(&peta, SIMULATOR);
-    // stackAddress state = TOP(undo);
     List copyListNotif;
     copyListLin(oldNotif, &copyListNotif);
     Queue copyListInv, copyListDel;
@@ -210,15 +209,8 @@ void pushRedo(List oldNotif){
 void undoState(stackState *undo){
         printf("Undo berhasil\n");
         stackAddress state = TOP(*undo);
-        // TIME diff = PrevNMenit(currentTime, TIMEToMenit(CURRENT_TIME(state)));
-        // peta = CURRENT_PETA(state);
         currentTime = CURRENT_TIME(state);
-        // listNotif = CURRENT_NOTIF(state);
-        // undoQueue(CURRENT_INVENTORY(state), CURRENT_DELIVERY(state), diff);
-        // listInventory = CURRENT_INVENTORY(state);
-        // listDelivery = CURRENT_DELIVERY(state);
         copyListLin(CURRENT_NOTIF(state), &listNotif);
-        displayListLin(listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
         copyInv(CURRENT_INVENTORY(state), &listInventory);
