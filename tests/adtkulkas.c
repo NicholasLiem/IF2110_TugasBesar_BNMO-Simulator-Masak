@@ -28,7 +28,12 @@ int main(){
     createKulkas(&kulkasPanasonic);
     
     insertMakananKulkas(&kulkasPanasonic, testMakanan);
-    // insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
-    // printKulkas(kulkasPanasonic);
+    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
+    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
+    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
+    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
+    insertMakananKulkas(&kulkasPanasonic, testMakanan);
+    insertMakananKulkas(&kulkasPanasonic, testMakanan);
+    printKulkas(kulkasPanasonic);
     return 0;
 }

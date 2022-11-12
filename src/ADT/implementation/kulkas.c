@@ -1,6 +1,12 @@
 #include "../headers/kulkas.h"
 
+/* Inisialisasi size makanan dari input pengguna */
+
 /* Sistem pengisian mulai dari paling kiri atas ke kanan dan baru ke bawah */
+/* Sistem penomoran juga bermula dari 1, 2, 3, ..., n dengan n adalah jumlah makanan */
+/* Jadi dapat dipastikan setiap makanan memiliki ID yang berbeda-beda */
+/* Pemasukkan makanan memiliki batasan orientasi di mana jika sizenya adalah panjang x lebar,
+    maka yang dimasukkan ke dalam kulkas juga demikian tidak bisa ditaruh dalam bentuk lebar x panjang */
 
 void createKulkas(Kulkas* kulkas){
 /* I.S kulkas bebas
@@ -23,13 +29,13 @@ void insertMakananKulkas(Kulkas* kulkas, Makanan itemMakanan)
 /* I.S Kulkas terdefinisi, makanan terdefinisi
    F.S Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 {
+    /* TASK : Perlu penambahan delete item dari inventory */
     int i, j;
     int lebar = itemMakanan.lebar;
     int panjang = itemMakanan.panjang;
     ItemKulkas newItemKulkas = createItemKulkas(*kulkas, itemMakanan);
 
     findFreeSpot(*kulkas, lebar, panjang, &i, &j);
-    // printf("%d %d\n", i, j);
     if (i != -1 && j != -1){
         for (int k = i; k < i + lebar; k++){
             for (int l = j; l < j + panjang; l++){
@@ -54,32 +60,43 @@ void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* h
     int k, l;
     *hasilBaris = -1;
     *hasilKolom = -1;
+    int luas = panjang*lebar;
+    int count;
     boolean kosong = false;
-    for (i = 0; i < BARIS_KULKAS(kulkas); i++){
-        for (j = 0; j < KOLOM_KULKAS(kulkas); j++){
-            // if (ELMT_KULKAS(kulkas, i, j) == 0){
-            //     for (k = 0; k < panjang; k++){
-            //         for (l = 0; l < lebar; l++){
-            //             if (ELMT_KULKAS(kulkas, i + k, j + l) == 0){
-            //                 kosong = true;
-            //                 break;
-            //             }
-            //         }
-            //     }
-            // }
-            // Algoritma Check Freespotnya belom jalan
+    for (i = 0; i <= BARIS_KULKAS(kulkas)-lebar; i++){
+        count = 0;
+        for (j = 0; j <= KOLOM_KULKAS(kulkas)-panjang; j++){
+            if (ELMT_KULKAS(kulkas, i, j) == 0){
+                for (k = 0; k < lebar; k++){
+                    for (l = 0; l < panjang; l++){
+                        if (ELMT_KULKAS(kulkas, i + k, j + l) == 0){
+                            count++;
+                        }
+                    }
+                }
+            if (count == luas){
+                    *hasilKolom = j;
+                    break;
+                }
+            }
+        }
+        if (count == luas){
+            *hasilBaris = i;
+            break;
         }
     }
 }
 
-boolean isIdMakananValid(Kulkas kulkas, int id){
+boolean isIdMakananValid(Kulkas kulkas, int id)
+/* Mengecek apakah nilai id makanan di kulkas */
+{
     return(id >= 1 && id <= JMLH_MAKANAN(kulkas));
 }
-/* Mengecek apakah nilai id makanan di kulkas */
 
 void ambilMakanan(Kulkas* kulkas, int idMakanan);
 /* I.S Kulkas terdefinisi dan idMakanan terdefinisi
    F.S Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
+/* TASK : Perlu menambahkan item dari kulkas ke inventory */
 
 void printKulkas(Kulkas kulkas)
 /* I.S: Kulkas terdefinisi
@@ -96,7 +113,7 @@ void printKulkas(Kulkas kulkas)
 
 boolean isMakananInKulkas(Kulkas kulkas, int idMakananKulkas){
 /* I.S Kulkas terdefinisi dan idMakananKulkas terdefinisi
-   F.S Mengembalikan true jika makanan dengan idMakananKulkas ada di kulkas*/
+   F.S Mengembalikan true jika makanan dengan idMakananKulkas ada di kulkas */
     int i, j;
     boolean found = false;
     for (i = 0; i < BARIS_KULKAS(kulkas); i++){
@@ -105,6 +122,9 @@ boolean isMakananInKulkas(Kulkas kulkas, int idMakananKulkas){
                 found = true;
                 break;
             }
+        }
+        if (found){
+            break;
         }
     }
     return found;
