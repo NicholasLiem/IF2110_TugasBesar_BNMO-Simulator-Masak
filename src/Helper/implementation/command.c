@@ -70,9 +70,6 @@ void menuHasNotLogin() {
 // boolean pushed = false;
 void menuHasLogin() {
     // boolean undoing = false;
-    // printf("============================\n");
-    // displayListLin(oldNotif);
-    // printf("============================\n");
     if (isEqualWord(currentWord, COMMAND_EXIT)){
         printf("Game exited\n");
         exit(0);

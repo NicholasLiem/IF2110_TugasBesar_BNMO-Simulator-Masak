@@ -150,19 +150,19 @@ void DisplayPeta(Peta P){
     int i;
 
     for(i = 0; i < LEN_EFF(P)+2; i++){ // Mencetak * di awal Peta
-        printf("*");
+        printf("* ");
     }
     printf("\n");
     for(y = 0; y < WIDTH_EFF(P); y++){
-        printf("*");
+        printf("* ");
         for(x = 0; x < LEN_EFF(P); x++){
-            if(ELMT_PETA(P, x, y) == SPACE) printf(" ");
-            else printf("%c", ELMT_PETA(P, x, y));
+            if(ELMT_PETA(P, x, y) == SPACE) printf("  ");
+            else printf("%c ", ELMT_PETA(P, x, y));
         }
         printf("*\n");
     }
     for(i = 0; i < LEN_EFF(P)+2; i++){ // Mencetak * di akhir Peta
-        printf("*");
+        printf("* ");
     }
 }
 

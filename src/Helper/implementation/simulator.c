@@ -85,15 +85,64 @@ void displayMenu(Word action) {
 }
 
 void addDelivery(Word COMMAND, int foodId, List* listNotif) {
-    if (isEqualWord(COMMAND, COMMAND_BUY)) {
-        Makanan food = searchMakananCommand(listMakanan, foodId, COMMAND);
-        if (food.id == -1) {
-            Word notif;
-            setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
-            insertNotif(listNotif, notif);
-        } else {
-            enqueue(&listDelivery, food, 'D');       
-            sendFoodNotif(food, listNotif);
+    Makanan food = searchMakananCommand(listMakanan, foodId, COMMAND);
+    if (food.id == -1) {
+        Word notif;
+        setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
+        insertNotif(listNotif, notif);
+    }
+    else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
+        enqueue(&listDelivery, food, 'D');       
+        sendFoodNotif(food, listNotif);
+    }else{
+        List resepChildren = getTreeChildrenId(listTreeResep, food.id);
+        Address addrChild = FIRST(resepChildren);
+        Makanan foodRequired;
+        boolean failed = false;
+        int idxAtInventory;
+        int count = 0;
+
+        while(addrChild != NULL){
+            idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+            if(idxAtInventory == -1){
+                count++;
+                if(!failed){
+                    printf("Yahh, kamu gak bisa bikin ");
+                    printWord(food.nama);
+                    printf(" karena kamu gak punya:\n");
+                }
+                foodRequired = searchMakanan(listMakanan, INFO(addrChild).value);
+                printf("\t%d. ",count);
+                printWord(foodRequired.nama);
+                printf("\n");
+
+                failed = true;
+            }
+
+            addrChild = NEXT(addrChild);
+        }
+
+        addrChild = FIRST(resepChildren);
+        if(!failed){
+            while(addrChild != NULL){
+                idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+                deleteAtQueue(&listInventory, idxAtInventory);
+                
+                addrChild = NEXT(addrChild);
+            }
+            if(!isEqualWord(COMMAND,COMMAND_CHOP)){
+                Word notif;
+                Word temp;
+                setWord(&notif, "Krrsss... ");
+                appendWord(&notif, food.nama);
+                setWord(&temp, " akan selesai dibuat dalam ");
+                appendWord(&temp, timeToWord(food.lamaPengiriman));
+                appendWord(&notif, temp);
+                
+                insertNotif(listNotif, notif);  
+            }
+
+            enqueue(&listDelivery, food, 'I');
         }
     }
 }
@@ -143,8 +192,6 @@ void pushUndo(List oldNotif){
     copyDel(listDelivery, &copyListDel);
     PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
     deleteAllState(&redo);
-    printf("hasil kopi: \n");
-    displayListLin(listNotif);
 }
 
 void pushRedo(List oldNotif){
@@ -171,7 +218,6 @@ void undoState(stackState *undo){
         // listInventory = CURRENT_INVENTORY(state);
         // listDelivery = CURRENT_DELIVERY(state);
         copyListLin(CURRENT_NOTIF(state), &listNotif);
-        printf("Undo berhasil\n");
         displayListLin(listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
@@ -189,20 +235,16 @@ void redoState(stackState *redo){
         // peta = CURRENT_PETA(state);
         // TIME diff = PrevNMenit(CURRENT_TIME(state), TIMEToMenit(currentTime));
         currentTime = CURRENT_TIME(state);
-        printf("1\n");
         // listNotif = CURRENT_NOTIF(state);
         // redoQueue(CURRENT_INVENTORY(state), CURRENT_DELIVERY(state), diff);
         // listInventory = CURRENT_INVENTORY(state);
         // listDelivery = CURRENT_DELIVERY(state);
         // deleteAllLin(&listNotif);
-        printf("1\n");
         copyListLin(CURRENT_NOTIF(state), &listNotif);
-        printf("2\n");
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
         copyInv(CURRENT_INVENTORY(state), &listInventory);
         copyDel(CURRENT_DELIVERY(state), &listDelivery);
-        printf("3\n");
         currentLoc = locationOf(&peta, SIMULATOR);
         SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
         PopState(redo);
@@ -239,7 +281,6 @@ void simRedo(){
         printf("Tidak ada state yang bisa di redo\n");
     }
 }
-
 
 
 // void pushUndoNotif(){

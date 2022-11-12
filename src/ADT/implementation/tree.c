@@ -186,7 +186,7 @@ List getTreeChildrenId(List T, ElType parent) {
                 treeAddress child = (treeAddress) addr.address;
                 ListType idChild;
                 idChild.value = child->foodId;
-                printf("%d idChild: %d\n", index, idChild.value);
+                // printf("%d idChild: %d\n", index, idChild.value);
                 insertFirstLin(&listChildren, idChild);
                 index += 1;
             }

@@ -7,7 +7,7 @@
 #define simulator_H
 
 #include "configParser.h"
-#include "undo.h"
+#include "../../ADT/headers/stack.h"
 #include "../../ADT/headers/prioqueuedinamik.h"
 #include "../../ADT/headers/peta.h"
  

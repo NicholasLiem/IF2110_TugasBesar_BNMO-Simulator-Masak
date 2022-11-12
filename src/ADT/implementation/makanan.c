@@ -7,6 +7,16 @@ void createMakanan(Makanan* makanan, int id, Word aksi, Word nama, TIME exp, TIM
     makanan->nama = nama;
 	makanan->exp = exp;
 	makanan->lamaPengiriman = lamaPengiriman;
+	makanan->lebar = 0;
+	makanan->panjang = 0;
+}
+
+void setLebarMakanan(Makanan* makanan, int lebar){
+	makanan->lebar = lebar;
+}
+
+void setPanjangMakanan(Makanan* makanan, int panjang){
+	makanan->panjang = panjang;
 }
 
 void increaseTime(Makanan* makanan, int durasiMenit) {

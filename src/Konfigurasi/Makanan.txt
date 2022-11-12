@@ -22,10 +22,10 @@ Buy
 31
 Ayam Tepung
 0 0 30
-0 0 0
+0 0 2
 Mix
 37
 Ayam Goreng
 0 0 15
-200 122 304 
+0 0 5
 Fry
