@@ -110,6 +110,27 @@ void revTimeDelivery(Queue *q, int time) {
     }
 };
 
+void deleteQ(Queue *q) {
+    // delete using dequeue
+    ElTypeQueue val;
+    while (!isEmptyQ(*q)) {
+        dequeue(q, &val);
+    }
+};
+
+void copyInv(Queue q1, Queue *q2) {
+    // copy content from q1 to q2
+    for (int i = 0; i < IDX_TAIL(q1)+1; i++) {
+        enqueue(q2, (q1).buffer[i], 'I');
+    }
+};
+
+void copyDel(Queue q1, Queue *q2) {
+    for (int i = 0; i < IDX_TAIL(q1)+1; i++) {
+        enqueue(q2, (q1).buffer[i], 'D');
+    }
+};
+
 void removeExpired(Queue *q, List* listNotif) {
     TIME expired;
     CreateTime(&expired, 0, 0, 0);

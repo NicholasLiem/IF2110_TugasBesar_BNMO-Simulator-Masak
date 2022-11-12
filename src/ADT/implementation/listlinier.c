@@ -208,6 +208,17 @@ void deleteAtLin(List *l, int idx, ListType *val){
     }
 }
 
+void deleteAllLin(List *l){
+/* I.S. l terdefinisi */
+/* F.S. Semua elemen list di-dealokasi */
+    Address p = FIRST((*l));
+    while (p != NULL){
+        Address next = NEXT(p);
+        free(p);
+        p = next;
+    }
+    FIRST((*l)) = NULL;
+}
 
 // /****************** PROSES SEMUA ELEMEN LIST ******************/
 void displayListLin(List l){
@@ -281,4 +292,16 @@ List concatLin(List l1, List l2) {
         p = NEXT(p);
     }
     return l3;
+}
+
+void copyListLin(List l1, List *l2){
+/* I.S. l1 sembarang */
+/* F.S. l2 berisi salinan l1 */
+/* Proses : Menyalin isi l1 ke l2 */
+    CreateListLin(l2, TYPE(l1));
+    Address p = FIRST(l1);
+    while (p != NULL){
+        insertLastLin(l2, INFO(p));
+        p = NEXT(p);
+    }
 }

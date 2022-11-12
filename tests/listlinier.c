@@ -41,5 +41,10 @@ int main() {
     ListType makananList = getElmtLin(listMakanan, 0);
     increaseTime(&makananList.makanan, 10);
     setElmtLin(&listMakanan, 0, makananList);
+    printf("\n====================================\n");
     displayListLin(listMakanan);
+    List listMakanan2;
+    copyListLin(listMakanan, &listMakanan2);
+    printf("\n====================================\n");
+    displayListLin(listMakanan2);
 }

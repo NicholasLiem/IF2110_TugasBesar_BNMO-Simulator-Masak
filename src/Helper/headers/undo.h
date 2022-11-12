@@ -10,7 +10,8 @@
 typedef struct stackNode* stackAddress;
 
 typedef struct stackNode {
-    Peta currentPeta;
+    // Peta currentPeta;
+    POINT currentLoc;
     TIME currentTime;
     List currentNotif;
     Queue currentInventory;
@@ -23,20 +24,21 @@ typedef struct stackState {
 } stackState;
 
 #define TOP(S) (S).top
-#define CURRENT_PETA(S) (S)->currentPeta
+// #define CURRENT_PETA(S) (S)->currentPeta
+#define CURRENT_LOC(S) (S)->currentLoc
 #define CURRENT_TIME(S) (S)->currentTime
 #define CURRENT_NOTIF(S) (S)->currentNotif
 #define CURRENT_INVENTORY(S) (S)->currentInventory
 #define CURRENT_DELIVERY(S) (S)->currentDelivery
 #define NEXTSTATE(S) (S)->next
 
-stackAddress AlokStackNode(Peta p, TIME t, List l, Queue q, Queue q2);
+stackAddress AlokStackNode(POINT p, TIME t, List l, Queue q, Queue q2);
 
 void CreateStack(stackState *S);
 
 boolean isEmptyStack(stackState S);
 
-void PushState(stackState *S, Peta p, TIME t, List l, Queue q, Queue q2);
+void PushState(stackState *S, POINT p, TIME t, List l, Queue q, Queue q2);
 
 void PopState(stackState *S);
 

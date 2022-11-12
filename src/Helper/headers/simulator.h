@@ -9,6 +9,7 @@
 #include "configParser.h"
 #include "undo.h"
 #include "../../ADT/headers/prioqueuedinamik.h"
+#include "../../ADT/headers/peta.h"
  
 extern Word COMMAND_START;
 extern Word COMMAND_EXIT;
@@ -36,6 +37,7 @@ extern POINT currentLoc;
 extern TIME currentTime;
 extern boolean isStarted;
 extern List listNotif;
+extern List oldNotif;
 extern Queue listDelivery;
 extern Queue listInventory;
 extern stackState undo;
@@ -58,11 +60,16 @@ void displayMenu(Word word);
 void displayInventory();
 void displayDelivery();
 
-void pushUndo();
-void pushRedo();
+
+void pushUndo(List oldNotif);
+void pushRedo(List oldNotif);
 void undoState(stackState *undo);
 void redoState(stackState *redo);
-void simUndo();
+void simUndo(List oldNotif);
 void simRedo();
+// void pushUndoNotif();
+// void pushRedoNotif();
+// void undoQueue(Queue qInv, Queue qDel, TIME diff);
+// void redoQueue(Queue qInv, Queue qDel, TIME diff);
 
 #endif

@@ -102,6 +102,7 @@ void deleteAtLin(List *l, int idx, ListType *val);
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
+void deleteAllLin(List *l);
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
 void displayListLin(List l);
@@ -124,5 +125,7 @@ List concatLin(List l1, List l2) ;
 /* Tidak ada alokasi/dealokasi pada prosedur ini */
 
 void insertNotif(List* l1, Word notif);
+
+void copyListLin(List l1, List *l2);
 
 #endif

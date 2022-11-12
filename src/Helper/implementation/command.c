@@ -67,7 +67,12 @@ void menuHasNotLogin() {
     return;
 }
 
+// boolean pushed = false;
 void menuHasLogin() {
+    // boolean undoing = false;
+    // printf("============================\n");
+    // displayListLin(oldNotif);
+    // printf("============================\n");
     if (isEqualWord(currentWord, COMMAND_EXIT)){
         printf("Game exited\n");
         exit(0);
@@ -76,16 +81,17 @@ void menuHasLogin() {
         boolean isMoved = false;
         if (!endWord) {
             if (isEqualWord(currentWord, COMMAND_NORTH)) {
-                pushUndo();
+                 pushUndo(oldNotif);
+                // pushed = false;
                 isMoved = simMove('N');
             } else if (isEqualWord(currentWord, COMMAND_EAST)) {
-                pushUndo();
+                pushUndo(oldNotif);
                 isMoved = simMove('E');
             } else if (isEqualWord(currentWord, COMMAND_SOUTH)) {
-                pushUndo();
+                pushUndo(oldNotif);
                 isMoved = simMove('S');
             } else if (isEqualWord(currentWord, COMMAND_WEST)) {
-                pushUndo();
+                pushUndo(oldNotif);
                 isMoved = simMove('W');
             } else {
                 notInput();
@@ -117,7 +123,8 @@ void menuHasLogin() {
         if (invalidTime || !endWord) {
             notInput();
         } else {
-            pushUndo();
+            pushUndo(oldNotif);
+            // pushed = false;
             simAdvTime(60*jam + menit);
         }
     } else if (isEqualWord(currentWord, COMMAND_BOIL) || isEqualWord(currentWord, COMMAND_CHOP) || isEqualWord(currentWord, COMMAND_FRY) || isEqualWord(currentWord, COMMAND_MIX) || isEqualWord(currentWord, COMMAND_BUY)) {
@@ -126,27 +133,32 @@ void menuHasLogin() {
         if (isEqualWord(currentWord, COMMAND_BOIL) && isAdjacentTo(&peta, 'B')) {
             displayMenu(COMMAND_BOIL);
             choice = getCookChoice();
-            if (choice != 0) pushUndo();
+            if (choice != 0) pushUndo(oldNotif);
+            // pushed = false;
             addDelivery(COMMAND_BOIL, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_CHOP) && isAdjacentTo(&peta, 'C')) {
             displayMenu(COMMAND_CHOP);
             choice = getCookChoice();
-            if (choice != 0) pushUndo();
+             if (choice != 0) pushUndo(oldNotif);
+            //  pushed = false;
             addDelivery(COMMAND_CHOP, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_MIX) && isAdjacentTo(&peta, 'M')) {
             displayMenu(COMMAND_MIX);
             choice = getCookChoice();
-            if (choice != 0) pushUndo();
+            if (choice != 0) pushUndo(oldNotif);
+            // pushed = false;
             addDelivery(COMMAND_MIX, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_BUY) && isAdjacentTo(&peta, 'T')) {
             displayMenu(COMMAND_BUY);
             choice = getCookChoice();
-            if (choice != 0) pushUndo();
+             if (choice != 0) pushUndo(oldNotif);
+            //  pushed = false;
             addDelivery(COMMAND_BUY, choice, &listNotif);
         } else if (isEqualWord(currentWord, COMMAND_FRY) && isAdjacentTo(&peta, 'F')) {
             displayMenu(COMMAND_FRY);
             choice = getCookChoice();
-            if (choice != 0) pushUndo();
+            if (choice != 0) pushUndo(oldNotif);
+            // pushed = false;
             addDelivery(COMMAND_FRY, choice, &listNotif);
         } else {
             printf("Maaf, anda tidak berada di station yang tepat untuk melakukan perintah.");
@@ -167,7 +179,8 @@ void menuHasLogin() {
         displayInventory();
         ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_UNDO)){
-        simUndo();
+        // undoing = true;
+        simUndo(oldNotif);
         ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_REDO)){
         simRedo();
@@ -178,6 +191,16 @@ void menuHasLogin() {
     } 
     else notInput();
     processDeliveryAndExpired();
+    // if(!isEmptyLin(listNotif)) {
+    //     if(!undoing){
+    //         pushUndoNotif();
+    //         pushed = true;
+    //         // pushRedoNotif();
+    //     }
+    // }
+    deleteAllLin(&oldNotif);
+    copyListLin(listNotif, &oldNotif);
+    // printf("\n");
     // printf("u========UNDO : LAST STATE========u\n");
     // PrintStack(undo);
     // printf("n========UNDO : LAST STATE========n\n");

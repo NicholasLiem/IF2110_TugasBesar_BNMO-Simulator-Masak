@@ -68,6 +68,8 @@ boolean MoveLegend(POINT LegPoint, Peta *P, char direction, List* listNotif);
 /* F.S. L dalam sistem Peta bergeser sejauh satu ke direction atau
         mencetak prompt jika direction menyebabkan Legend melebihi batas atau menabrak dinding */
 
+void SetLegend(Peta *P, POINT last, POINT now, Legend t);
+
 boolean isAdjacentTo(Peta *P, char symbol);
 
 boolean MoveSimulator(Peta *P, char direction, List* listNotif);

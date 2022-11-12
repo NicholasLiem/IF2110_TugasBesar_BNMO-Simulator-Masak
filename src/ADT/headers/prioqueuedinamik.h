@@ -52,6 +52,12 @@ void advTimeExpired(Queue *q, int time);
 
 void revTimeExpired(Queue *q, int time);
 
+void deleteQ(Queue *q);
+
+void copyInv(Queue q1, Queue *q2);
+
+void copyDel(Queue q1, Queue *q2);
+
 void removeExpired(Queue* q, List* notifWord);
 
 List removeArrived(Queue *q, List* listNotif);

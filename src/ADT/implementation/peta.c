@@ -106,6 +106,19 @@ boolean MoveLegend(POINT LegPoint, Peta *P, char direction, List* listNotif){
     }
 }
 
+void SetLegend(Peta *P, POINT last, POINT now, Legend t){
+    int x, y;
+    if(!isLocationEff(*P,now)){
+        x = (int) Absis(now);
+        y = (int) Ordinat(now);
+        ELMT_PETA(*P, x, y) = t;
+        x = (int) Absis(last);
+        y = (int) Ordinat(last);
+        ELMT_PETA(*P, x, y) = SPACE;
+    }
+    
+}
+
 boolean MoveSimulator(Peta *P, char direction, List* listNotif){
     POINT LegPoint = locationOf(P, SIMULATOR);
     return MoveLegend(LegPoint, P, direction, listNotif);
