@@ -37,6 +37,12 @@ void enqueue(Queue *q, ElTypeQueue val, char c);
 
 boolean dequeue(Queue *q, ElTypeQueue *val);
 
+int indexOfId(Queue q, ElType id);
+
+void deleteAtQueue(Queue *q, int idx);
+
+// boolean deleteFirstId(Queue *q, ElType id);
+
 void displayQueue(Queue q);
 
 void sortQueue(Queue *q, char c);
@@ -46,7 +52,17 @@ void shiftLeft(Queue *q, int startPos);
 
 void advTimeDelivery(Queue *q, int time);
 
+void revTimeDelivery(Queue *q, int time);
+
 void advTimeExpired(Queue *q, int time);
+
+void revTimeExpired(Queue *q, int time);
+
+void deleteQ(Queue *q);
+
+void copyInv(Queue q1, Queue *q2);
+
+void copyDel(Queue q1, Queue *q2);
 
 void removeExpired(Queue* q, List* notifWord);
 

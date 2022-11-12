@@ -26,8 +26,11 @@ POINT currentLoc;
 TIME currentTime;
 boolean isStarted = false;
 List listNotif;
+List oldNotif;
 Queue listDelivery;
 Queue listInventory;
+stackState undo;
+stackState redo;
 
 void simLoadConfig() {
     createListMakanan(&listMakanan);
@@ -48,7 +51,6 @@ void simLoadConfig() {
     //     PrintTree(tree.address);
     //     printf("-----\n");
     // }
-
 };
 
 boolean simMove(char c) {
@@ -83,15 +85,64 @@ void displayMenu(Word action) {
 }
 
 void addDelivery(Word COMMAND, int foodId, List* listNotif) {
-    if (isEqualWord(COMMAND, COMMAND_BUY)) {
-        Makanan food = searchMakananCommand(listMakanan, foodId, COMMAND);
-        if (food.id == -1) {
-            Word notif;
-            setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
-            insertNotif(listNotif, notif);
-        } else {
-            enqueue(&listDelivery, food, 'D');       
-            sendFoodNotif(food, listNotif);
+    Makanan food = searchMakananCommand(listMakanan, foodId, COMMAND);
+    if (food.id == -1) {
+        Word notif;
+        setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
+        insertNotif(listNotif, notif);
+    }
+    else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
+        enqueue(&listDelivery, food, 'D');       
+        sendFoodNotif(food, listNotif);
+    }else{
+        List resepChildren = getTreeChildrenId(listTreeResep, food.id);
+        Address addrChild = FIRST(resepChildren);
+        Makanan foodRequired;
+        boolean failed = false;
+        int idxAtInventory;
+        int count = 0;
+
+        while(addrChild != NULL){
+            idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+            if(idxAtInventory == -1){
+                count++;
+                if(!failed){
+                    printf("Yahh, kamu gak bisa bikin ");
+                    printWord(food.nama);
+                    printf(" karena kamu gak punya:\n");
+                }
+                foodRequired = searchMakanan(listMakanan, INFO(addrChild).value);
+                printf("\t%d. ",count);
+                printWord(foodRequired.nama);
+                printf("\n");
+
+                failed = true;
+            }
+
+            addrChild = NEXT(addrChild);
+        }
+
+        addrChild = FIRST(resepChildren);
+        if(!failed){
+            while(addrChild != NULL){
+                idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+                deleteAtQueue(&listInventory, idxAtInventory);
+                
+                addrChild = NEXT(addrChild);
+            }
+            if(!isEqualWord(COMMAND,COMMAND_CHOP)){
+                Word notif;
+                Word temp;
+                setWord(&notif, "Krrsss... ");
+                appendWord(&notif, food.nama);
+                setWord(&temp, " akan selesai dibuat dalam ");
+                appendWord(&temp, timeToWord(food.lamaPengiriman));
+                appendWord(&notif, temp);
+                
+                insertNotif(listNotif, notif);  
+            }
+
+            enqueue(&listDelivery, food, 'I');
         }
     }
 }
@@ -128,4 +179,89 @@ void displayInventory() {
 void displayDelivery() {
     printf("========DELIVERY========");
     displayQueuePretty(listDelivery, 'D');
+}
+
+void pushUndo(List oldNotif){
+    currentLoc = locationOf(&peta, SIMULATOR);
+    List copyListNotif;
+    copyListLin(oldNotif, &copyListNotif);
+    Queue copyListInv, copyListDel;
+    CreateQueue(&copyListInv);
+    CreateQueue(&copyListDel);
+    copyInv(listInventory, &copyListInv);
+    copyDel(listDelivery, &copyListDel);
+    PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
+    deleteAllState(&redo);
+}
+
+void pushRedo(List oldNotif){
+    currentLoc = locationOf(&peta, SIMULATOR);
+    List copyListNotif;
+    copyListLin(oldNotif, &copyListNotif);
+    Queue copyListInv, copyListDel;
+    CreateQueue(&copyListInv);
+    CreateQueue(&copyListDel);
+    copyInv(listInventory, &copyListInv);
+    copyDel(listDelivery, &copyListDel);
+    PushState(&redo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
+}
+
+void undoState(stackState *undo){
+        printf("Undo berhasil\n");
+        stackAddress state = TOP(*undo);
+        currentTime = CURRENT_TIME(state);
+        copyListLin(CURRENT_NOTIF(state), &listNotif);
+        deleteQ(&listInventory);
+        deleteQ(&listDelivery);
+        copyInv(CURRENT_INVENTORY(state), &listInventory);
+        copyDel(CURRENT_DELIVERY(state), &listDelivery);
+        currentLoc = locationOf(&peta, SIMULATOR);
+        SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
+        PopState(undo);
+    }
+
+
+void redoState(stackState *redo){
+        printf("Redo berhasil\n");
+        stackAddress state = TOP(*redo);
+        currentTime = CURRENT_TIME(state);
+        copyListLin(CURRENT_NOTIF(state), &listNotif);
+        deleteQ(&listInventory);
+        deleteQ(&listDelivery);
+        copyInv(CURRENT_INVENTORY(state), &listInventory);
+        copyDel(CURRENT_DELIVERY(state), &listDelivery);
+        currentLoc = locationOf(&peta, SIMULATOR);
+        SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
+        PopState(redo);
+    }
+
+
+void simUndo(List oldNotif){
+    printf("========UNDO========\n");
+    if(!isEmptyStack(undo)){
+        pushRedo(oldNotif);
+        undoState(&undo);
+    }
+    else{
+        printf("Tidak ada state yang bisa di undo\n");
+    }
+}
+
+void simRedo(){
+    printf("========REDO========\n");
+    if(!isEmptyStack(redo)){
+        currentLoc = locationOf(&peta, SIMULATOR);
+        List copyListNotif;
+        copyListLin(listNotif, &copyListNotif);
+        Queue copyListInv, copyListDel;
+        CreateQueue(&copyListInv);
+        CreateQueue(&copyListDel);
+        copyInv(listInventory, &copyListInv);
+        copyDel(listDelivery, &copyListDel);
+        PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
+        redoState(&redo);
+    }
+    else{
+        printf("Tidak ada state yang bisa di redo\n");
+    }
 }
