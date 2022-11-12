@@ -232,14 +232,7 @@ void undoState(stackState *undo){
 void redoState(stackState *redo){
         printf("Redo berhasil\n");
         stackAddress state = TOP(*redo);
-        // peta = CURRENT_PETA(state);
-        // TIME diff = PrevNMenit(CURRENT_TIME(state), TIMEToMenit(currentTime));
         currentTime = CURRENT_TIME(state);
-        // listNotif = CURRENT_NOTIF(state);
-        // redoQueue(CURRENT_INVENTORY(state), CURRENT_DELIVERY(state), diff);
-        // listInventory = CURRENT_INVENTORY(state);
-        // listDelivery = CURRENT_DELIVERY(state);
-        // deleteAllLin(&listNotif);
         copyListLin(CURRENT_NOTIF(state), &listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
@@ -253,7 +246,6 @@ void redoState(stackState *redo){
 
 void simUndo(List oldNotif){
     printf("========UNDO========\n");
-    // if(!isRedo)PopState(&undo);
     if(!isEmptyStack(undo)){
         pushRedo(oldNotif);
         undoState(&undo);
@@ -281,48 +273,3 @@ void simRedo(){
         printf("Tidak ada state yang bisa di redo\n");
     }
 }
-
-
-// void pushUndoNotif(){
-//     // stackAddress state = TOP(undo);
-//     currentLoc = locationOf(&peta, SIMULATOR);
-//     List copyListNotif;
-//     copyListLin(listNotif, &copyListNotif);
-//     Queue copyListInv, copyListDel;
-//     CreateQueue(&copyListInv);
-//     CreateQueue(&copyListDel);
-//     copyInv(listInventory, &copyListInv);
-//     copyDel(listDelivery, &copyListDel);
-//     // CreateListLin(&copyListNotif, TYPE(listNotif));
-//     // copyListLin(CURRENT_NOTIF(state), &copyListNotif);
-//     // CreateQueue(&copyListInv);
-//     // CreateQueue(&copyListDel);
-//     // copyInv(CURRENT_INVENTORY(state), &copyListInv);
-//     // copyDel(CURRENT_DELIVERY(state), &copyListDel);
-//     // PopState(&undo);
-//     // PushState(&undo, peta, currentTime, copyListNotif, copyListInv, copyListDel);
-//     PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
-//     deleteAllState(&redo);
-// }
-
-// void pushRedoNotif(){
-//     currentLoc = locationOf(&peta, SIMULATOR);
-//     List copyListNotif;
-//     copyListLin(listNotif, &copyListNotif);
-//     Queue copyListInv, copyListDel;
-//     CreateQueue(&copyListInv);
-//     CreateQueue(&copyListDel);
-//     copyInv(listInventory, &copyListInv);
-//     copyDel(listDelivery, &copyListDel);
-//     PushState(&redo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
-// }
-
-// void undoQueue(Queue qInv, Queue qDel, TIME diff){
-//     revTimeExpired(&qInv, TIMEToMenit(diff));
-//     revTimeDelivery(&qDel, TIMEToMenit(diff));
-// }
-
-// void redoQueue(Queue qInv, Queue qDel, TIME diff){
-//     advTimeExpired(&qInv, TIMEToMenit(diff));
-//     advTimeDelivery(&qDel, TIMEToMenit(diff));
-// }
