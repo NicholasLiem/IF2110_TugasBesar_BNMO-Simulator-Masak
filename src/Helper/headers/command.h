@@ -8,6 +8,7 @@
 #include "../../ADT/headers/makanan.h"
 #include "../../ADT/headers/word.h"
 #include "../../ADT/headers/peta.h"
+#include "../../ADT/headers/kulkas.h"
 #include "simulator.h"
 
 
@@ -26,4 +27,8 @@ void menuHasLogin();
 void displayInfo();
 
 void splashArt();
+
+int displayMenuKulkas();
+
+int actionKulkas(int pilihan);
 #endif

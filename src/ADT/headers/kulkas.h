@@ -1,8 +1,8 @@
 #ifndef KULKAS_H
 #define KULKAS_H
 
-#define UKURAN_BARIS 50
-#define UKURAN_KOLOM 50
+#define UKURAN_BARIS 10
+#define UKURAN_KOLOM 20
 #define ID_KOSONG 0
 
 #include "boolean.h"
@@ -45,7 +45,7 @@ void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* h
 boolean isIdMakananValid(Kulkas kulkas, int id);
 /* Mengecek apakah nilai id makanan di kulkas */
 
-void ambilMakanan(Kulkas* kulkas, int idMakanan);
+Makanan ambilMakanan(Kulkas* kulkas, int idMakanan);
 /* I.S: Kulkas terdefinisi dan idMakanan terdefinisi
    F.S: Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
 

@@ -22,6 +22,7 @@ void printHelp(){
     printf("4. MOVE NORTH/EAST/SOUTH/WEST - Bergerak satu langkah ke arah yang dituju\n");
     printf("5. UNDO - Mengulang ke keadaan sebelumnya\n");
     printf("6. REDO - Mengulangi apa yang sudah di UNDO\n");
+    printf("7. INVENTORY - Melihat isi inventory\n");
     printf("------------------------------------------------------------\n");
     printf("Command Aksi\n");
     printf("------------------------------------------------------------\n");
@@ -30,6 +31,7 @@ void printHelp(){
     printf("3. CHOP - Melakukan aksi pemotongan makanan\n");
     printf("4. MIX - Melakukan aksi pencampuran makanan\n");
     printf("5. FRY - Melakukan aksi penggorengan makanan\n");
+    printf("6. KULKAS - Melakukan aksi pembukaan kulkas\n");
     printf("------------------------------------------------------------\n");
     printf("Command Lain\n");
     printf("------------------------------------------------------------\n");
@@ -175,7 +177,13 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_HELP)){
         printHelp();
         ADVCOMMAND();
-    } 
+    } else if (isEqualWord(currentWord, COMMAND_KULKAS) && isAdjacentTo(&peta, 'K')) {
+        int choice = 0;
+        displayInventory();
+        choice = displayMenuKulkas();
+        actionKulkas(choice);
+        //
+    }
     else notInput();
     processDeliveryAndExpired();
     deleteAllLin(&oldNotif);
@@ -200,6 +208,67 @@ int getCookChoice() {
     }
     return choice;
 }
+
+int displayMenuKulkas(){
+    printf("\n");
+    printf("Pilihan untuk menu kulkas: \n");
+    printf("1. KULKAS SIMPAN (ID INV) \n");
+    printf("2. KULKAS AMBIL (ID ITEM KULKAS) \n");
+    printf("3. KULKAS DISPLAY \n");
+    printf("Ketik pilihan (1/2/3): ");
+    RESETCOMMAND();
+    STARTCOMMAND();
+    int choice = 0;
+    if(wordIsInt(currentWord)){
+        choice = strToInt(currentWord);
+    }
+    ADVCOMMAND();
+    if(!endWord){
+        notInput();
+    }
+    return choice;
+}
+
+int actionKulkas(int pilihan) {
+    switch(pilihan){
+        // Kasus Simpan, jangan lupa cek isempty inventory
+        case 1:
+            if (!isEmptyQ(listInventory)){
+                printf("Jadi, mau masukin item nomor berapa di kulkas? :");
+                RESETCOMMAND();
+                STARTCOMMAND();
+                int idxInventory = 0;
+                if(wordIsInt(currentWord)){
+                    idxInventory = strToInt(currentWord);
+                }
+                insertMakananToKulkas(idxInventory);
+            } else {
+                printf("Inventorymu kosong!\n");
+            }
+            break;
+
+        // Kasus Ambil
+        case 2:
+        if(!isEmptyQ(listInventory)){
+            printf("Jadi, mau ambil item nomor berapa di kulkas? :");
+            RESETCOMMAND();
+            STARTCOMMAND();
+            int idxKulkas = 0;
+            if(wordIsInt(currentWord)){
+                idxKulkas = strToInt(currentWord);
+            }
+            insertMakananFromKulkas(idxKulkas);
+        } else {
+            printf("Inventorymu kosong!\n");
+        }
+        break;
+
+        default:
+            displayKulkas();
+            break;
+    }
+}
+
 void displayInfo() {
     if (isStarted) {
         printf("\nPlayer name: ");

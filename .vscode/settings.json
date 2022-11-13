@@ -6,6 +6,8 @@
         "wordmachine.h": "c",
         "word.h": "c",
         "stack.h": "c",
-        "configparser.h": "c"
+        "configparser.h": "c",
+        "command.h": "c",
+        "peta.h": "c"
     }
 }

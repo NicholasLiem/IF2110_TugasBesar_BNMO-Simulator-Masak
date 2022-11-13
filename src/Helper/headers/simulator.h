@@ -8,6 +8,7 @@
 
 #include "configParser.h"
 #include "../../ADT/headers/stack.h"
+#include "../../ADT/headers/kulkas.h"
 #include "../../ADT/headers/prioqueuedinamik.h"
 #include "../../ADT/headers/peta.h"
  
@@ -31,6 +32,7 @@ extern Word COMMAND_WEST;
 extern Word COMMAND_INVENTORY;
 extern Word COMMAND_DELIVERY;
 extern Word COMMAND_HELP;
+extern Word COMMAND_KULKAS;
 
 extern Word playerName;
 extern POINT currentLoc;
@@ -59,7 +61,10 @@ void sendFoodNotif(Makanan food, List* listNotif);
 void displayMenu(Word word);
 void displayInventory();
 void displayDelivery();
+void displayKulkas();
 
+void insertMakananToKulkas(int idMakanan);
+void insertMakananFromKulkas(int idKulkas);
 
 void pushUndo(List oldNotif);
 void pushRedo(List oldNotif);

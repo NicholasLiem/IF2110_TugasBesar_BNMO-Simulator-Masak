@@ -39,6 +39,8 @@ boolean dequeue(Queue *q, ElTypeQueue *val);
 
 int indexOfId(Queue q, ElType id);
 
+Makanan makananOfIndex(Queue q, int idx);
+
 void deleteAtQueue(Queue *q, int idx);
 
 // boolean deleteFirstId(Queue *q, ElType id);
@@ -49,6 +51,7 @@ void sortQueue(Queue *q, char c);
 
 void shiftLeft(Queue *q, int startPos);
 
+int lengthQueue(Queue q);
 
 void advTimeDelivery(Queue *q, int time);
 

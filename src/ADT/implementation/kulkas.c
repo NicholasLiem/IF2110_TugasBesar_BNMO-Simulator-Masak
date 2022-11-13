@@ -93,7 +93,7 @@ boolean isIdMakananValid(Kulkas kulkas, int id)
     return(id >= 1 && id <= JMLH_MAKANAN(kulkas));
 }
 
-void ambilMakanan(Kulkas* kulkas, int idMakanan);
+Makanan ambilMakanan(Kulkas* kulkas, int idMakanan);
 /* I.S Kulkas terdefinisi dan idMakanan terdefinisi
    F.S Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
 /* TASK : Perlu menambahkan item dari kulkas ke inventory */

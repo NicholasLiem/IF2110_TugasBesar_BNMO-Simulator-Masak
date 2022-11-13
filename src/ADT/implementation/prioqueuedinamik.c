@@ -58,6 +58,18 @@ int indexOfId(Queue q, ElType id){
     return -1;
 }
 
+int lengthQueue(Queue q){
+    int i, count = 0;
+    for(i = IDX_MIN; i <= IDX_TAIL(q); i++){
+        count++;
+    }
+    return count;
+}
+
+Makanan makananOfIndex(Queue q, int idx){
+    return q.buffer[idx];
+}
+
 void deleteAtQueue(Queue *q, int idx){
     if(IDX_TAIL(*q) == 0){
         IDX_TAIL(*q) = IDX_UNDEF;

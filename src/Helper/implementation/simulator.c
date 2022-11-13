@@ -1,4 +1,5 @@
 #include "../headers/simulator.h"
+#include "../../ADT/headers/kulkas.h"
 
 Word COMMAND_START = {"START", 5};
 Word COMMAND_EXIT = {"EXIT", 4};
@@ -20,6 +21,7 @@ Word COMMAND_WEST = {"WEST", 4};
 Word COMMAND_INVENTORY = {"INVENTORY", 9};
 Word COMMAND_DELIVERY = {"DELIVERY", 8};
 Word COMMAND_HELP = {"HELP", 4};
+Word COMMAND_KULKAS = {"KULKAS", 6};
 
 Word playerName;
 POINT currentLoc;
@@ -29,10 +31,12 @@ List listNotif;
 List oldNotif;
 Queue listDelivery;
 Queue listInventory;
+Kulkas kulkas;
 stackState undo;
 stackState redo;
 
 void simLoadConfig() {
+    createKulkas(&kulkas);
     createListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
     // displayListMakanan(listMakanan);
@@ -179,6 +183,32 @@ void displayInventory() {
 void displayDelivery() {
     printf("========DELIVERY========");
     displayQueuePretty(listDelivery, 'D');
+}
+
+void insertMakananToKulkas(int id){
+    if(id >= 1 && id <= lengthQueue(listInventory)){
+        Makanan makananInventory = makananOfIndex(listInventory, id);
+        deleteAtQueue(&listInventory, id-1);
+        insertMakananKulkas(&kulkas, makananInventory);
+    } else {
+        printf("ID inventory tidak valid!\n");
+    }
+    //sendNotifMakanan masuk kulkas
+}
+
+void insertMakananFromKulkas(int idKulkas){
+    if (isIdMakananValid(kulkas, idKulkas)){
+    // Makanan takenFood = ambilMakanan(&kulkas, idKulkas);
+    // enqueue(&listInventory, takenFood, 'I');
+    } else {
+        printf("ID makanan kulkas tidak valid!\n");
+    }
+    // setNotifMakanan Masuk inventory
+}
+
+void displayKulkas(){
+    printf("========ISI KULKAS=======\n");
+    printKulkas(kulkas);
 }
 
 void pushUndo(List oldNotif){
