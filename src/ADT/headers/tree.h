@@ -65,6 +65,9 @@ treeAddress SearchTree(treeAddress T, ElType X);
 /* Mengirimkan address simpul dengan Info(P)=X */
 /* Jika tidak ada simpul dengan Info(P)=X, mengirimkan Nil */
 
+Tree SearchTree2(Tree P, int ID);
+/* Alternatif SearchTree */
+
 /* *** Fungsi-Fungsi Lain *** */
 int NbElmt(treeAddress T);
 /* Mengirimkan banyaknya elemen (node) pohon biner T */
