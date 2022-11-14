@@ -10,15 +10,11 @@ int main() {
     TIME waktu;
     CreateTime(&waktu, 0, 0, 10);
     createMakanan(&temp, 1, aksi, nama, waktu, waktu);
-    enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp, 'I');
     temp.exp = PrevNMenit(temp.exp, 2);
-    enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp, 'I');
     temp.exp = NextMenit(temp.exp);
-    enqueue(&prioqueue, temp);
-    enqueue(&prioqueue, temp);
-    enqueue(&prioqueue, temp);
-    enqueue(&prioqueue, temp);
-    enqueue(&prioqueue, temp);
+    enqueue(&prioqueue, temp, 'I');
     displayQueue(prioqueue);
     printf("%d\n", prioqueue.capacity);
     advTime(&prioqueue, 10);

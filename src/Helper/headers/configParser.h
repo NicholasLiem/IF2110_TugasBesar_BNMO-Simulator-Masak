@@ -25,6 +25,6 @@ void parseResep();
 
 void loadConfigMakanan(ListMakanan *listMakanan);
 void loadConfigPeta(Peta *peta);
-void loadConfigResep();
+void loadConfigResep(List *listTreeResep);
 
 #endif

@@ -57,4 +57,6 @@ Makanan searchMakanan(ListMakanan l, int ID);
 Makanan searchMakananCommand(ListMakanan l, int ID, Word action);
 
 void displayMakananList(ListMakanan l, Word action);
+
+int getMakananIndex(ListMakanan l, int ID);
 #endif

@@ -193,3 +193,27 @@ List getTreeChildrenId(List T, ElType parent) {
     }
     return listChildren;
 };
+
+List getAllTreeChildrenId(List T, ElType parent) {
+    List listChildren;
+    CreateListLin(&listChildren, 1);
+    for (int i = 0; i < lengthLin(T); i++) {
+        treeAddress currNode = SearchTree(getElmtLin(T, i).address, parent);
+        if (currNode != NULL) {
+            int index = 0;
+            List children = CHILDREN(currNode);
+            while (index < lengthLin(children)) {
+                ListType addr = getElmtLin(children, index);
+                treeAddress child = (treeAddress) addr.address;
+                int idChild = child->foodId;
+                ListType typeChild;
+                typeChild.value = idChild;
+                insertFirstLin(&listChildren, typeChild);
+                List childrenChilds = getAllTreeChildrenId(T, idChild);
+                listChildren = concatLin(listChildren, childrenChilds);
+                index += 1;
+            }
+            return listChildren;
+        }
+    }
+};

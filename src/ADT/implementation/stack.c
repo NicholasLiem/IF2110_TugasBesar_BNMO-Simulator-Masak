@@ -53,7 +53,7 @@ void PrintStack(stackState S) {
         printf("\nTime: ");
         TulisTIME(CURRENT_TIME(currentState));
         printf("\nMap:\n");
-        DisplayPeta(peta);
+        // DisplayPeta(peta);
         printf("\nNotification:\n");
         displayListLin(CURRENT_NOTIF(currentState));
         printf("\nInventory:\n");

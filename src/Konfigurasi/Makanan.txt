@@ -1,4 +1,4 @@
-6
+9
 11
 Ayam Mentah
 1 0 0
@@ -29,3 +29,18 @@ Ayam Goreng
 0 0 15
 0 0 5
 Fry
+7
+Spaghetti Bolognaise
+0 0 15
+0 0 5
+Mix
+5
+Spaghetti
+0 0 15
+0 0 5
+Buy
+6
+Bolognaise
+0 0 15
+0 0 5
+BUY

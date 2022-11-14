@@ -234,7 +234,7 @@ void displayListLin(List l){
         switch(TYPE(l)) {
             //merupakan int
             case 1:
-                printf("%d", INFO(p).value);
+                printf(" %d ", INFO(p).value);
                 break;
             // merupakan int*
             case 2:
