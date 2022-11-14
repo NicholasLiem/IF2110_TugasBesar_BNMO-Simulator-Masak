@@ -31,6 +31,7 @@ typedef struct {
 #define AKSI(P) (P).aksi
 #define EXP(P) (P).exp
 #define LAMAPENGIRIMAN(P) (P).lamaPengiriman
+#define MAKANAN(M, i) (M).contents[(i)]
 
 void createMakanan(Makanan* makanan, int id, Word aksi, Word nama, TIME exp, TIME lamaPengiriman);
 
