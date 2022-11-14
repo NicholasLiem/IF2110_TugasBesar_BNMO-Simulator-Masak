@@ -1,9 +1,9 @@
-# IF1220_TugasBesar_BNMO-Simulator-Masak
+# IF2110_TugasBesar_BNMO-Simulator-Masak
 ## How to compile?
 1. Be on root folder  
    ```bash
     pwd
-    {PARENT_FOLDER}\IF1220_TugasBesar_BNMO-Simulator-Masak
+    {PARENT_FOLDER}\IF2110_TugasBesar_BNMO-Simulator-Masak
     ```
 2. Enter this command
     ```bash
