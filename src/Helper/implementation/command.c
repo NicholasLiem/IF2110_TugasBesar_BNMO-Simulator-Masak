@@ -47,7 +47,7 @@ void notInput(){
 }
 
 void promptName(Word *word) {
-    printf("Hello? Siapa disitu? (tanpa spasi): ");
+    printf("Hello? Siapa disitu? (tanpa spasi) : ");
     STARTCOMMAND();
     copyWord(word, currentWord);
     RESETCOMMAND();
@@ -99,7 +99,6 @@ void menuHasLogin() {
         }
     } else if (isEqualWord(currentWord, COMMAND_WAIT)) {
         ADVCOMMAND();
-
         int jam, menit;
         boolean invalidTime = false;
         if (wordIsInt(currentWord) && !endWord) {
@@ -177,10 +176,21 @@ void menuHasLogin() {
         printHelp();
         ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_KULKAS) && isAdjacentTo(&peta, 'K')) {
-        int choice = 0;
-        displayInventory();
-        choice = displayMenuKulkas();
-        actionKulkas(choice);
+        ADVCOMMAND();
+        if(!endWord){
+            notInput();
+        } else {
+            int choice = 0;
+            displayInventory();
+            printf("\n");
+            choice = displayMenuKulkas();
+            ADVCOMMAND();
+            if(!endWord){
+                notInput();
+            } else {
+                actionKulkas(choice);
+            }
+        }
         //
     }
     else notInput();
@@ -194,7 +204,7 @@ void menuHasLogin() {
 }
 
 int getCookChoice() {
-    printf("Jadi, mau pilih apa? :");
+    printf("Jadi, mau pilih apa? : ");
     RESETCOMMAND();
     STARTCOMMAND();
     int choice = 0;
@@ -210,10 +220,17 @@ int getCookChoice() {
 
 int displayMenuKulkas(){
     printf("\n");
+    printf("========= MENU KULKAS =========\n");
+    printf("Note: Pilihan selain 1 atau 2 akan diprint isi dari kulkas!\n");
+    printf("      Selain itu, setiap kali kamu masukin makanan ke kulkas, \n");
+    printf("      Makanan akan langsung disimpan secara teratur oleh mesin!\n");
+    printf("      Jadi, kamu gak harus cape-cape lagi nyari tempat nyimpen makanan.\n");
+    printf("===============================\n");
     printf("Pilihan untuk menu kulkas: \n");
-    printf("1. KULKAS SIMPAN (ID INV) \n");
-    printf("2. KULKAS AMBIL (ID ITEM KULKAS) \n");
-    printf("3. KULKAS DISPLAY \n");
+    printf("1. (KULKAS) SIMPAN (ID INV) \n");
+    printf("2. (KULKAS) AMBIL (ID ITEM KULKAS) \n");
+    printf("3. (KULKAS) DISPLAY \n");
+    printf("===============================\n");
     printf("Ketik pilihan (1/2/3): ");
     RESETCOMMAND();
     STARTCOMMAND();
@@ -221,6 +238,7 @@ int displayMenuKulkas(){
     if(wordIsInt(currentWord)){
         choice = strToInt(currentWord);
     }
+    return choice;
 }
 
 int actionKulkas(int pilihan) {
@@ -236,9 +254,10 @@ int actionKulkas(int pilihan) {
                 } else {
                     notInput();
                 }
-                RESETCOMMAND();
+                ADVCOMMAND();
                 int lebarMakanan, panjangMakanan;
                 printf("Masukkan lebar dan panjang item mu (lebar) (panjang): ");
+                RESETCOMMAND();
                 STARTCOMMAND();
                 if(wordIsInt(currentWord)){
                     lebarMakanan = strToInt(currentWord);
@@ -259,6 +278,8 @@ int actionKulkas(int pilihan) {
 
         // Kasus Ambil
         case 2:
+            displayKulkas();
+            printf("\n");
             printf("Jadi, mau ambil item nomor berapa di kulkas? : ");
             RESETCOMMAND();
             STARTCOMMAND();
@@ -278,7 +299,7 @@ int actionKulkas(int pilihan) {
 
 void displayInfo() {
     if (isStarted) {
-        printf("\nPlayer name: ");
+        printf("\nPlayer Name: ");
         printWord(playerName);
         printf("\nTime: ");
         TulisTIME(currentTime);

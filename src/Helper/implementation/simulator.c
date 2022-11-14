@@ -202,7 +202,6 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
 void insertMakananFromKulkas(int idKulkas){
     if (isIdMakananValid(kulkas, idKulkas)){
     Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
-    TulisTIME(takenFood.exp);
     enqueue(&listInventory, takenFood, 'I');
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
@@ -211,8 +210,9 @@ void insertMakananFromKulkas(int idKulkas){
 }
 
 void displayKulkas(){
-    printf("========ISI KULKAS=======\n");
+    printf("============== ISI KULKAS ============\n");
     printKulkas(kulkas);
+    printf("================ INFO ================\n");
     printItemKulkas(listItemKulkas);
 }
 

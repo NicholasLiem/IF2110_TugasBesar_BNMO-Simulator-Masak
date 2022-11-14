@@ -130,7 +130,6 @@ void printItemKulkas(ListItemKulkas listItemKulkas){
     int ID_MAKANAN;
     Word NAMA_MAKANAN;
     int i;
-    printf("===DAFTAR MAKANAN DI KULKAS===\n");
     for(i = 0; i < CAPACITY; i++){
         ID_MAKANAN = listItemKulkas.contents[i].itemMakanan.id;
         ID_KULKAS_MAKANAN = listItemKulkas.contents[i].idKulkasMakanan;
