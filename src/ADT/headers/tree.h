@@ -14,13 +14,7 @@ typedef struct treeNode {
     List listChildren;
 } TreeNode;
 
-typedef struct Node1 *addrNode;
-struct Node1{
-    int ID;
-    int children;
-    addrNode firstChild;
-    addrNode nextSibling;
-} Node1;
+typedef struct Node *addrNode;
 
 typedef addrNode Tree;
 typedef int infotype;
@@ -28,10 +22,6 @@ typedef int infotype;
 /* Selektor */
 #define FOODID(P) (P)->foodId
 #define CHILDREN(T) (T)->listChildren
-#define Akar(P) (P)->ID
-#define BanyakChild(P) (P)->children
-#define FirstChild(P) (P)->firstChild
-#define Sibling(P) (P)->nextSibling
 
 #define treeAddress TreeNode*
 /* *** Konstruktor *** */
@@ -65,8 +55,6 @@ treeAddress SearchTree(treeAddress T, ElType X);
 /* Mengirimkan address simpul dengan Info(P)=X */
 /* Jika tidak ada simpul dengan Info(P)=X, mengirimkan Nil */
 
-Tree SearchTree2(Tree P, int ID);
-/* Alternatif SearchTree */
 
 /* *** Fungsi-Fungsi Lain *** */
 int NbElmt(treeAddress T);
