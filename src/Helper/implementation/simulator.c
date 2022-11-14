@@ -32,11 +32,14 @@ List oldNotif;
 Queue listDelivery;
 Queue listInventory;
 Kulkas kulkas;
+ListItemKulkas listItemKulkas;
 stackState undo;
 stackState redo;
 
 void simLoadConfig() {
     createKulkas(&kulkas);
+    createListItemKulkas(&listItemKulkas);
+
     createListMakanan(&listMakanan);
     loadConfigMakanan(&listMakanan);
     // displayListMakanan(listMakanan);
@@ -185,23 +188,24 @@ void displayDelivery() {
     displayQueuePretty(listDelivery, 'D');
 }
 
-void insertMakananToKulkas(int id){
+void insertMakananToKulkas(int id, int lebar, int panjang){
     if(id >= 1 && id <= lengthQueue(listInventory)){
-        Makanan makananInventory = makananOfIndex(listInventory, id);
+        Makanan makananInventory = makananOfIndex(listInventory, id-1);
         deleteAtQueue(&listInventory, id-1);
-        insertMakananKulkas(&kulkas, makananInventory);
+        insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
     } else {
-        printf("ID inventory tidak valid!\n");
+        printf("ID makanan di inventory tidak valid!\n");
     }
     //sendNotifMakanan masuk kulkas
 }
 
 void insertMakananFromKulkas(int idKulkas){
     if (isIdMakananValid(kulkas, idKulkas)){
-    // Makanan takenFood = ambilMakanan(&kulkas, idKulkas);
-    // enqueue(&listInventory, takenFood, 'I');
+    Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
+    TulisTIME(takenFood.exp);
+    enqueue(&listInventory, takenFood, 'I');
     } else {
-        printf("ID makanan kulkas tidak valid!\n");
+        printf("ID makanan di kulkas tidak valid!\n");
     }
     // setNotifMakanan Masuk inventory
 }
@@ -209,6 +213,7 @@ void insertMakananFromKulkas(int idKulkas){
 void displayKulkas(){
     printf("========ISI KULKAS=======\n");
     printKulkas(kulkas);
+    printItemKulkas(listItemKulkas);
 }
 
 void pushUndo(List oldNotif){

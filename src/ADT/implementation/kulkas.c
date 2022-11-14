@@ -1,5 +1,8 @@
 #include "../headers/kulkas.h"
 
+// const Makanan MAKANAN_NULL = {IDX_UNDEF_LIST_STATIK, {"NULL",4}, {"NULL",4}, {0,0,0}, {0,0,0}, 0, 0};
+const ItemKulkas ITEMKULKAS_NULL = {{IDX_UNDEF_LIST_STATIK, {"NULL",4}, {"NULL",4}, {0,0,0}, {0,0,0}, 0, 0}, IDX_UNDEF_LIST_STATIK};
+
 /* Inisialisasi size makanan dari input pengguna */
 
 /* Sistem pengisian mulai dari paling kiri atas ke kanan dan baru ke bawah */
@@ -17,23 +20,32 @@ void createKulkas(Kulkas* kulkas){
     kulkas->matrixKulkas.rowEff = UKURAN_BARIS;
 }
 
-ItemKulkas createItemKulkas(Kulkas kulkas, Makanan itemMakanan){
+ItemKulkas createItemKulkas(ListItemKulkas* listItemKulkas, Kulkas kulkas, Makanan itemMakanan){
 /* Membentuk ItemKulkas yang memiliki idKulkas */
     ItemKulkas newItemKulkas;
     ITEM_MAKANAN(newItemKulkas) = itemMakanan;
     ID_KULKAS(newItemKulkas) = JMLH_MAKANAN(kulkas) + 1;
+    listItemKulkas->contents[ID_KULKAS(newItemKulkas)] = newItemKulkas;
     return newItemKulkas;
 }
 
-void insertMakananKulkas(Kulkas* kulkas, Makanan itemMakanan)
+void createListItemKulkas(ListItemKulkas* listItemKulkas){
+/* I.S: listItemKulkas bebas
+   F.S: listItemKulkas baru terdefinisi */
+    int i;
+    for(i = 0; i < CAPACITY; i++){
+        listItemKulkas->contents[i] = ITEMKULKAS_NULL;
+    }
+}
+
+void insertMakananKulkas(ListItemKulkas* listItemKulkas, Kulkas* kulkas, Makanan itemMakanan, int lebar, int panjang)
 /* I.S Kulkas terdefinisi, makanan terdefinisi
    F.S Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 {
-    /* TASK : Perlu penambahan delete item dari inventory */
     int i, j;
-    int lebar = itemMakanan.lebar;
-    int panjang = itemMakanan.panjang;
-    ItemKulkas newItemKulkas = createItemKulkas(*kulkas, itemMakanan);
+    itemMakanan.lebar = lebar;
+    itemMakanan.panjang = panjang;
+    ItemKulkas newItemKulkas = createItemKulkas(listItemKulkas, *kulkas, itemMakanan);
 
     findFreeSpot(*kulkas, lebar, panjang, &i, &j);
     if (i != -1 && j != -1){
@@ -93,10 +105,45 @@ boolean isIdMakananValid(Kulkas kulkas, int id)
     return(id >= 1 && id <= JMLH_MAKANAN(kulkas));
 }
 
-Makanan ambilMakanan(Kulkas* kulkas, int idMakanan);
+Makanan ambilMakanan(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMakananKulkas)
 /* I.S Kulkas terdefinisi dan idMakanan terdefinisi
    F.S Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
-/* TASK : Perlu menambahkan item dari kulkas ke inventory */
+{
+    deleteItemKulkas(listItemKulkas, kulkas, idMakananKulkas-1);
+    return listItemKulkas->contents[idMakananKulkas].itemMakanan;
+}
+
+void deleteItemKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMakananKulkas){
+    int i,j;
+    for(i = 0; i < BARIS_KULKAS(*kulkas); i++){
+        for(j = 0; j < KOLOM_KULKAS(*kulkas); j++){
+            if(ELMT_KULKAS(*kulkas, i, j) == idMakananKulkas){
+                ELMT_KULKAS(*kulkas, i, j) = 0;
+            }
+        }
+    }
+    listItemKulkas->contents[idMakananKulkas] = ITEMKULKAS_NULL;
+}
+
+void printItemKulkas(ListItemKulkas listItemKulkas){
+    int ID_KULKAS_MAKANAN;
+    int ID_MAKANAN;
+    Word NAMA_MAKANAN;
+    int i;
+    printf("===DAFTAR MAKANAN DI KULKAS===\n");
+    for(i = 0; i < CAPACITY; i++){
+        ID_MAKANAN = listItemKulkas.contents[i].itemMakanan.id;
+        ID_KULKAS_MAKANAN = listItemKulkas.contents[i].idKulkasMakanan;
+        NAMA_MAKANAN = listItemKulkas.contents[i].itemMakanan.nama;
+        if(ID_MAKANAN != IDX_UNDEF_LIST_STATIK){
+            printf("(ID MAKANAN KULKAS: %d) => NAMA: ", ID_KULKAS_MAKANAN);
+            printWord(NAMA_MAKANAN);
+            printf(" => DURASI EXPIRED: ");
+            TulisTIME(listItemKulkas.contents[i].itemMakanan.exp);
+            printf("\n");
+        }
+    }
+}
 
 void printKulkas(Kulkas kulkas)
 /* I.S: Kulkas terdefinisi

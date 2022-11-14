@@ -63,7 +63,7 @@ void displayInventory();
 void displayDelivery();
 void displayKulkas();
 
-void insertMakananToKulkas(int idMakanan);
+void insertMakananToKulkas(int idMakanan, int lebar, int panjang);
 void insertMakananFromKulkas(int idKulkas);
 
 void pushUndo(List oldNotif);
@@ -72,6 +72,7 @@ void undoState(stackState *undo);
 void redoState(stackState *redo);
 void simUndo(List oldNotif);
 void simRedo();
+
 // void pushUndoNotif();
 // void pushRedoNotif();
 // void undoQueue(Queue qInv, Queue qDel, TIME diff);

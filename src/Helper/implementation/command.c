@@ -92,7 +92,6 @@ void menuHasLogin() {
             } else {
                 notInput();
             }
-            printf("done");
             if (isMoved) {
                 simAdvTime(1);
             }
@@ -222,26 +221,37 @@ int displayMenuKulkas(){
     if(wordIsInt(currentWord)){
         choice = strToInt(currentWord);
     }
-    ADVCOMMAND();
-    if(!endWord){
-        notInput();
-    }
-    return choice;
 }
 
 int actionKulkas(int pilihan) {
     switch(pilihan){
-        // Kasus Simpan, jangan lupa cek isempty inventory
         case 1:
             if (!isEmptyQ(listInventory)){
-                printf("Jadi, mau masukin item nomor berapa di kulkas? :");
+                printf("Jadi, mau masukin item nomor berapa di kulkas? : ");
                 RESETCOMMAND();
                 STARTCOMMAND();
                 int idxInventory = 0;
                 if(wordIsInt(currentWord)){
                     idxInventory = strToInt(currentWord);
+                } else {
+                    notInput();
                 }
-                insertMakananToKulkas(idxInventory);
+                RESETCOMMAND();
+                int lebarMakanan, panjangMakanan;
+                printf("Masukkan lebar dan panjang item mu (lebar) (panjang): ");
+                STARTCOMMAND();
+                if(wordIsInt(currentWord)){
+                    lebarMakanan = strToInt(currentWord);
+                } else {
+                    notInput();
+                }
+                ADVCOMMAND();
+                if(wordIsInt(currentWord)){
+                    panjangMakanan = strToInt(currentWord);
+                } else {
+                    notInput();
+                }
+                insertMakananToKulkas(idxInventory, lebarMakanan, panjangMakanan);
             } else {
                 printf("Inventorymu kosong!\n");
             }
@@ -249,8 +259,7 @@ int actionKulkas(int pilihan) {
 
         // Kasus Ambil
         case 2:
-        if(!isEmptyQ(listInventory)){
-            printf("Jadi, mau ambil item nomor berapa di kulkas? :");
+            printf("Jadi, mau ambil item nomor berapa di kulkas? : ");
             RESETCOMMAND();
             STARTCOMMAND();
             int idxKulkas = 0;
@@ -258,15 +267,13 @@ int actionKulkas(int pilihan) {
                 idxKulkas = strToInt(currentWord);
             }
             insertMakananFromKulkas(idxKulkas);
-        } else {
-            printf("Inventorymu kosong!\n");
-        }
-        break;
+            break;
 
         default:
             displayKulkas();
             break;
     }
+    ADVCOMMAND();
 }
 
 void displayInfo() {
