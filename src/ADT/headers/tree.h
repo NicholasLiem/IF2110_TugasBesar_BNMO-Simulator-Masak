@@ -15,12 +15,6 @@ typedef struct treeNode {
 } TreeNode;
 
 typedef struct Node *addrNode;
-struct Node{
-    int ID;
-    int children;
-    addrNode firstChild;
-    addrNode nextSibling;
-} Node;
 
 typedef addrNode Tree;
 typedef int infotype;
@@ -28,10 +22,6 @@ typedef int infotype;
 /* Selektor */
 #define FOODID(P) (P)->foodId
 #define CHILDREN(T) (T)->listChildren
-#define Akar(P) (P)->ID
-#define BanyakChild(P) (P)->children
-#define FirstChild(P) (P)->firstChild
-#define Sibling(P) (P)->nextSibling
 
 #define treeAddress TreeNode*
 /* *** Konstruktor *** */

@@ -8,7 +8,7 @@
 #include "makanan.h"
 #include "listlinier.h"
 
-#define CAPACITY_MULT 5
+#define CAPACITY_MULT 50
 
 /* Definisi elemen dan address */
 typedef Makanan ElTypeQueue;

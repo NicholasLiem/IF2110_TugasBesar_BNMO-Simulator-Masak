@@ -7,7 +7,7 @@ void CreateQueue(Queue *q) {
 };
 
 void expandQueue(Queue *q) {
-    realloc(BUFFER((*q)), sizeof(ElTypeQueue) * (q->capacity + CAPACITY_MULT));
+    BUFFER((*q)) = realloc(BUFFER((*q)), sizeof(ElTypeQueue) * (q->capacity + CAPACITY_MULT+2));
     q->capacity += CAPACITY_MULT;
 };
 
