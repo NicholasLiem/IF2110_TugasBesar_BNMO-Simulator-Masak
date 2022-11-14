@@ -127,23 +127,6 @@ treeAddress SearchTree(treeAddress T, ElType X) {
     }
     return NULL;
 };
-/* Mengirimkan address simpul dengan Info(P)=X */
-/* Jika tidak ada simpul dengan Info(P)=X, mengirimkan Nil */
-
-Tree SearchTree2(Tree P, int ID){
-    if(!IsTreeEmpty(P)){
-        if(Akar(P) == ID){
-            return P;
-        } else {
-            Tree Temp = SearchTree2(Sibling(P), ID);
-            if(Temp != NULL) return Temp;
-            return SearchTree2(FirstChild(P), ID);
-        }
-    } else {
-        return NULL;
-    }
-};
-/* Alternatif SearchTree */
 
 
 /* *** Fungsi-Fungsi Lain *** */
