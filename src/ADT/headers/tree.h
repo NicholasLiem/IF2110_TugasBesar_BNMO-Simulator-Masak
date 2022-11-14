@@ -14,13 +14,13 @@ typedef struct treeNode {
     List listChildren;
 } TreeNode;
 
-typedef struct Node *addrNode;
-struct Node{
+typedef struct Node1 *addrNode;
+struct Node1{
     int ID;
     int children;
     addrNode firstChild;
     addrNode nextSibling;
-} Node;
+} Node1;
 
 typedef addrNode Tree;
 typedef int infotype;
