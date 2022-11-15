@@ -10,6 +10,8 @@ const Word NAMA = {"Nasi Goreng",11};
 const Word NAMA1 = {"Ayam Goreng",11};
 
 int main(){
+    ListItemKulkas s;
+    createListItemKulkas(&s);
     TIME t1;
     CreateTime(&t1,1,1,1);
     TIME t2;
@@ -27,13 +29,17 @@ int main(){
     Kulkas kulkasPanasonic;
     createKulkas(&kulkasPanasonic);
     
-    insertMakananKulkas(&kulkasPanasonic, testMakanan);
-    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
-    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
-    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
-    insertMakananKulkas(&kulkasPanasonic, ayamGoreng); 
-    insertMakananKulkas(&kulkasPanasonic, testMakanan);
-    insertMakananKulkas(&kulkasPanasonic, testMakanan);
+    insertMakananKulkas(&s, &kulkasPanasonic, testMakanan, 1,2);
+    insertMakananKulkas(&s,&kulkasPanasonic, ayamGoreng, 1,2); 
+    insertMakananKulkas(&s,&kulkasPanasonic, ayamGoreng, 1,2); 
+    insertMakananKulkas(&s,&kulkasPanasonic, ayamGoreng, 1,2); 
+    insertMakananKulkas(&s,&kulkasPanasonic, ayamGoreng, 1,2); 
+    insertMakananKulkas(&s,&kulkasPanasonic, testMakanan, 1,2);
+    insertMakananKulkas(&s,&kulkasPanasonic, testMakanan, 1,2);
+    printKulkas(kulkasPanasonic);
+    printItemKulkas(s);
+    deleteItemKulkas(&s, &kulkasPanasonic, 1);
+    printItemKulkas(s);
     printKulkas(kulkasPanasonic);
     return 0;
 }

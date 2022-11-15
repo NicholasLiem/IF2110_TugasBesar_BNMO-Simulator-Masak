@@ -1,9 +1,9 @@
-# Tubes_Alstrukdat
+# IF2110_TugasBesar_BNMO-Simulator-Masak
 ## How to compile?
 1. Be on root folder  
    ```bash
     pwd
-    {PARENT_FOLDER}\Tubes_Alstrukdat
+    {PARENT_FOLDER}\IF2110_TugasBesar_BNMO-Simulator-Masak
     ```
 2. Enter this command
     ```bash

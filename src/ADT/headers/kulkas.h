@@ -13,7 +13,7 @@
 
 typedef struct { 
 	Matrix matrixKulkas;
-    int jumlahMakanan;
+   int jumlahMakanan;
 } Kulkas;
 
 typedef struct {
@@ -21,21 +21,30 @@ typedef struct {
    int idKulkasMakanan;
 } ItemKulkas;
 
+typedef struct {
+	ItemKulkas contents[CAPACITY];
+} ListItemKulkas;
+
 #define ELMT_KULKAS(M, i, j) (M).matrixKulkas.mem[(i)][(j)]
 #define BARIS_KULKAS(M) (M).matrixKulkas.rowEff
 #define KOLOM_KULKAS(M) (M).matrixKulkas.colEff
 #define JMLH_MAKANAN(M) (M).jumlahMakanan
 #define ID_KULKAS(M) (M).idKulkasMakanan
 #define ITEM_MAKANAN(M) (M).itemMakanan
+#define ITEM_KULKAS_MAKANAN(M, i) (M).contents[(i)]
 
 void createKulkas(Kulkas* kulkas);
 /* I.S: kulkas bebas
    F.S: kulkas baru terdefinisi dengan ukuran yang ditetapkan*/
 
-ItemKulkas createItemKulkas(Kulkas kulkas, Makanan itemMakanan);
+void createListItemKulkas(ListItemKulkas* listItemKulkas);
+/* I.S: listItemKulkas bebas
+   F.S: listItemKulkas baru terdefinisi */
+
+ItemKulkas createItemKulkas(ListItemKulkas* listItemKulkas, Kulkas kulkas, Makanan itemMakanan);
 /* Membentuk ItemKulkas yang memiliki idKulkas */
 
-void insertMakananKulkas(Kulkas* kulkas, Makanan itemMakanan);
+boolean insertMakananKulkas(ListItemKulkas* listItemKulkas,Kulkas* kulkas, Makanan itemMakanan, int lebar, int panjang);
 /* I.S: Kulkas terdefinisi, makanan terdefinisi
    F.S: Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 
@@ -45,9 +54,13 @@ void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* h
 boolean isIdMakananValid(Kulkas kulkas, int id);
 /* Mengecek apakah nilai id makanan di kulkas */
 
-Makanan ambilMakanan(Kulkas* kulkas, int idMakanan);
+Makanan ambilMakanan(ListItemKulkas* listItemKulkas, Kulkas* kulkas, int idMakanan);
 /* I.S: Kulkas terdefinisi dan idMakanan terdefinisi
    F.S: Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
+
+void deleteItemKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMakananKulkas);
+
+void printItemKulkas(ListItemKulkas listItemKulkas);
 
 void printKulkas(Kulkas kulkas);
 /* I.S: Kulkas terdefinisi
