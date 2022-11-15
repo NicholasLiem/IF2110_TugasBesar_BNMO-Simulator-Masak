@@ -17,12 +17,31 @@ int main() {
     ListSet rekom = readTree(treeResep, listMakanan);
     Queue prioqueue;
     CreateQueue(&prioqueue);
-    for(int i = 0; i < lengthListMakanan(listMakanan); i++){
-        ElTypeQueue baru;
-        baru= ELMT(listMakanan, i);
-		enqueue(&prioqueue, baru, 'I');
-	}	
-    Set inven = getSetInventory(listMakanan, prioqueue);
-    printSet(inven);
+
+    ElTypeQueue baru;
+    baru= ELMT(listMakanan, 0);
+	enqueue(&prioqueue, baru, 'I');
+
+    baru= ELMT(listMakanan, 2);
+	enqueue(&prioqueue, baru, 'I');
+
+    baru= ELMT(listMakanan, 3);
+	enqueue(&prioqueue, baru, 'I');
+
+    baru= ELMT(listMakanan, 3);
+	enqueue(&prioqueue, baru, 'I');
+
+    baru= ELMT(listMakanan, 9);
+	enqueue(&prioqueue, baru, 'I');
+
+    baru= ELMT(listMakanan, 7);
+	enqueue(&prioqueue, baru, 'I');
+
+    displayListMakanan(listMakanan);
+    // Set inven = getSetInventory(listMakanan, prioqueue);
+    // ELMT(inven, 0).quantity = 0;
+    // ELMT(inven, 1).quantity = 0;
+    // ELMT(inven, 2).quantity = 0;
+    // printSet(inven);
     printRecommendation(prioqueue, rekom, listMakanan);
 }

@@ -15,12 +15,14 @@
 typedef struct {
     int quantity;
     int makananId;
+    boolean terminal;
 } SetElmt;
 
 typedef struct {
    SetElmt contents[CAPACITY];
    int length;
    int makananId;
+   boolean terminal;
 } Set;
 
 typedef struct {
@@ -31,6 +33,7 @@ typedef struct {
 /* ********** SELEKTOR ********** */
 #define SetElmt(l, i) (l).contents[(i)]
 #define MakananId(s) (s).makananId
+#define Terminal(s) (s).terminal
 #define Available(el) el.available
 #define IDElmtSet(el) el.ID
 #define Length(l) (l).length
@@ -44,7 +47,7 @@ void populateSet(Set *himpunan, int foodId, List M, ListMakanan Refer);
 /* I.S Himpunan terdefinisi */
 /* F.S Membuat sebuah elemen dari himpunan yaitu M menjadi tidak available. */
 
-boolean isSubset(Set himpunan1, Set himpunan2);
+boolean isSubset(Set himpunan1, Set himpunan2, ListSet pohon);
 /* Mengirim true jika himpunan1 subset dari himpunan2 */
 
 ListSet readTree(List TreeResep, ListMakanan Ref);
@@ -60,4 +63,5 @@ void printRecommendation(Queue ListInventory, ListSet setPohon, ListMakanan Ref)
 
 void printSet(Set set);
 
+Set unionSet(Set himpunan1, Set himpunan2);
 #endif

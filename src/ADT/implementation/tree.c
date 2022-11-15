@@ -40,35 +40,35 @@ boolean IsSubsTree(treeAddress T1, treeAddress T2) {
 
 /* *** Traversal *** */
 void PrintTree(treeAddress T, ListMakanan l) {
-    printf("Node: %d\n", FOODID(T));  
+    printf("ID Makanan: %d\n", FOODID(T));  
     
     Makanan curr = searchMakanan(l, FOODID(T));
     if (curr.id != IDX_UNDEF) {
         printWord(curr.nama);
-        printf("----");
+        printf("\n----");
         printWord(curr.aksi);
-        printf("----");
+        printf("----\n");
     }
 
     int index = 0;
     List children = CHILDREN(T);
     if (isEmptyLin(children)) {
-        printf("Leaf Node\n");
+        printf("Beli di olshop pake telefon ya, ribet nyarinya.\n\n");
     } else {
-        printf("Children: \n"); 
+        printf("Bahan yang dibutuhkan: \n"); 
         while (index < lengthLin((CHILDREN(T)))) {
             ListType addr = getElmtLin(children, index);
             treeAddress child = (treeAddress) addr.address;
-            printf("%d ", FOODID(child));
+            printf("Food ID: %d ", FOODID(child));
             Makanan curr = searchMakanan(l, FOODID(child));
             if (curr.id != IDX_UNDEF) {
                 printf("---");
                 printWord(curr.nama);
-                printf("---");
+                printf("---\n");
             }
             index+=1;
         }
-        printf("\n");
+        printf("\n\n");
         // Rekursi
         index = 0;
         while (index < lengthLin((CHILDREN(T)))) {
@@ -166,7 +166,7 @@ void addChild(treeAddress *p, ElType parent, ElType child) {
 void printListResep(List T, ListMakanan l) {
     for (int i = 0; i < lengthLin(T); i++) {
         ListType tree = getElmtLin(T, i);
-        printf("Ini resep ke %i\n", i);
+        printf("Hai! Ini subbagian dari resep ke - %i\n", i);
         PrintTree(tree.address, l);
         printf("-----\n");
     }

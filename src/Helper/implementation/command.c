@@ -92,7 +92,6 @@ void menuHasLogin() {
             } else {
                 notInput();
             }
-            printf("done");
             if (isMoved) {
                 simAdvTime(1);
             }
@@ -177,14 +176,20 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_HELP)){
         printHelp();
         ADVCOMMAND();
-    } else if (isEqualWord(currentWord, COMMAND_KULKAS) && isAdjacentTo(&peta, 'K')) {
-        int choice = 0;
-        displayInventory();
-        choice = displayMenuKulkas();
-        actionKulkas(choice);
-        //
-    }
-    else notInput();
+    } else if (isEqualWord(currentWord, COMMAND_KULKAS)) {
+        if (isAdjacentTo(&peta, 'K')) {
+            int choice = 0;
+            displayInventory();
+            choice = displayMenuKulkas();
+            actionKulkas(choice);
+        } else {
+            printf("Mau naruh ke kulkas tapi ga disamping kulkas???????????\n");
+            ADVCOMMAND();
+        }
+    } else if (isEqualWord(currentWord, COMMAND_REK)) {
+        printRecommendation(listInventory, treeRekomendasi, listMakanan);
+        ADVCOMMAND();
+    } else notInput();
     processDeliveryAndExpired();
     deleteAllLin(&oldNotif);
     copyListLin(listNotif, &oldNotif);
@@ -238,12 +243,12 @@ int actionKulkas(int pilihan) {
                 RESETCOMMAND();
                 STARTCOMMAND();
                 int idxInventory = 0;
-                if(wordIsInt(currentWord)){
+                if (wordIsInt(currentWord)){
                     idxInventory = strToInt(currentWord);
                 }
                 insertMakananToKulkas(idxInventory);
             } else {
-                printf("Inventorymu kosong!\n");
+                printf ("Inventorymu kosong!\n");
             }
             break;
 
