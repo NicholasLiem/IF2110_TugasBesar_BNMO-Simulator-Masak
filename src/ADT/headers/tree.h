@@ -75,4 +75,6 @@ void printListResep(List p, ListMakanan l);
 List getTreeChildrenId(List T, ElType parent);
 
 void PrintTreePlain(treeAddress T);
+List getAllTreeChildrenId(List T, ElType parent);
+
 #endif

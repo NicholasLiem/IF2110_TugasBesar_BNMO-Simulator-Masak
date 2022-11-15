@@ -44,7 +44,7 @@ void createListItemKulkas(ListItemKulkas* listItemKulkas);
 ItemKulkas createItemKulkas(ListItemKulkas* listItemKulkas, Kulkas kulkas, Makanan itemMakanan);
 /* Membentuk ItemKulkas yang memiliki idKulkas */
 
-void insertMakananKulkas(ListItemKulkas* listItemKulkas,Kulkas* kulkas, Makanan itemMakanan, int lebar, int panjang);
+boolean insertMakananKulkas(ListItemKulkas* listItemKulkas,Kulkas* kulkas, Makanan itemMakanan, int lebar, int panjang);
 /* I.S: Kulkas terdefinisi, makanan terdefinisi
    F.S: Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 

@@ -11,7 +11,8 @@
 #include "../../ADT/headers/kulkas.h"
 #include "../../ADT/headers/prioqueuedinamik.h"
 #include "../../ADT/headers/peta.h"
- 
+#include "../../ADT/headers/set.h" 
+
 extern Word COMMAND_START;
 extern Word COMMAND_EXIT;
 extern Word COMMAND_MIX;
@@ -33,6 +34,7 @@ extern Word COMMAND_INVENTORY;
 extern Word COMMAND_DELIVERY;
 extern Word COMMAND_HELP;
 extern Word COMMAND_KULKAS;
+extern Word COMMAND_REK;
 
 extern Word playerName;
 extern POINT currentLoc;
@@ -45,7 +47,7 @@ extern Queue listInventory;
 extern stackState undo;
 extern stackState redo;
 extern boolean isRedo;
-
+extern ListSet treeRekomendasi;
 void simLoadConfig();
 
 boolean simMove(char c);

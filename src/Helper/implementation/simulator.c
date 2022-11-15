@@ -22,6 +22,7 @@ Word COMMAND_INVENTORY = {"INVENTORY", 9};
 Word COMMAND_DELIVERY = {"DELIVERY", 8};
 Word COMMAND_HELP = {"HELP", 4};
 Word COMMAND_KULKAS = {"KULKAS", 6};
+Word COMMAND_REK = {"REKOMENDASI", 11};
 
 Word playerName;
 POINT currentLoc;
@@ -35,6 +36,7 @@ Kulkas kulkas;
 ListItemKulkas listItemKulkas;
 stackState undo;
 stackState redo;
+ListSet treeRekomendasi;
 
 void simLoadConfig() {
     createKulkas(&kulkas);
@@ -52,6 +54,7 @@ void simLoadConfig() {
     // printf("\n=======================\n");
 
     loadConfigResep(&listTreeResep);
+    treeRekomendasi = readTree(listTreeResep, listMakanan);
     // for (int i = 0; i < lengthLin(listTreeResep); i++) {
     //     ListType tree = getElmtLin(listTreeResep, i);
     //     printf("Ini resep ke %i\n", i);
@@ -191,8 +194,11 @@ void displayDelivery() {
 void insertMakananToKulkas(int id, int lebar, int panjang){
     if(id >= 1 && id <= lengthQueue(listInventory)){
         Makanan makananInventory = makananOfIndex(listInventory, id-1);
-        deleteAtQueue(&listInventory, id-1);
-        insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
+        boolean success = insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
+        if (success) {
+            printf("sukses");
+            deleteAtQueue(&listInventory, id-1);
+        }
     } else {
         printf("ID makanan di inventory tidak valid!\n");
     }

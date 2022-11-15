@@ -9,13 +9,15 @@ int main() {
     addChild(&tree, 2, 3);
     addChild(&tree, 2, 5);
     addChild(&tree, 5, 6);
+    addChild(&tree, 6,7);
+    addChild(&tree, 7,8);
     PrintTreePlain(tree);   
 
     treeAddress tree2;
     CreateTree(&tree2);
-    addRoot(&tree2, 5);
-    addChild(&tree2, 5, 3);
-    addChild(&tree2, 3, 10);
+    addRoot(&tree2, 50);
+    addChild(&tree2, 32, 102);
+    addChild(&tree2, 52, 32);
     PrintTreePlain(tree2);
     printf("halo?");
     List arrayTree;
@@ -26,4 +28,8 @@ int main() {
     insertFirstLin(&arrayTree, etree1);
     insertFirstLin(&arrayTree, etree2);
     displayListLin(getTreeChildrenId(arrayTree, 2));
+    printf("\n");
+    displayListLin(getAllTreeChildrenId(arrayTree, 2));
+    printf("ta\n");
+    displayListLin(getAllTreeChildrenId(arrayTree, 1));
 }

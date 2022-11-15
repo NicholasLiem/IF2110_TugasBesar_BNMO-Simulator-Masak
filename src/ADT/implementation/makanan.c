@@ -133,3 +133,11 @@ void displayMakananList(ListMakanan l, Word action) {
 		}
 	}	
 }
+int getMakananIndex(ListMakanan l, int ID) {
+	int i;
+	for(i = 0; i < lengthListMakanan(l); i++){
+		if (ELMT(l, i).id == ID){
+			return i;
+		}
+	}	
+};

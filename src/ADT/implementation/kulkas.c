@@ -38,17 +38,16 @@ void createListItemKulkas(ListItemKulkas* listItemKulkas){
     }
 }
 
-void insertMakananKulkas(ListItemKulkas* listItemKulkas, Kulkas* kulkas, Makanan itemMakanan, int lebar, int panjang)
+boolean insertMakananKulkas(ListItemKulkas* listItemKulkas, Kulkas* kulkas, Makanan itemMakanan, int lebar, int panjang)
 /* I.S Kulkas terdefinisi, makanan terdefinisi
    F.S Makanan masuk ke dalam kulkas dan terhapus dari inventory player*/
 {
     int i, j;
     itemMakanan.lebar = lebar;
     itemMakanan.panjang = panjang;
-    ItemKulkas newItemKulkas = createItemKulkas(listItemKulkas, *kulkas, itemMakanan);
-
     findFreeSpot(*kulkas, lebar, panjang, &i, &j);
     if (i != -1 && j != -1){
+        ItemKulkas newItemKulkas = createItemKulkas(listItemKulkas, *kulkas, itemMakanan);
         for (int k = i; k < i + lebar; k++){
             for (int l = j; l < j + panjang; l++){
                 ELMT_KULKAS(*kulkas, k, l) = ID_KULKAS(newItemKulkas);
@@ -62,7 +61,9 @@ void insertMakananKulkas(ListItemKulkas* listItemKulkas, Kulkas* kulkas, Makanan
         printf("Registered ID makanan dalam Kulkas: %d\n", ID_KULKAS(newItemKulkas));
     } else {
         printf("Maaf, tidak cukup ruang untuk memasukkan makanan ini!\n");
+        return false;
     }
+    return true;
 }
 
 void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom)

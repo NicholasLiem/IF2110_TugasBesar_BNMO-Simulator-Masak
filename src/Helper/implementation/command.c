@@ -23,6 +23,7 @@ void printHelp(){
     printf("5. UNDO - Mengulang ke keadaan sebelumnya\n");
     printf("6. REDO - Mengulangi apa yang sudah di UNDO\n");
     printf("7. INVENTORY - Melihat isi inventory\n");
+    printf("7. REKOMENDASI - Melihat rekomendasi masak\n");
     printf("------------------------------------------------------------\n");
     printf("Command Aksi\n");
     printf("------------------------------------------------------------\n");
@@ -175,22 +176,27 @@ void menuHasLogin() {
     } else if (isEqualWord(currentWord, COMMAND_HELP)){
         printHelp();
         ADVCOMMAND();
-    } else if (isEqualWord(currentWord, COMMAND_KULKAS) && isAdjacentTo(&peta, 'K')) {
-        ADVCOMMAND();
-        if(!endWord){
-            notInput();
-        } else {
-            int choice = 0;
-            displayInventory();
-            printf("\n");
-            choice = displayMenuKulkas();
+    } else if (isEqualWord(currentWord, COMMAND_KULKAS)) {
+        if (isAdjacentTo(&peta, 'K')) {
             ADVCOMMAND();
             if(!endWord){
                 notInput();
             } else {
-                actionKulkas(choice);
+                int choice = 0;
+                displayInventory();
+                printf("\n");
+                choice = displayMenuKulkas();
+                ADVCOMMAND();
+                if(!endWord){
+                    notInput();
+                } else {
+                    actionKulkas(choice);
+                }
             }
+        } else {
+            printf("Tidak ada kulkas di sekeliling kamu nak.. \n");
         }
+        ADVCOMMAND();
         //
     }
     else notInput();
@@ -249,7 +255,7 @@ int actionKulkas(int pilihan) {
                 RESETCOMMAND();
                 STARTCOMMAND();
                 int idxInventory = 0;
-                if(wordIsInt(currentWord)){
+                if (wordIsInt(currentWord)){
                     idxInventory = strToInt(currentWord);
                 } else {
                     notInput();
@@ -272,7 +278,7 @@ int actionKulkas(int pilihan) {
                 }
                 insertMakananToKulkas(idxInventory, lebarMakanan, panjangMakanan);
             } else {
-                printf("Inventorymu kosong!\n");
+                printf ("Inventorymu kosong!\n");
             }
             break;
 
