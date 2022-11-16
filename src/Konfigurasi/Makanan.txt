@@ -11,41 +11,41 @@ Ayam Potong
 Chop
 10
 Tepung
-0 1 0
+0 2 0
 0 0 30
 Buy
 15
 Minyak Goreng
-0 1 30
+0 2 30
 0 1 0
 Buy
 31
 Ayam Tepung
-0 0 30
+0 2 30
 0 0 2
 Mix
 37
 Ayam Goreng
-0 0 15
+0 2 15
 0 0 5
 Fry
 7
 Spaghetti Bolognaise
-0 0 15
+0 2 15
 0 0 5
 Mix
 5
 Spaghetti
-0 0 15
+0 2 15
 0 0 5
 Buy
 6
 Bolognaise
-0 0 15
+0 2 15
 0 0 5
 Mix
 77
 Tomato
-0 0 15
+0 2 15
 0 0 5
 BUY

@@ -56,7 +56,7 @@ boolean isSubset(Set himpunan1, Set himpunan2, ListSet setPohon){
                     subset = isSubset(baru, himpunan2, setPohon);
                 }
                 ELMT(himpunan1, i).quantity = originalVal;
-                if (!isSubset) {
+                if (!subset) {
                     break;
                 }
             }
@@ -116,7 +116,7 @@ Set getSetInventory(ListMakanan KumpulanMakanan, Queue inventory){
 /* Mengembalikan set yang berisi elemen-elemen dari inventory */
 
 void printRecommendation(Queue ListInventory, ListSet setPohon, ListMakanan Ref){
-    Set Now;
+    // Set Now;
     boolean found = false;
     int idx = 0;
     Set setInventory = getSetInventory(Ref, ListInventory); 
@@ -126,7 +126,7 @@ void printRecommendation(Queue ListInventory, ListSet setPohon, ListMakanan Ref)
         if (Terminal(currSet)) {
             continue;
         }
-        Makanan curr = searchMakanan(Ref, currSet.makananId);
+        // Makanan curr = searchMakanan(Ref, currSet.makananId);
         // printWord(curr.nama);
         // printSet(currSet);
         // printf("\n");
