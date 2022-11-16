@@ -111,9 +111,11 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
         boolean failed = false;
         int idxAtInventory;
         int count = 0;
-
+        Queue listInvCopy;
+        CreateQueue(&listInvCopy);
+        copyInv(listInventory, &listInvCopy);
         while(addrChild != NULL){
-            idxAtInventory = indexOfId(listInventory, INFO(addrChild).value);
+            idxAtInventory = indexOfId(listInvCopy, INFO(addrChild).value);
             if(idxAtInventory == -1){
                 count++;
                 if(!failed){
@@ -127,8 +129,9 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
                 printf("\n");
 
                 failed = true;
+            } else {
+                deleteAtQueue(&listInvCopy, idxAtInventory);
             }
-
             addrChild = NEXT(addrChild);
         }
 
@@ -140,19 +143,17 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
                 
                 addrChild = NEXT(addrChild);
             }
-            if(!isEqualWord(COMMAND,COMMAND_CHOP)){
-                Word notif;
-                Word temp;
-                setWord(&notif, "Krrsss... ");
-                appendWord(&notif, food.nama);
-                setWord(&temp, " akan selesai dibuat dalam ");
-                appendWord(&temp, timeToWord(food.lamaPengiriman));
-                appendWord(&notif, temp);
-                
-                insertNotif(listNotif, notif);  
-            }
+            Word notif;
+            Word temp;
+            setWord(&notif, "Krrsss... ");
+            appendWord(&notif, food.nama);
+            setWord(&temp, " akan selesai dibuat dalam ");
+            appendWord(&temp, timeToWord(food.lamaPengiriman));
+            appendWord(&notif, temp);
+            
+            insertNotif(listNotif, notif);  
 
-            enqueue(&listDelivery, food, 'I');
+            enqueue(&listDelivery, food, 'D');
         }
     }
 }
@@ -170,6 +171,7 @@ void sendFoodNotif(Makanan food, List* listNotif) {
 }
 
 void processDeliveryAndExpired() {
+    // displayQueuePretty(listDelivery, 'D');
     List foodReady = removeArrived(&listDelivery, &listNotif);
     Address p = FIRST(foodReady);
     while (p != NULL){
