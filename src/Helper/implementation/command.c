@@ -198,6 +198,9 @@ void menuHasLogin() {
         }
         ADVCOMMAND();
         //
+    } else if (isEqualWord(currentWord, COMMAND_REK)) {
+        printRecommendation(listInventory, treeRekomendasi, listMakanan);
+        ADVCOMMAND();
     }
     else notInput();
     processDeliveryAndExpired();

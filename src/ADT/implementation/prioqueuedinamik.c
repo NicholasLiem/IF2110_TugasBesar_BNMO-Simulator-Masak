@@ -175,8 +175,6 @@ void removeExpired(Queue *q, List* listNotif) {
         setWord(&notif, "Makanan ini telah expired: ");
         appendWord(&notif, exp.nama);
         insertNotif(listNotif, notif);
-        ListType temp;
-        temp.makanan = exp;
     }
 };
 
