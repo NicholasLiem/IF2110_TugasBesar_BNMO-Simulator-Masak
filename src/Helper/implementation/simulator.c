@@ -193,6 +193,7 @@ void displayDelivery() {
 
 void insertMakananToKulkas(int id, int lebar, int panjang){
     if(id >= 1 && id <= lengthQueue(listInventory)){
+        pushUndo(oldNotif);
         Makanan makananInventory = makananOfIndex(listInventory, id-1);
         boolean success = insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
         if (success) {
@@ -207,8 +208,9 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
 
 void insertMakananFromKulkas(int idKulkas){
     if (isIdMakananValid(kulkas, idKulkas)){
-    Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
-    enqueue(&listInventory, takenFood, 'I');
+        pushUndo(oldNotif);
+        Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
+        enqueue(&listInventory, takenFood, 'I');
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
     }
@@ -231,7 +233,12 @@ void pushUndo(List oldNotif){
     CreateQueue(&copyListDel);
     copyInv(listInventory, &copyListInv);
     copyDel(listDelivery, &copyListDel);
-    PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
+    Kulkas kulkasCopy;
+    createKulkas(&kulkasCopy);
+    ListItemKulkas listItemCopy;
+    createListItemKulkas(&listItemCopy);
+    copyKulkas(kulkas, &kulkasCopy, listItemKulkas ,&listItemCopy);
+    PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy);
     deleteAllState(&redo);
 }
 
@@ -244,20 +251,27 @@ void pushRedo(List oldNotif){
     CreateQueue(&copyListDel);
     copyInv(listInventory, &copyListInv);
     copyDel(listDelivery, &copyListDel);
-    PushState(&redo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
+    Kulkas kulkasCopy;
+    createKulkas(&kulkasCopy);
+    ListItemKulkas listItemCopy;
+    createListItemKulkas(&listItemCopy);
+    copyKulkas(kulkas, &kulkasCopy, listItemKulkas ,&listItemCopy);
+    PushState(&redo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy);
 }
 
 void undoState(stackState *undo){
         printf("Undo berhasil\n");
         stackAddress state = TOP(*undo);
+        currentLoc = locationOf(&peta, SIMULATOR);
+        SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
         currentTime = CURRENT_TIME(state);
         copyListLin(CURRENT_NOTIF(state), &listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
         copyInv(CURRENT_INVENTORY(state), &listInventory);
         copyDel(CURRENT_DELIVERY(state), &listDelivery);
-        currentLoc = locationOf(&peta, SIMULATOR);
-        SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
+        deleteAllKulkas(&listItemKulkas, &kulkas);
+        copyKulkas(CURRENT_KULKAS(state), &kulkas, CURRENT_LIST_ITEM_KULKAS(state), &listItemKulkas);
         PopState(undo);
     }
 
@@ -265,14 +279,16 @@ void undoState(stackState *undo){
 void redoState(stackState *redo){
         printf("Redo berhasil\n");
         stackAddress state = TOP(*redo);
+        currentLoc = locationOf(&peta, SIMULATOR);
+        SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
         currentTime = CURRENT_TIME(state);
         copyListLin(CURRENT_NOTIF(state), &listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
         copyInv(CURRENT_INVENTORY(state), &listInventory);
         copyDel(CURRENT_DELIVERY(state), &listDelivery);
-        currentLoc = locationOf(&peta, SIMULATOR);
-        SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
+        deleteAllKulkas(&listItemKulkas, &kulkas);
+        copyKulkas(CURRENT_KULKAS(state), &kulkas, CURRENT_LIST_ITEM_KULKAS(state), &listItemKulkas);
         PopState(redo);
     }
 
@@ -299,7 +315,12 @@ void simRedo(){
         CreateQueue(&copyListDel);
         copyInv(listInventory, &copyListInv);
         copyDel(listDelivery, &copyListDel);
-        PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel);
+        Kulkas kulkasCopy;
+        createKulkas(&kulkasCopy);
+        ListItemKulkas listItemCopy;
+        createListItemKulkas(&listItemCopy);
+        copyKulkas(kulkas, &kulkasCopy, listItemKulkas ,&listItemCopy);
+        PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy);
         redoState(&redo);
     }
     else{

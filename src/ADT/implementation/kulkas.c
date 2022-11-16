@@ -126,6 +126,32 @@ void deleteItemKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMaka
     listItemKulkas->contents[idMakananKulkas] = ITEMKULKAS_NULL;
 }
 
+void deleteAllKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas){
+    int i,j;
+    for(i = 0; i < BARIS_KULKAS(*kulkas); i++){
+        for(j = 0; j < KOLOM_KULKAS(*kulkas); j++){
+            ELMT_KULKAS(*kulkas, i, j) = 0;
+        }
+    }
+    for(i = 0; i < CAPACITY; i++){
+        listItemKulkas->contents[i] = ITEMKULKAS_NULL;
+    }
+    JMLH_MAKANAN(*kulkas) = 0;
+}
+
+void copyKulkas(Kulkas kulkas, Kulkas* kulkasCopy, ListItemKulkas listItemKulkas, ListItemKulkas* listItemKulkasCopy){
+    int i,j;
+    for(i = 0; i < BARIS_KULKAS(kulkas); i++){
+        for(j = 0; j < KOLOM_KULKAS(kulkas); j++){
+            ELMT_KULKAS(*kulkasCopy, i, j) = ELMT_KULKAS(kulkas, i, j);
+        }
+    }
+    for(i = 0; i < CAPACITY; i++){
+        listItemKulkasCopy->contents[i] = listItemKulkas.contents[i];
+    }
+    JMLH_MAKANAN(*kulkasCopy) = JMLH_MAKANAN(kulkas);   
+}
+
 void printItemKulkas(ListItemKulkas listItemKulkas){
     int ID_KULKAS_MAKANAN;
     int ID_MAKANAN;

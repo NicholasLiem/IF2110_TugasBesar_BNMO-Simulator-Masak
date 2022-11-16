@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "../../ADT/headers/stack.h"
 
-stackAddress AlokStackNode(POINT p, TIME t, List notif, Queue inv, Queue deliv) {
+stackAddress AlokStackNode(POINT p, TIME t, List notif, Queue inv, Queue deliv, Kulkas k, ListItemKulkas l2) {
     stackAddress pNew = (stackAddress) malloc(sizeof(stackNode));
     if (pNew != NULL) {
         // CURRENT_PETA(pNew) = p;
@@ -11,6 +11,8 @@ stackAddress AlokStackNode(POINT p, TIME t, List notif, Queue inv, Queue deliv) 
         CURRENT_NOTIF(pNew) = notif;
         CURRENT_INVENTORY(pNew) = inv;
         CURRENT_DELIVERY(pNew) = deliv;
+        CURRENT_KULKAS(pNew) = k;
+        CURRENT_LIST_ITEM_KULKAS(pNew) = l2;
         NEXTSTATE(pNew) = NULL;
     }
     return pNew;
@@ -24,8 +26,8 @@ boolean isEmptyStack(stackState S) {
     return (TOP(S) == NULL);
 }
 
-void PushState(stackState *S, POINT p, TIME t, List notif, Queue inv, Queue deliv) {
-    stackAddress pNew = AlokStackNode(p, t, notif, inv, deliv);
+void PushState(stackState *S, POINT p, TIME t, List notif, Queue inv, Queue deliv, Kulkas k, ListItemKulkas l2) {
+    stackAddress pNew = AlokStackNode(p, t, notif, inv, deliv, k, l2);
     if (pNew != NULL) {
         NEXTSTATE(pNew) = TOP(*S);
         TOP(*S) = pNew;
@@ -49,17 +51,20 @@ void deleteAllState(stackState *S) {
 void PrintStack(stackState S) {
     stackAddress currentState = TOP(S);
     if (currentState != NULL) {
-        List listNotif = CURRENT_NOTIF(currentState);
         printf("\nTime: ");
         TulisTIME(CURRENT_TIME(currentState));
         printf("\nMap:\n");
-        // DisplayPeta(peta);
+        DisplayPeta(peta);
         printf("\nNotification:\n");
         displayListLin(CURRENT_NOTIF(currentState));
         printf("\nInventory:\n");
         displayQueuePretty(CURRENT_INVENTORY(currentState), 'I');
         printf("\nDelivery:\n");
         displayQueuePretty(CURRENT_DELIVERY(currentState), 'D');
+        printf("\n");
+        printKulkas(CURRENT_KULKAS(currentState));
+        printf("\n");
+        printItemKulkas(CURRENT_LIST_ITEM_KULKAS(currentState));
         printf("\n");
     }
 }

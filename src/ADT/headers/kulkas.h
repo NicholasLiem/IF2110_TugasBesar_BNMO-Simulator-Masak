@@ -60,6 +60,10 @@ Makanan ambilMakanan(ListItemKulkas* listItemKulkas, Kulkas* kulkas, int idMakan
 
 void deleteItemKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMakananKulkas);
 
+void deleteAllKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas);
+
+void copyKulkas(Kulkas kulkas, Kulkas* kulkasCopy, ListItemKulkas listItemKulkas, ListItemKulkas* listItemKulkasCopy);
+
 void printItemKulkas(ListItemKulkas listItemKulkas);
 
 void printKulkas(Kulkas kulkas);
