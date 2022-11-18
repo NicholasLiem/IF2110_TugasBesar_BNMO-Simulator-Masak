@@ -162,7 +162,7 @@ void copyDel(Queue q1, Queue *q2) {
     }
 };
 
-void removeExpired(Queue *q, List* listNotif) {
+void removeExpired(Queue *q, List* listNotif, List* listUndo) {
     TIME expired;
     CreateTime(&expired, 0, 0, 0);
     if (isEmptyQ(*q)) {
@@ -175,11 +175,15 @@ void removeExpired(Queue *q, List* listNotif) {
         setWord(&notif, "Makanan ini telah expired: ");
         appendWord(&notif, exp.nama);
         insertNotif(listNotif, notif);
+
+        setWord(&notif, "Wow! Makanan ini enggak jadi expired! ");
+        appendWord(&notif, exp.nama);
+        insertNotif(listUndo, notif);
     }
 };
 
 
-List removeArrived(Queue *q, List* listNotif) {
+List removeArrived(Queue *q, List* listNotif, List* listUndo) {
     TIME expired;
     List makananExpired;
     CreateTime(&expired, 0, 0, 0);
@@ -191,6 +195,7 @@ List removeArrived(Queue *q, List* listNotif) {
         Makanan exp;
         dequeue(q, &exp);
         Word notif;
+        Word notifUndo;
         Word COMMAND_BUY = {"BUY", 3};
         if(isEqualWord(exp.aksi, COMMAND_BUY)){
             // TulisTIME((*q).buffer[0].lamaPengiriman);
@@ -201,7 +206,10 @@ List removeArrived(Queue *q, List* listNotif) {
             setWord(&notif, "Yay! Makanan ini berhasil dibuat: ");
             appendWord(&notif, exp.nama);
         }
+        setWord(&notifUndo, "Tiba-tiba, makanan ini menghilang dari tasmu :( ");
+        appendWord(&notifUndo, exp.nama);
         insertNotif(listNotif, notif);
+        insertNotif(listUndo, notifUndo);
         ListType temp;
         temp.makanan = exp;
         insertFirstLin(&makananExpired, temp);

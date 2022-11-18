@@ -42,6 +42,7 @@ extern TIME currentTime;
 extern boolean isStarted;
 extern List listNotif;
 extern List oldNotif;
+extern List listNotifUndo;
 extern Queue listDelivery;
 extern Queue listInventory;
 extern stackState undo;
@@ -57,6 +58,7 @@ void simAdvTime(long time);
 void addDelivery(Word COMMAND, int choice, List* listNotif);
 
 void printNotif();
+void printNotifUndo();
 void processDeliveryAndExpired();
 
 void sendFoodNotif(Makanan food, List* listNotif);

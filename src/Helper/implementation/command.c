@@ -79,7 +79,7 @@ void menuHasLogin() {
         boolean isMoved = false;
         if (!endWord) {
             if (isEqualWord(currentWord, COMMAND_NORTH)) {
-                 pushUndo(oldNotif);
+                pushUndo(oldNotif);
                 isMoved = simMove('N');
             } else if (isEqualWord(currentWord, COMMAND_EAST)) {
                 pushUndo(oldNotif);
@@ -204,7 +204,10 @@ void menuHasLogin() {
     }
     else notInput();
     processDeliveryAndExpired();
+    printf("undo  ");
+    printNotifUndo();
     deleteAllLin(&oldNotif);
+    deleteAllLin(&listNotifUndo);
     copyListLin(listNotif, &oldNotif);
     // printf("\n");
     // printf("u========UNDO : LAST STATE========u\n");
