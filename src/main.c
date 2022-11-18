@@ -17,6 +17,7 @@ int main(){
     CreateTime(&currentTime, 0,0,0);
     CreateListLin(&listNotif, 4);
     CreateListLin(&oldNotif, 4);
+    CreateListLin(&listNotifUndo, 4);
     CreateQueue(&listInventory);
     CreateQueue(&listDelivery);
     while (true) {

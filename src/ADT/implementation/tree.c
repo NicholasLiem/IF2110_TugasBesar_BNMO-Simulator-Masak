@@ -32,9 +32,6 @@ boolean IsTreeEmpty(treeAddress T) {
 };
 /* Mengirimkan true jika pohon T kosong */
 
-boolean IsSubsTree(treeAddress T1, treeAddress T2) {
-
-};
 /* Mengirimkan true jika pohon T1 merupakan pohon induk dari T2 */
 /* yaitu semua simpul T2 adalah simpul T1 */
 

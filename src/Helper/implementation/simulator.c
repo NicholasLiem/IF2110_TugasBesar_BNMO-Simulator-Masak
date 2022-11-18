@@ -30,6 +30,7 @@ TIME currentTime;
 boolean isStarted = false;
 List listNotif;
 List oldNotif;
+List listNotifUndo;
 Queue listDelivery;
 Queue listInventory;
 Kulkas kulkas;
@@ -85,6 +86,18 @@ void printNotif() {
     }
 }
 
+void printNotifUndo() {
+    printf("\nNotifikasi: \n");
+    if (isEmptyLin(listNotifUndo)) {
+        return;
+    }
+    displayListLin(listNotifUndo);
+    while (!isEmptyLin(listNotifUndo)) {
+        ListType temp;
+        deleteFirstLin(&listNotifUndo, &temp);
+    }
+}
+
 void displayMenu(Word action) {
     printf("==============");
     printWord(action);
@@ -100,6 +113,8 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
         Word notif;
         setWord(&notif, "ID MAKANAN MU INVALID TAU GA???? Bikin cape!\n");
         insertNotif(listNotif, notif);
+        setWord(&notif, "Tadi makananmu invalid..");
+        insertNotif(&listNotifUndo, notif);
     }
     else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
         enqueue(&listDelivery, food, 'D');       
@@ -150,9 +165,13 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
             setWord(&temp, " akan selesai dibuat dalam ");
             appendWord(&temp, timeToWord(food.lamaPengiriman));
             appendWord(&notif, temp);
-            
             insertNotif(listNotif, notif);  
 
+            setWord(&notif, "Pembuatan ");
+            appendWord(&notif, food.nama);
+            setWord(&temp, " dibatalkan. ");
+            appendWord(&notif, temp);
+            insertNotif(&listNotifUndo, notif); 
             enqueue(&listDelivery, food, 'D');
         }
     }
@@ -168,11 +187,17 @@ void sendFoodNotif(Makanan food, List* listNotif) {
     Word time = timeToWord(food.lamaPengiriman);
     appendWord(&notif, time);
     insertNotif(listNotif, notif);
+
+    setWord(&notif, "Pengiriman ");
+    appendWord(&notif, food.nama);
+    setWord(&temp, " dibatalkan. ");
+    appendWord(&notif, temp);
+    insertNotif(&listNotifUndo, notif); 
 }
 
 void processDeliveryAndExpired() {
     // displayQueuePretty(listDelivery, 'D');
-    List foodReady = removeArrived(&listDelivery, &listNotif);
+    List foodReady = removeArrived(&listDelivery, &listNotif, &listNotifUndo);
     Address p = FIRST(foodReady);
     while (p != NULL){
         Makanan food = searchMakanan(listMakanan, p->info.makanan.id);
@@ -180,7 +205,7 @@ void processDeliveryAndExpired() {
         enqueue(&listInventory, food, 'I');    
         p = NEXT(p);
     }
-    removeExpired(&listInventory, &listNotif);   
+    removeExpired(&listInventory, &listNotif, &listNotifUndo);   
 }
 
 void displayInventory() {
@@ -199,7 +224,11 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
         Makanan makananInventory = makananOfIndex(listInventory, id-1);
         boolean success = insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
         if (success) {
-            printf("sukses");
+            Word temp;
+            setWord(&temp, "Berhasil memasukan ke kulkas!");
+            insertNotif(&listNotif, temp);
+            setWord(&temp, "Makanan dikeluarkan dari kulkas");
+            insertNotif(&listNotifUndo, temp);
             deleteAtQueue(&listInventory, id-1);
         }
     } else {
@@ -213,6 +242,11 @@ void insertMakananFromKulkas(int idKulkas){
         pushUndo(oldNotif);
         Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
         enqueue(&listInventory, takenFood, 'I');
+        Word temp;
+        setWord(&temp, "Berhasil mengeluarkan makanan dari kulkas!");
+        insertNotif(&listNotif, temp);
+        setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas");
+        insertNotif(&listNotifUndo, temp);
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
     }
