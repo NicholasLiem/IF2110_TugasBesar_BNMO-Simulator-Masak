@@ -35,6 +35,12 @@ void PushState(stackState *S, POINT p, TIME t, List notif, Queue inv, Queue deli
     }
 }
 
+void insertListUndo(stackState *S, List listUndo) {
+    if (!isEmptyStack(*S)) {
+        CURRENT_NOTIF_UNDO(TOP(*S)) = listUndo;
+    }
+}
+
 void PopState(stackState *S) {
     if (!isEmptyStack(*S)) {
         stackAddress pDel = TOP(*S);

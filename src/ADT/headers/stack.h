@@ -55,6 +55,7 @@ void deleteAllState(stackState *S);
 
 void PrintStack(stackState S);
 
+void insertListUndo(stackState *S, List listUndo);
 #endif
 
 

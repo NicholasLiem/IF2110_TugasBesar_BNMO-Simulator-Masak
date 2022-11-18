@@ -207,7 +207,11 @@ void menuHasLogin() {
     }
     else notInput();
     processDeliveryAndExpired();
+    List copylistNotifUndo;
+    copyListLin(listNotifUndo, &copylistNotifUndo);
+    insertListUndo(&undo, copylistNotifUndo);
     deleteAllLin(&oldNotif);
+    deleteAllLin(&listNotifUndo);
     copyListLin(listNotif, &oldNotif);
     // printf("\n");
     // printf("u========UNDO : LAST STATE========u\n");
