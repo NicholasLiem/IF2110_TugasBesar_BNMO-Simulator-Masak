@@ -22,6 +22,7 @@ typedef struct stackNode {
     stackAddress next;
     Kulkas currentKulkas;
     ListItemKulkas currentListItemKulkas;
+    List notifUndo;
  } stackNode;
 
 typedef struct stackState {
@@ -37,15 +38,16 @@ typedef struct stackState {
 #define CURRENT_DELIVERY(S) (S)->currentDelivery
 #define CURRENT_KULKAS(S) (S)->currentKulkas
 #define CURRENT_LIST_ITEM_KULKAS(S) (S)->currentListItemKulkas
+#define CURRENT_NOTIF_UNDO(S) (S)->notifUndo
 #define NEXTSTATE(S) (S)->next
 
-stackAddress AlokStackNode(POINT p, TIME t, List l, Queue q, Queue q2, Kulkas k, ListItemKulkas l2);
+stackAddress AlokStackNode(POINT p, TIME t, List l, Queue q, Queue q2, Kulkas k, ListItemKulkas l2, List l3);
 
 void CreateStack(stackState *S);
 
 boolean isEmptyStack(stackState S);
 
-void PushState(stackState *S, POINT p, TIME t, List l, Queue q, Queue q2, Kulkas k, ListItemKulkas l2);
+void PushState(stackState *S, POINT p, TIME t, List l, Queue q, Queue q2, Kulkas k, ListItemKulkas l2, List l3);
 
 void PopState(stackState *S);
 

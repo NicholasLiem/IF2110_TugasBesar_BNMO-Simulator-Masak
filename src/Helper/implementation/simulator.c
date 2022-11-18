@@ -115,6 +115,7 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
         insertNotif(listNotif, notif);
         setWord(&notif, "Tadi makananmu invalid..");
         insertNotif(&listNotifUndo, notif);
+        pushNotifUndo(listNotifUndo);
     }
     else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
         enqueue(&listDelivery, food, 'D');       
@@ -172,6 +173,7 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
             setWord(&temp, " dibatalkan. ");
             appendWord(&notif, temp);
             insertNotif(&listNotifUndo, notif); 
+            pushNotifUndo(listNotifUndo);
             enqueue(&listDelivery, food, 'D');
         }
     }
@@ -193,6 +195,7 @@ void sendFoodNotif(Makanan food, List* listNotif) {
     setWord(&temp, " dibatalkan. ");
     appendWord(&notif, temp);
     insertNotif(&listNotifUndo, notif); 
+    pushNotifUndo(listNotifUndo);
 }
 
 void processDeliveryAndExpired() {
@@ -229,6 +232,7 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
             insertNotif(&listNotif, temp);
             setWord(&temp, "Makanan dikeluarkan dari kulkas");
             insertNotif(&listNotifUndo, temp);
+            pushNotifUndo(listNotifUndo);
             deleteAtQueue(&listInventory, id-1);
         }
     } else {
@@ -247,6 +251,7 @@ void insertMakananFromKulkas(int idKulkas){
         insertNotif(&listNotif, temp);
         setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas");
         insertNotif(&listNotifUndo, temp);
+        pushNotifUndo(listNotifUndo);
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
     }
@@ -258,6 +263,11 @@ void displayKulkas(){
     printKulkas(kulkas);
     printf("================ INFO ================\n");
     printItemKulkas(listItemKulkas);
+}
+
+void pushNotifUndo(List notifUndo){
+    stackAddress state = TOP(undo);
+    copyListLin(notifUndo, &CURRENT_NOTIF_UNDO(state));
 }
 
 void pushUndo(List oldNotif){
@@ -274,7 +284,9 @@ void pushUndo(List oldNotif){
     ListItemKulkas listItemCopy;
     createListItemKulkas(&listItemCopy);
     copyKulkas(kulkas, &kulkasCopy, listItemKulkas ,&listItemCopy);
-    PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy);
+    List copylistNotifUndo;
+    copyListLin(listNotif ,&copylistNotifUndo);
+    PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy, copylistNotifUndo);
     deleteAllState(&redo);
 }
 
@@ -292,7 +304,10 @@ void pushRedo(List oldNotif){
     ListItemKulkas listItemCopy;
     createListItemKulkas(&listItemCopy);
     copyKulkas(kulkas, &kulkasCopy, listItemKulkas ,&listItemCopy);
-    PushState(&redo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy);
+    // stackAddress state = TOP(undo);
+    List copylistNotifUndo;
+    copyListLin(listNotif, &copylistNotifUndo);
+    PushState(&redo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy, copylistNotifUndo);
 }
 
 void undoState(stackState *undo){
@@ -301,7 +316,8 @@ void undoState(stackState *undo){
         currentLoc = locationOf(&peta, SIMULATOR);
         SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
         currentTime = CURRENT_TIME(state);
-        copyListLin(CURRENT_NOTIF(state), &listNotif);
+        if (!isEmptyLin(CURRENT_NOTIF(state))) copyListLin(CURRENT_NOTIF(state), &listNotif);
+        else copyListLin(CURRENT_NOTIF_UNDO(state), &listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
         copyInv(CURRENT_INVENTORY(state), &listInventory);
@@ -340,12 +356,12 @@ void simUndo(List oldNotif){
     }
 }
 
-void simRedo(){
+void simRedo(List oldNotif){
     printf("========REDO========\n");
     if(!isEmptyStack(redo)){
         currentLoc = locationOf(&peta, SIMULATOR);
         List copyListNotif;
-        copyListLin(listNotif, &copyListNotif);
+        copyListLin(oldNotif, &copyListNotif);
         Queue copyListInv, copyListDel;
         CreateQueue(&copyListInv);
         CreateQueue(&copyListDel);
@@ -356,7 +372,9 @@ void simRedo(){
         ListItemKulkas listItemCopy;
         createListItemKulkas(&listItemCopy);
         copyKulkas(kulkas, &kulkasCopy, listItemKulkas ,&listItemCopy);
-        PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy);
+        List copylistNotifUndo;
+        copyListLin(listNotifUndo, &copylistNotifUndo);
+        PushState(&undo, currentLoc, currentTime, copyListNotif, copyListInv, copyListDel, kulkasCopy, listItemCopy, copylistNotifUndo);
         redoState(&redo);
     }
     else{

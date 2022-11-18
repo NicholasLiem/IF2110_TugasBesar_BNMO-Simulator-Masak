@@ -70,12 +70,13 @@ void displayKulkas();
 void insertMakananToKulkas(int idMakanan, int lebar, int panjang);
 void insertMakananFromKulkas(int idKulkas);
 
+void pushNotifUndo(List notifUndo);
 void pushUndo(List oldNotif);
 void pushRedo(List oldNotif);
 void undoState(stackState *undo);
 void redoState(stackState *redo);
 void simUndo(List oldNotif);
-void simRedo();
+void simRedo(List oldNotif);
 
 // void pushUndoNotif();
 // void pushRedoNotif();
