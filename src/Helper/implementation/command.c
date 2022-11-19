@@ -1,5 +1,7 @@
 #include "../headers/command.h"
 
+List oldNotifUndo;
+
 void printMenu(){
     printf("Silahkan Pilih Command Berikut: \n");
     printf("START\n");
@@ -71,6 +73,7 @@ void menuHasNotLogin() {
 }
 
 void menuHasLogin() {
+    deleteAllLin(&listNotifUndo);
     if (isEqualWord(currentWord, COMMAND_EXIT)){
         printf("Game exited\n");
         exit(0);
@@ -79,7 +82,7 @@ void menuHasLogin() {
         boolean isMoved = false;
         if (!endWord) {
             if (isEqualWord(currentWord, COMMAND_NORTH)) {
-                 pushUndo(oldNotif);
+                pushUndo(oldNotif);
                 isMoved = simMove('N');
             } else if (isEqualWord(currentWord, COMMAND_EAST)) {
                 pushUndo(oldNotif);
@@ -171,7 +174,7 @@ void menuHasLogin() {
         simUndo(oldNotif);
         ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_REDO)){
-        simRedo();
+        simRedo(oldNotif);
         ADVCOMMAND();
     } else if (isEqualWord(currentWord, COMMAND_HELP)){
         printHelp();
@@ -204,7 +207,11 @@ void menuHasLogin() {
     }
     else notInput();
     processDeliveryAndExpired();
+    List copylistNotifUndo;
+    copyListLin(listNotifUndo, &copylistNotifUndo);
+    insertListUndo(&undo, copylistNotifUndo);
     deleteAllLin(&oldNotif);
+    deleteAllLin(&listNotifUndo);
     copyListLin(listNotif, &oldNotif);
     // printf("\n");
     // printf("u========UNDO : LAST STATE========u\n");

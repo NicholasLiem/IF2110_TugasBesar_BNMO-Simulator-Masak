@@ -67,9 +67,9 @@ void copyInv(Queue q1, Queue *q2);
 
 void copyDel(Queue q1, Queue *q2);
 
-void removeExpired(Queue* q, List* notifWord);
+void removeExpired(Queue* q, List* notifWord, List* listUndo);
 
-List removeArrived(Queue *q, List* listNotif);
+List removeArrived(Queue *q, List* listNotif, List* listUndo);
 
 void displayQueuePretty(Queue q, char c);
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "../../ADT/headers/stack.h"
 
-stackAddress AlokStackNode(POINT p, TIME t, List notif, Queue inv, Queue deliv, Kulkas k, ListItemKulkas l2) {
+stackAddress AlokStackNode(POINT p, TIME t, List notif, Queue inv, Queue deliv, Kulkas k, ListItemKulkas l2, List l3) {
     stackAddress pNew = (stackAddress) malloc(sizeof(stackNode));
     if (pNew != NULL) {
         // CURRENT_PETA(pNew) = p;
@@ -13,6 +13,7 @@ stackAddress AlokStackNode(POINT p, TIME t, List notif, Queue inv, Queue deliv, 
         CURRENT_DELIVERY(pNew) = deliv;
         CURRENT_KULKAS(pNew) = k;
         CURRENT_LIST_ITEM_KULKAS(pNew) = l2;
+        CURRENT_NOTIF_UNDO(pNew) = l3;
         NEXTSTATE(pNew) = NULL;
     }
     return pNew;
@@ -26,11 +27,17 @@ boolean isEmptyStack(stackState S) {
     return (TOP(S) == NULL);
 }
 
-void PushState(stackState *S, POINT p, TIME t, List notif, Queue inv, Queue deliv, Kulkas k, ListItemKulkas l2) {
-    stackAddress pNew = AlokStackNode(p, t, notif, inv, deliv, k, l2);
+void PushState(stackState *S, POINT p, TIME t, List notif, Queue inv, Queue deliv, Kulkas k, ListItemKulkas l2, List l3) {
+    stackAddress pNew = AlokStackNode(p, t, notif, inv, deliv, k, l2, l3);
     if (pNew != NULL) {
         NEXTSTATE(pNew) = TOP(*S);
         TOP(*S) = pNew;
+    }
+}
+
+void insertListUndo(stackState *S, List listUndo) {
+    if (!isEmptyStack(*S)) {
+        CURRENT_NOTIF_UNDO(TOP(*S)) = listUndo;
     }
 }
 
