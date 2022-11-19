@@ -131,8 +131,9 @@ Makanan ambilMakanan(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMakan
 /* I.S Kulkas terdefinisi dan idMakanan terdefinisi
    F.S Menghapus makanan yang ada di kulkas dan memasukkannya ke dalam inventory player*/
 {
-    deleteItemKulkas(listItemKulkas, kulkas, idMakananKulkas-1);
-    return listItemKulkas->contents[idMakananKulkas].itemMakanan;
+    Makanan temp = listItemKulkas->contents[idMakananKulkas].itemMakanan;
+    deleteItemKulkas(listItemKulkas, kulkas, idMakananKulkas);
+    return temp;
 }
 
 void deleteItemKulkas(ListItemKulkas *listItemKulkas, Kulkas* kulkas, int idMakananKulkas){

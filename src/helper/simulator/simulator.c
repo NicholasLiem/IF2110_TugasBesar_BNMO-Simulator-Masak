@@ -114,7 +114,6 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
         insertNotif(listNotif, notif);
         setWord(&notif, "Tadi makananmu invalid..");
         insertNotif(&listNotifUndo, notif);
-        pushNotifUndo(listNotifUndo);
     }
     else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
         enqueue(&listDelivery, food, 'D');       
@@ -172,7 +171,6 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
             setWord(&temp, " dibatalkan. ");
             appendWord(&notif, temp);
             insertNotif(&listNotifUndo, notif); 
-            pushNotifUndo(listNotifUndo);
             enqueue(&listDelivery, food, 'D');
         }
     }
@@ -194,7 +192,6 @@ void sendFoodNotif(Makanan food, List* listNotif) {
     setWord(&temp, " dibatalkan. ");
     appendWord(&notif, temp);
     insertNotif(&listNotifUndo, notif); 
-    pushNotifUndo(listNotifUndo);
 }
 
 void processDeliveryAndExpired() {
@@ -227,11 +224,12 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
         boolean success = insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
         if (success) {
             Word temp;
-            setWord(&temp, "Berhasil memasukan ke kulkas!");
+            setWord(&temp, "Berhasil memasukan ke kulkas! :");
+            appendWord(&temp, makananInventory.nama);
             insertNotif(&listNotif, temp);
-            setWord(&temp, "Makanan dikeluarkan dari kulkas");
+            setWord(&temp, "Makanan dikeluarkan dari kulkas :");
+            appendWord(&temp, makananInventory.nama);
             insertNotif(&listNotifUndo, temp);
-            pushNotifUndo(listNotifUndo);
             deleteAtQueue(&listInventory, id-1);
         }
     } else {
@@ -246,11 +244,12 @@ void insertMakananFromKulkas(int idKulkas){
         Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
         enqueue(&listInventory, takenFood, 'I');
         Word temp;
-        setWord(&temp, "Berhasil mengeluarkan makanan dari kulkas!");
+        setWord(&temp, "Berhasil mengeluarkan makanan dari kulkas!: ");
+        appendWord(&temp, takenFood.nama);
         insertNotif(&listNotif, temp);
-        setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas");
+        setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas: ");
+        appendWord(&temp, takenFood.nama);
         insertNotif(&listNotifUndo, temp);
-        pushNotifUndo(listNotifUndo);
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
     }
