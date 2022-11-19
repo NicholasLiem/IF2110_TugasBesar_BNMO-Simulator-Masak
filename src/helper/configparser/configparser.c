@@ -14,16 +14,12 @@ char dirPeta[] = "./src/konfigurasi/Peta.txt";
 
 /* Bagian mekanisme ngeread file*/
 void addMark(const char *filename){
-    fclose(file);
-    fclose(temp);
     file = fopen(filename, "a");
     fputs("\n.", file);
     file = freopen(filename, "r", file);
 }
 
 void copyFile(const char *filename){
-    fclose(file);
-    fclose(temp);
     file = fopen(filename, "r");
     temp = fopen("./src/konfigurasi/__temp__", "w");
     char line[255];
@@ -35,8 +31,6 @@ void copyFile(const char *filename){
 }
 
 void copyTempFile(const char *filename){
-    fclose(file);
-    fclose(temp);
     file = fopen("./src/konfigurasi/__temp__", "r");
     temp = fopen(filename, "w");
     char line[255];

@@ -1,6 +1,6 @@
-#include "src/ADT/set/set.h"
+#include "src/adt/set/set.h"
 #include "stdio.h"
-#include "src/Helper/configparser/configparser.h"
+#include "src/helper/configparser/configparser.h"
 
 Word aksi = {"FRY", 3};
 Word nama = {"TEST", 4};

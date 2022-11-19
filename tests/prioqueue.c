@@ -1,4 +1,4 @@
-#include "../src/ADT/prioqueuedinamik/prioqueuedinamik.h"
+#include "../src/adt/prioqueuedinamik/prioqueuedinamik.h"
 Word aksi = {"FRY", 3};
 Word nama = {"TEST", 4};
 
