@@ -75,7 +75,6 @@ void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* h
     *hasilKolom = -1;
     int luas = panjang*lebar;
     int count;
-    boolean kosong = false;
     for (i = 0; i <= BARIS_KULKAS(kulkas)-lebar; i++){
         count = 0;
         for (j = 0; j <= KOLOM_KULKAS(kulkas)-panjang; j++){
@@ -107,7 +106,6 @@ void findFreeSpotUser(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, in
     *hasilKolom = -1;
     int luas = panjang*lebar;
     int count;
-    boolean kosong = false;
     for(i = 0; i < lebar; i++){
         for(j = 0; j < panjang; j++){
             if(ELMT_KULKAS(kulkas, barisUser + i, kolomUser + j) == 0){
