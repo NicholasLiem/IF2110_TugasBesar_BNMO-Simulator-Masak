@@ -30,7 +30,8 @@ BNMO Simulator Masak merupakan salah satu tugas besar mata kuliah IF2110 Algorit
 ## General Information
 
 Simulasi Masak BNMO merupakan program berbasis CLI (Command-line Interface) yang mensimulasikan bagaimana sebuah resep makanan dapat dibuat, dengan menjalankan command yang tersedia.  
-Pada mulanya, program simulator memiliki beberapa bahan makanan sesuai konfigurasi yang ada, untuk kemudian dapat diolah sesuai dengan resep yang bersesuaian.   Simulator dapat bergerak sepanjang peta untuk melakukan berbagai hal, mulai dari membeli tambahan bahan makanan, mengolah makanan seperti memotong, menggoreng, merebus, dan mencampurkan bahan makanan di tempat tertentu pada peta.  
+Pada mulanya, program simulator memiliki beberapa bahan makanan sesuai konfigurasi yang ada, untuk kemudian dapat diolah sesuai dengan resep yang bersesuaian.  
+Simulator dapat bergerak sepanjang peta untuk melakukan berbagai hal, mulai dari membeli tambahan bahan makanan, mengolah makanan seperti memotong, menggoreng, merebus, dan mencampurkan bahan makanan di tempat tertentu pada peta.  
 Program dibuat menggunakan bahasa C dengan mengimplementasikan ADT yang sudah dipelajari pada mata kuliah IF2110 - Algoritma dan Struktur Data.
 
 ## Abstract Data Type yang digunakan
