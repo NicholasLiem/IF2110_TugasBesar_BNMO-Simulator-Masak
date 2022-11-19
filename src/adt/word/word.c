@@ -2,7 +2,7 @@
 #include <math.h>
 
 void printWord(Word word) {
-    int i = 0;
+    int i;
     for (i = 0; i < word.Length; i++) {
         printf("%c", word.TabWord[i]);
     }
@@ -22,9 +22,9 @@ int strToInt(Word w){
 }
 
 void copyWord(Word* nama, Word w){
-    int j = 0;
+    int j;
     nama->Length = w.Length;
-    for (j; j < w.Length; j++){
+    for (j = 0; j < w.Length; j++){
         nama->TabWord[j] = w.TabWord[j];
     }
     // printWord(*nama);
@@ -44,8 +44,8 @@ boolean isEqualWord(Word word1, Word word2) {
     if (word1.Length != word2.Length) {
         return false;
     }
-    int j = 0;
-    for (j; j < word1.Length; j++){
+    int j;
+    for (j = 0; j < word1.Length; j++){
         if (word1.TabWord[j] != word2.TabWord[j]) {
             return false;
         }
@@ -59,8 +59,8 @@ void addChar(Word* word, char input) {
 }
 
 boolean wordIsInt(Word w) {
-    int j = 0;
-    for (j; j < w.Length; j++){
+    int j;
+    for (j = 0; j < w.Length; j++){
         if (w.TabWord[j] < '0' || w.TabWord[j] > '9') {
             return false;
         }
@@ -69,8 +69,8 @@ boolean wordIsInt(Word w) {
 }
 
 void toUpper(Word* word) {
-    int i = 0;
-    for (i; i < word->Length; i++) {
+    int i;
+    for (i = 0; i < word->Length; i++) {
         if (word->TabWord[i] >= 'a' && word->TabWord[i] <= 'z') {
             word->TabWord[i] -= 32;
         }
@@ -101,10 +101,11 @@ Word intToWord(int num) {
 TIME wordToTime(Word w){
     TIME result;
     int tempWaktu[3];
-    int i = 0, j = 0;
+    int i;
+    int j = 0;
     Word temp;
     setWord(&temp, "");
-    for(i; i < w.Length; i++){
+    for(i = 0; i < w.Length; i++){
         if (w.TabWord[i] != BLANK){
             addChar(&temp, w.TabWord[i]);
         } 
@@ -120,7 +121,8 @@ TIME wordToTime(Word w){
 
 void appendWord(Word* word1, Word word2) {
     int index = word1->Length;
-    for (int i = 0; i < word2.Length; i++) {
+    int i;
+    for (i = 0; i < word2.Length; i++) {
         word1->TabWord[index] = word2.TabWord[i];
         index += 1;
     }

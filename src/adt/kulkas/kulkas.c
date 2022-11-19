@@ -14,7 +14,6 @@ const ItemKulkas ITEMKULKAS_NULL = {{IDX_UNDEF_LIST_STATIK, {"NULL",4}, {"NULL",
 void createKulkas(Kulkas* kulkas){
 /* I.S kulkas bebas
    F.S kulkas baru terdefinisi dengan ukuran yang ditetapkan*/
-    kulkas->matrixKulkas.mem[UKURAN_BARIS][UKURAN_KOLOM];
     kulkas->jumlahMakanan = 0;
     kulkas->matrixKulkas.colEff = UKURAN_KOLOM;
     kulkas->matrixKulkas.rowEff = UKURAN_BARIS;
