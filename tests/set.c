@@ -1,9 +1,11 @@
-#include "src/ADT/headers/set.h"
+#include "src/ADT/set/set.h"
 #include "stdio.h"
-#include "src/Helper/headers/configParser.h"
+#include "src/Helper/configparser/configparser.h"
 
 Word aksi = {"FRY", 3};
 Word nama = {"TEST", 4};
+
+// gcc -std=c17 -I. src/adt/charmachine/*.c src/adt/kulkas/*.c src/adt/listlinier/*.c src/adt/liststatik/*.c src/adt/makanan/*.c src/adt/matrix/*.c src/adt/peta/*.c src/adt/point/*.c src/adt/prioqueuedinamik/*.c src/adt/set/*.c src/adt/stack/*.c src/adt/time/*.c src/adt/tree/*.c src/adt/word/*.c src/adt/wordmachine/*.c src/helper/command/*.c src/helper/configparser/*.c src/helper/simulator/*.c -o bin/set tests/set.c
 
 int main() {
     List treeResep;

@@ -1,7 +1,8 @@
-#include "../src/ADT/headers/prioqueuedinamik.h"
-
+#include "../src/ADT/prioqueuedinamik/prioqueuedinamik.h"
 Word aksi = {"FRY", 3};
 Word nama = {"TEST", 4};
+
+// gcc -std=c17 -I. src/adt/charmachine/*.c src/adt/kulkas/*.c src/adt/listlinier/*.c src/adt/liststatik/*.c src/adt/makanan/*.c src/adt/matrix/*.c src/adt/peta/*.c src/adt/point/*.c src/adt/prioqueuedinamik/*.c src/adt/set/*.c src/adt/stack/*.c src/adt/time/*.c src/adt/tree/*.c src/adt/word/*.c src/adt/wordmachine/*.c src/helper/command/*.c src/helper/configparser/*.c src/helper/simulator/*.c -o bin/prioqueue tests/prioqueue.c
 
 int main() {
     Queue prioqueue;
@@ -17,7 +18,7 @@ int main() {
     enqueue(&prioqueue, temp, 'I');
     displayQueue(prioqueue);
     printf("%d\n", prioqueue.capacity);
-    advTime(&prioqueue, 10);
+    advTimeDelivery(&prioqueue, 10);
     printf("------******----");
     // dequeue(&prioqueue, &temp);
     // dequeue(&prioqueue, &temp);
