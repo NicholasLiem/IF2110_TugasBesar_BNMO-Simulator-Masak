@@ -115,7 +115,6 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
         insertNotif(listNotif, notif);
         setWord(&notif, "Tadi makananmu invalid..");
         insertNotif(&listNotifUndo, notif);
-        pushNotifUndo(listNotifUndo);
     }
     else if (isEqualWord(COMMAND, COMMAND_BUY)) {    
         enqueue(&listDelivery, food, 'D');       
@@ -173,7 +172,6 @@ void addDelivery(Word COMMAND, int foodId, List* listNotif) {
             setWord(&temp, " dibatalkan. ");
             appendWord(&notif, temp);
             insertNotif(&listNotifUndo, notif); 
-            pushNotifUndo(listNotifUndo);
             enqueue(&listDelivery, food, 'D');
         }
     }
@@ -195,7 +193,6 @@ void sendFoodNotif(Makanan food, List* listNotif) {
     setWord(&temp, " dibatalkan. ");
     appendWord(&notif, temp);
     insertNotif(&listNotifUndo, notif); 
-    pushNotifUndo(listNotifUndo);
 }
 
 void processDeliveryAndExpired() {
@@ -232,7 +229,6 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
             insertNotif(&listNotif, temp);
             setWord(&temp, "Makanan dikeluarkan dari kulkas");
             insertNotif(&listNotifUndo, temp);
-            pushNotifUndo(listNotifUndo);
             deleteAtQueue(&listInventory, id-1);
         }
     } else {
@@ -251,7 +247,6 @@ void insertMakananFromKulkas(int idKulkas){
         insertNotif(&listNotif, temp);
         setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas");
         insertNotif(&listNotifUndo, temp);
-        pushNotifUndo(listNotifUndo);
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
     }

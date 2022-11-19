@@ -207,9 +207,11 @@ void menuHasLogin() {
     }
     else notInput();
     processDeliveryAndExpired();
-    List copylistNotifUndo;
-    copyListLin(listNotifUndo, &copylistNotifUndo);
-    insertListUndo(&undo, copylistNotifUndo);
+    if (!isEmptyLin(listNotifUndo)) {
+        List copylistNotifUndo;
+        copyListLin(listNotifUndo, &copylistNotifUndo);
+        insertListUndo(&undo, copylistNotifUndo);
+    }
     deleteAllLin(&oldNotif);
     deleteAllLin(&listNotifUndo);
     copyListLin(listNotif, &oldNotif);
