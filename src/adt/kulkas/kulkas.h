@@ -51,6 +51,9 @@ boolean insertMakananKulkas(ListItemKulkas* listItemKulkas,Kulkas* kulkas, Makan
 void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom);
 /* Mencari nilai index baris dan kolom yang dapat memuat makanan dengan size tertentu */
 
+void findFreeSpoUser(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom, int barisUser, int KolomUser);
+/* Mencari nilai index baris dan kolom yang dapat memuat makanan dengan size tertentu */
+
 boolean isIdMakananValid(Kulkas kulkas, int id);
 /* Mengecek apakah nilai id makanan di kulkas */
 

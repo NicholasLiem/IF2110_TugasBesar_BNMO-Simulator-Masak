@@ -100,6 +100,27 @@ void findFreeSpot(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* h
     }
 }
 
+void findFreeSpotUser(Kulkas kulkas, int lebar, int panjang, int* hasilBaris, int* hasilKolom, int barisUser, int kolomUser){
+    // Mencari lokasi tersedia pada kulkas pada idx yang diminta user
+    int i, j;
+    *hasilBaris = -1;
+    *hasilKolom = -1;
+    int luas = panjang*lebar;
+    int count;
+    boolean kosong = false;
+    for(i = 0; i < lebar; i++){
+        for(j = 0; j < panjang; j++){
+            if(ELMT_KULKAS(kulkas, barisUser + i, kolomUser + j) == 0){
+                count++;
+            }
+        }
+    }
+    if(count == luas){
+        *hasilBaris = barisUser;
+        *hasilKolom = kolomUser;
+    }
+}
+
 boolean isIdMakananValid(Kulkas kulkas, int id)
 /* Mengecek apakah nilai id makanan di kulkas */
 {
