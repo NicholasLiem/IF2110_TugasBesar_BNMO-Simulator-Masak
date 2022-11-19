@@ -332,7 +332,8 @@ void redoState(stackState *redo){
         currentLoc = locationOf(&peta, SIMULATOR);
         SetLegend(&peta, currentLoc , CURRENT_LOC(state), SIMULATOR);
         currentTime = CURRENT_TIME(state);
-        copyListLin(CURRENT_NOTIF(state), &listNotif);
+        List listBaru = concatLin(CURRENT_NOTIF(state), CURRENT_NOTIF_UNDO(state));
+        copyListLin(listBaru, &listNotif);
         deleteQ(&listInventory);
         deleteQ(&listDelivery);
         copyInv(CURRENT_INVENTORY(state), &listInventory);
