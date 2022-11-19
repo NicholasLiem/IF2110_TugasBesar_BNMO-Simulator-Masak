@@ -224,9 +224,11 @@ void insertMakananToKulkas(int id, int lebar, int panjang){
         boolean success = insertMakananKulkas(&listItemKulkas, &kulkas, makananInventory, lebar, panjang);
         if (success) {
             Word temp;
-            setWord(&temp, "Berhasil memasukan ke kulkas!");
+            setWord(&temp, "Berhasil memasukan ke kulkas! :");
+            appendWord(&temp, makananInventory.nama);
             insertNotif(&listNotif, temp);
-            setWord(&temp, "Makanan dikeluarkan dari kulkas");
+            setWord(&temp, "Makanan dikeluarkan dari kulkas :");
+            appendWord(&temp, makananInventory.nama);
             insertNotif(&listNotifUndo, temp);
             deleteAtQueue(&listInventory, id-1);
         }
@@ -242,9 +244,11 @@ void insertMakananFromKulkas(int idKulkas){
         Makanan takenFood = ambilMakanan(&listItemKulkas, &kulkas, idKulkas);
         enqueue(&listInventory, takenFood, 'I');
         Word temp;
-        setWord(&temp, "Berhasil mengeluarkan makanan dari kulkas!");
+        setWord(&temp, "Berhasil mengeluarkan makanan dari kulkas!: ");
+        appendWord(&temp, takenFood.nama);
         insertNotif(&listNotif, temp);
-        setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas");
+        setWord(&temp, "Makanan dimasukan ke kulkas dari kulkas: ");
+        appendWord(&temp, takenFood.nama);
         insertNotif(&listNotifUndo, temp);
     } else {
         printf("ID makanan di kulkas tidak valid!\n");
