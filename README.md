@@ -24,6 +24,7 @@ BNMO Simulator Masak merupakan salah satu tugas besar mata kuliah IF2110 Algorit
   - [Setup](#setup)
     - [How to compile?](#how-to-compile)
   - [Cara Pemakaian](#cara-pemakaian)
+  - [Pembagian Tugas](#pembagian-tugas)
   - [Project Status](#project-status)
   - [Room for Improvement](#room-for-improvement)
 
@@ -59,7 +60,7 @@ Aksi yang dapat dilakukan oleh user di dalam program
 
 - Simulasi pengguna dengan nama, waktu, dan posisi di peta
 - Simulasi memasak makanan mulai dari delivery, pengolahan sesuai resep yang diberikan, dan sistem kadaluwarsa makanan tersebut
-- Sistem inventory untuk menyimpan makanan dan kulkas agar makanan tidak kadaluwarsa 
+- Sistem inventory untuk menyimpan makanan dan kulkas agar makanan tidak kadaluwarsa
 
 ## Screenshots
 
@@ -141,6 +142,86 @@ Command Lain
 ------------------------------------------------------------
 
 ```
+
+Example:
+
+```console
+ _________       .---"""      """---.
+:______.-':      :  .--------------.  :
+| ______  |      | :                : |
+|:______B:|      | | Selamat Datang | |
+|:______B:|      | |       di       | |
+|:______B:|      | |program simulasi| |
+|         |      | |     masak!     | |
+|:_____:  |      | |                | |
+|    ==   |      | :                : |
+|       O |      :  '--------------'  :
+|       o |      :'---...______...---'
+|       o |-._.-i___/'             \._
+|'-.____o_|   '-.   '-...______...-'  `-._
+:_________:      `.____________________   `-.___.-.
+                .'.eeeeeeeeeeeeeeeeee.'.      :___:
+               .'.eeeeeeeeeeeeeeeeeeeeee.'.
+              :____________________________:
+Hello? Siapa disitu? (tanpa spasi) :
+> User
+Silahkan Pilih Command Berikut:
+START
+EXIT
+Command Prompt: 
+> START
+Player Name: User
+Time: 0
+Notifikasi:
+
+Map:
+* * * * * * * * * * * *
+* S                   *
+* T K   B T C   X     *
+*   M   F       X     *
+*               X     *
+*         X X X X     *
+*   X                 *
+*   X             C   *
+*   X X X     F       *
+*                     *
+*             B       *
+* * * * * * * * * * * *
+Command Prompt:
+> WAIT 0 1
+
+Player Name: User
+Time: 1 menit
+Notifikasi:
+
+Map:
+* * * * * * * * * * * *
+* S                   *
+* T K   B T C   X     *
+*   M   F       X     *
+*               X     *
+*         X X X X     *
+*   X                 *
+*   X             C   *
+*   X X X     F       *
+*                     *
+*             B       *
+* * * * * * * * * * * *
+Command Prompt:
+```
+
+## Pembagian Tugas
+
+- 13521110 Yanuar Sano Nur Rasyid  
+   ADT Stack (undo dan redo), melengkapi ADT yang belum, Inisiasi program, testing program.
+- 13521123 William Nixon  
+  Menyatukan berbagai ADT agar koheren (command, simulator), Inventory/Delivery, ADT Set (bonus rekomendasi makanan), memperbaiki jika ada kekurangan/bug (undo/redo, parser, kulkas, dll).
+- 13521135 Nicholas Liem  
+  ADT Makanan (Catalogue, etc), ADT Kulkas, ADT Time, Parsing File (Makanan, Peta).
+- 13521164 Akhmad Setiawan  
+  Notulensi Rapat, Laporan.
+- 13521165 Reza Pahlevi Ubaidillah  
+  ADT Peta, Pengolahan makanan (boil, fry, chop, dan mix) beserta waktunya
 
 ## Project Status
 
