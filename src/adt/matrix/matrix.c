@@ -41,7 +41,7 @@ boolean isIdxMatrixEff(Matrix m, IdxType i, IdxType j)
 {
     return ((i >= 0 && i <= getLastIdxRow(m)) && (j >= 0 && j <= getLastIdxCol(m)));
 }
-ElType getElmtDiagonal(Matrix m, IdxType i)
+ElType_MAT getElmtDiagonal(Matrix m, IdxType i)
 /* Mengirimkan elemen m(i,i) */
 {
     return ELMT_MAT(m, i, i);
@@ -160,7 +160,7 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2)
     return mOut;
 }
 
-Matrix multiplyByConst(Matrix m, ElType x)
+Matrix multiplyByConst(Matrix m, ElType_MAT x)
 /* Mengirim hasil perkalian setiap elemen m dengan x */
 {
     Matrix mOut;
@@ -176,7 +176,7 @@ Matrix multiplyByConst(Matrix m, ElType x)
     return mOut;
 }
 
-void pMultiplyByConst(Matrix *m, ElType k)
+void pMultiplyByConst(Matrix *m, ElType_MAT k)
 /* I.S. m terdefinisi, k terdefinisi */
 /* F.S. Mengalikan setiap elemen m dengan k */
 {
